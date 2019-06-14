@@ -91,6 +91,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtCustomerSite = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.cmbPreset = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStripMain.SuspendLayout();
             this.pnlMain.SuspendLayout();
             this.grpClosure.SuspendLayout();
@@ -208,11 +210,11 @@
             this.grpClosure.Controls.Add(this.label16);
             this.grpClosure.Controls.Add(this.dtpCheckOut);
             this.grpClosure.Controls.Add(this.chkSignature);
-            this.grpClosure.Location = new System.Drawing.Point(4, 915);
+            this.grpClosure.Location = new System.Drawing.Point(4, 968);
             this.grpClosure.Margin = new System.Windows.Forms.Padding(4);
             this.grpClosure.Name = "grpClosure";
             this.grpClosure.Padding = new System.Windows.Forms.Padding(4);
-            this.grpClosure.Size = new System.Drawing.Size(1038, 159);
+            this.grpClosure.Size = new System.Drawing.Size(1059, 159);
             this.grpClosure.TabIndex = 3;
             this.grpClosure.TabStop = false;
             this.grpClosure.Text = "Closure";
@@ -230,7 +232,7 @@
             // btnGenerateReport
             // 
             this.btnGenerateReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerateReport.Location = new System.Drawing.Point(754, 114);
+            this.btnGenerateReport.Location = new System.Drawing.Point(775, 114);
             this.btnGenerateReport.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateReport.Name = "btnGenerateReport";
             this.btnGenerateReport.Size = new System.Drawing.Size(276, 37);
@@ -242,7 +244,7 @@
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(739, 27);
+            this.label16.Location = new System.Drawing.Point(760, 27);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(74, 17);
@@ -254,7 +256,7 @@
             this.dtpCheckOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpCheckOut.CustomFormat = "dd/MMM/yyyy HH:mm";
             this.dtpCheckOut.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCheckOut.Location = new System.Drawing.Point(825, 23);
+            this.dtpCheckOut.Location = new System.Drawing.Point(846, 23);
             this.dtpCheckOut.Margin = new System.Windows.Forms.Padding(4);
             this.dtpCheckOut.Name = "dtpCheckOut";
             this.dtpCheckOut.Size = new System.Drawing.Size(204, 22);
@@ -291,11 +293,11 @@
             this.grpReport.Controls.Add(this.label10);
             this.grpReport.Controls.Add(this.label9);
             this.grpReport.Controls.Add(this.cmbWorkType);
-            this.grpReport.Location = new System.Drawing.Point(4, 218);
+            this.grpReport.Location = new System.Drawing.Point(4, 270);
             this.grpReport.Margin = new System.Windows.Forms.Padding(4);
             this.grpReport.Name = "grpReport";
             this.grpReport.Padding = new System.Windows.Forms.Padding(4);
-            this.grpReport.Size = new System.Drawing.Size(1038, 690);
+            this.grpReport.Size = new System.Drawing.Size(1059, 690);
             this.grpReport.TabIndex = 2;
             this.grpReport.TabStop = false;
             this.grpReport.Text = "Report";
@@ -384,7 +386,7 @@
             this.dgvReport.Location = new System.Drawing.Point(397, 41);
             this.dgvReport.Margin = new System.Windows.Forms.Padding(4);
             this.dgvReport.Name = "dgvReport";
-            this.dgvReport.Size = new System.Drawing.Size(633, 642);
+            this.dgvReport.Size = new System.Drawing.Size(654, 642);
             this.dgvReport.TabIndex = 24;
             // 
             // colSerialNumber
@@ -568,6 +570,8 @@
             // 
             // grpWorkOrderInformation
             // 
+            this.grpWorkOrderInformation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpWorkOrderInformation.Controls.Add(this.label8);
             this.grpWorkOrderInformation.Controls.Add(this.dtpCheckIn);
             this.grpWorkOrderInformation.Controls.Add(this.lblWorkOrderNumber);
@@ -617,6 +621,8 @@
             // 
             this.grpCustomerInformation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpCustomerInformation.Controls.Add(this.label1);
+            this.grpCustomerInformation.Controls.Add(this.cmbPreset);
             this.grpCustomerInformation.Controls.Add(this.txtPO);
             this.grpCustomerInformation.Controls.Add(this.label7);
             this.grpCustomerInformation.Controls.Add(this.txtContactEmail);
@@ -633,14 +639,14 @@
             this.grpCustomerInformation.Margin = new System.Windows.Forms.Padding(4);
             this.grpCustomerInformation.Name = "grpCustomerInformation";
             this.grpCustomerInformation.Padding = new System.Windows.Forms.Padding(4);
-            this.grpCustomerInformation.Size = new System.Drawing.Size(1038, 138);
+            this.grpCustomerInformation.Size = new System.Drawing.Size(1059, 190);
             this.grpCustomerInformation.TabIndex = 0;
             this.grpCustomerInformation.TabStop = false;
             this.grpCustomerInformation.Text = "Customer Information";
             // 
             // txtPO
             // 
-            this.txtPO.Location = new System.Drawing.Point(117, 92);
+            this.txtPO.Location = new System.Drawing.Point(117, 131);
             this.txtPO.Margin = new System.Windows.Forms.Padding(4);
             this.txtPO.Name = "txtPO";
             this.txtPO.Size = new System.Drawing.Size(255, 22);
@@ -649,7 +655,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(71, 96);
+            this.label7.Location = new System.Drawing.Point(71, 135);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(36, 17);
@@ -658,7 +664,7 @@
             // 
             // txtContactEmail
             // 
-            this.txtContactEmail.Location = new System.Drawing.Point(696, 92);
+            this.txtContactEmail.Location = new System.Drawing.Point(696, 131);
             this.txtContactEmail.Margin = new System.Windows.Forms.Padding(4);
             this.txtContactEmail.Name = "txtContactEmail";
             this.txtContactEmail.Size = new System.Drawing.Size(255, 22);
@@ -667,7 +673,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(596, 96);
+            this.label5.Location = new System.Drawing.Point(596, 135);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(94, 17);
@@ -676,7 +682,7 @@
             // 
             // txtContactPhone
             // 
-            this.txtContactPhone.Location = new System.Drawing.Point(696, 60);
+            this.txtContactPhone.Location = new System.Drawing.Point(696, 99);
             this.txtContactPhone.Margin = new System.Windows.Forms.Padding(4);
             this.txtContactPhone.Name = "txtContactPhone";
             this.txtContactPhone.Size = new System.Drawing.Size(255, 22);
@@ -685,7 +691,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(592, 64);
+            this.label6.Location = new System.Drawing.Point(592, 103);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(101, 17);
@@ -694,7 +700,7 @@
             // 
             // txtContactName
             // 
-            this.txtContactName.Location = new System.Drawing.Point(696, 28);
+            this.txtContactName.Location = new System.Drawing.Point(696, 67);
             this.txtContactName.Margin = new System.Windows.Forms.Padding(4);
             this.txtContactName.Name = "txtContactName";
             this.txtContactName.Size = new System.Drawing.Size(255, 22);
@@ -703,7 +709,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(592, 32);
+            this.label4.Location = new System.Drawing.Point(592, 71);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(97, 17);
@@ -712,7 +718,7 @@
             // 
             // txtAddress
             // 
-            this.txtAddress.Location = new System.Drawing.Point(117, 60);
+            this.txtAddress.Location = new System.Drawing.Point(117, 99);
             this.txtAddress.Margin = new System.Windows.Forms.Padding(4);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(412, 22);
@@ -721,7 +727,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(49, 64);
+            this.label3.Location = new System.Drawing.Point(49, 103);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 17);
@@ -730,9 +736,8 @@
             // 
             // txtCustomerSite
             // 
-            this.txtCustomerSite.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCustomerSite.ForeColor = System.Drawing.Color.Black;
-            this.txtCustomerSite.Location = new System.Drawing.Point(117, 28);
+            this.txtCustomerSite.Location = new System.Drawing.Point(117, 67);
             this.txtCustomerSite.Margin = new System.Windows.Forms.Padding(4);
             this.txtCustomerSite.Name = "txtCustomerSite";
             this.txtCustomerSite.Size = new System.Drawing.Size(255, 22);
@@ -741,12 +746,31 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 32);
+            this.label2.Location = new System.Drawing.Point(13, 71);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 17);
             this.label2.TabIndex = 0;
             this.label2.Text = "Customer Site";
+            // 
+            // cmbPreset
+            // 
+            this.cmbPreset.FormattingEnabled = true;
+            this.cmbPreset.Location = new System.Drawing.Point(117, 22);
+            this.cmbPreset.Name = "cmbPreset";
+            this.cmbPreset.Size = new System.Drawing.Size(168, 24);
+            this.cmbPreset.TabIndex = 12;
+            this.cmbPreset.SelectedIndexChanged += new System.EventHandler(this.cmbPreset_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(58, 22);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 17);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Preset";
             // 
             // Form1
             // 
@@ -846,6 +870,8 @@
         private System.Windows.Forms.ToolStripMenuItem presetsToolStripMenuItem;
         private System.Windows.Forms.GroupBox grpOtherWorkType;
         private System.Windows.Forms.GroupBox grpFailureEvent;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cmbPreset;
     }
 }
 

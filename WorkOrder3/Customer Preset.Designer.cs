@@ -273,7 +273,7 @@
             // 
             this.btnBrowse.Location = new System.Drawing.Point(419, 330);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(97, 22);
+            this.btnBrowse.Size = new System.Drawing.Size(82, 30);
             this.btnBrowse.TabIndex = 18;
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;

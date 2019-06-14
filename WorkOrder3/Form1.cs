@@ -106,6 +106,7 @@ namespace WorkOrder3
         public void LoadCustomersList()
         {
             this.customer_list.Clear();
+            cmbPreset.Items.Clear();
 
             try
             {
@@ -115,6 +116,11 @@ namespace WorkOrder3
                     customer_list.Add(Customer.CustomerFromLine(reader.ReadLine()));
                 }
                 reader.Close();
+
+                foreach(Customer C in this.customer_list)
+                {
+                    cmbPreset.Items.Add(C.preset_name);
+                }
             }
             catch
             {
@@ -133,6 +139,26 @@ namespace WorkOrder3
         {
             Customer_Preset CP = new Customer_Preset();
             CP.Show();
+        }
+
+        private void cmbPreset_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbPreset.SelectedIndex > -1)
+            {
+                foreach(Customer C in this.customer_list)
+                {
+                    if (C.preset_name == cmbPreset.Text)
+                    {
+                        txtCustomerSite.Text = C.customer_site;
+                        txtAddress.Text = C.address;
+                        txtContactName.Text = C.contact_name;
+                        txtContactPhone.Text = C.phone;
+                        txtContactEmail.Text = C.email;
+
+                        return;
+                    }
+                }
+            }
         }
     }
 }

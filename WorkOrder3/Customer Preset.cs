@@ -14,6 +14,8 @@ namespace WorkOrder3
     public partial class Customer_Preset : Form
     {
         Customer current_customer = null;
+        bool new_customer = false;
+
 
         public Customer_Preset()
         {
@@ -49,6 +51,7 @@ namespace WorkOrder3
                 txtContactPhone.Text = current_customer.phone;
                 txtContactEmail.Text = current_customer.email;
                 txtUnitList.Text = current_customer.units_list_filename;
+                grpCustomerInformation.Enabled = true;
 
                 lblSaved.Visible = false;
             }
@@ -93,6 +96,11 @@ namespace WorkOrder3
                 current_customer.phone = txtContactPhone.Text;
                 current_customer.email = txtContactEmail.Text;
                 current_customer.units_list_filename = txtUnitList.Text;
+
+                if (this.new_customer == true)
+                {
+                    lstCustomers.Items.Add(current_customer);
+                }
 
                 SaveChanges();
             }
@@ -141,6 +149,8 @@ namespace WorkOrder3
             }
 
             current_customer = new Customer();
+            grpCustomerInformation.Enabled = true;
+            this.new_customer = true;
             txtPresetName.Focus();
         }
 
