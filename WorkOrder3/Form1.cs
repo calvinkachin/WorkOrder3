@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,15 +9,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Xceed.Words.NET;
 
 namespace WorkOrder3
 {
     public partial class Form1 : Form
     {
         int WO = 0;
+        string WO_string = "0";
         string tech_name = "";
         string username = "";
         List<Customer> customer_list = new List<Customer>();
+        public static Color SHADE_COLOUR = Color.LightGray;
+
 
         public static string WO_NUMBER_FILENAME = "WO";
         public static string USER_FILENAME = "user";
@@ -44,6 +49,7 @@ namespace WorkOrder3
             }
             else
             {
+                InitializeFiles();
                 LoadUserAndWorkOrder();
                 LoadCustomersList();
             }
@@ -95,11 +101,15 @@ namespace WorkOrder3
 
             if (this.username.Length > 5)
             {
-                lblWorkOrderNumber.Text = "WO# " + this.username.ToUpper().Substring(0, 6) + this.WO;
+                
+                this.WO_string= this.username.ToUpper().Substring(0, 6) + this.WO.ToString("0000#");
+                lblWorkOrderNumber.Text = "WO# " + this.WO_string;
             }
             else
             {
-                lblWorkOrderNumber.Text = "WO# " + this.username.ToUpper() + this.WO;
+                
+                this.WO_string = this.username.ToUpper() + this.WO.ToString("0000#");
+                lblWorkOrderNumber.Text = "WO# " + this.WO_string;
             }
         }
 
@@ -158,6 +168,232 @@ namespace WorkOrder3
                         return;
                     }
                 }
+            }
+        }
+
+        private void cmbWorkType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbWorkType.Text == "Other...")
+            {
+                grpOtherWorkType.Visible = true;
+            }
+            else
+            {
+                grpOtherWorkType.Visible = false;
+            }
+
+            if (cmbWorkType.Text == "Defib Evaluation")
+            {
+                grpFailureEvent.Visible = true;
+            }
+            else
+            {
+                grpFailureEvent.Visible = false;
+            }
+        }
+
+        private bool CheckIfReportFilled()
+        {
+            if (cmbWorkType.Text == "")
+            {
+                MessageBox.Show("Please select a Work Type.");
+                return false;
+            }
+            else if (cmbWorkType.Text == "Other..." && txtOtherWorkType.Text=="")
+            {
+                MessageBox.Show("Please enter a Work Type in the 'Other Work Type' field.");
+                return false;
+            }
+            else if (txtSerial.Text=="")
+            {
+                MessageBox.Show("Please enter a serial number.");
+                return false;
+            }
+            else if (txtPartNumber.Text=="")
+            {
+                MessageBox.Show("Please enter a part number.");
+                return false;
+            }
+            else if (cmbRFU.Text=="")
+            {
+                MessageBox.Show("Please select an RFU status.");
+                return false;
+            }
+            else if (txtComplaint.Text=="")
+            {
+                MessageBox.Show("Please enter a complaint.");
+                return false;
+            }
+            else if (txtTechReport.Text=="")
+            {
+                MessageBox.Show("Please enter a report (what you did on this unit).");
+                return false;
+            }
+            else if(cmbWorkType.Text == "Defib Evaluation" && cmbFailureEvent.Text=="")
+            {
+                MessageBox.Show("Please select a failure event for this unit.");
+                return false;
+            }
+            else
+            {
+                return true;
+            }        
+        }
+
+        public void AddToReport(string serial, string part_number, string work_type,string complaint,string tech_report,string RFU, string failure_mode, string additional_qa)
+        {
+            string[] line = { serial, part_number,work_type,complaint,tech_report,RFU,failure_mode,additional_qa, "Remove" };
+
+            dgvReport.Rows.Add(line);
+        }
+        
+        public void ClearReporting()
+        {
+            txtSerial.Clear();
+            txtPartNumber.Clear();
+            cmbRFU.SelectedIndex = -1;
+            txtComplaint.Clear();
+            txtTechReport.Clear();
+            cmbFailureEvent.SelectedIndex = -1;
+            txtPatient.Clear();
+            txtPatient.Visible = false;
+        }
+
+        public void SetPatientInfo(string input)
+        {
+            txtPatient.Visible = true;
+            txtPatient.Text = input;
+        }
+
+        private void btnAddToReport_Click(object sender, EventArgs e)
+        {
+            if (CheckIfReportFilled())
+            {
+                string worktype = cmbWorkType.Text;
+                
+                if (cmbWorkType.Text == "Other...")
+                {
+                    worktype = txtOtherWorkType.Text;
+                }
+
+                string failuremode = "N/A";
+                if (cmbWorkType.Text=="Defib Evaluation")
+                {
+                    failuremode = cmbFailureEvent.Text;
+                }
+
+                string additional_qa = "N/A";
+                if (txtPatient.Text != "" && cmbWorkType.Text == "Defib Evaluation" && cmbFailureEvent.Text.Contains("patient"))
+                {
+                    additional_qa = txtPatient.Text;
+                }
+
+                if (cmbWorkType.Text == "Defib Evaluation" && cmbFailureEvent.Text.Contains("patient") && txtPatient.Text=="")
+                {
+                    AdditionalQA AQ = new AdditionalQA();
+                    AQ.Show();
+                }
+                else
+                {
+                    AddToReport(txtSerial.Text, txtPartNumber.Text, worktype, txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, additional_qa );
+                    ClearReporting();
+
+                    txtSerial.Focus();
+                }
+            }
+        }
+
+        private void btnGenerateReport_Click(object sender, EventArgs e)
+        {
+            DocX doc = DocX.Load(Form1.TEMPLATES_DIRECTORY+"template.docx");
+
+            doc.ReplaceText("#wo#", this.WO_string);
+            doc.ReplaceText("#date#", dtpCheckIn.Value.ToString("yyyy/MM/dd"));
+            doc.ReplaceText("#custid#", txtCustomerSite.Text);
+            doc.ReplaceText("#timein#", dtpCheckIn.Value.ToString("hh:mm"));
+            doc.ReplaceText("#timeout#", dtpCheckOut.Value.ToString("hh:mm"));
+            doc.ReplaceText("#po#", txtPO.Text);
+            doc.ReplaceText("#address#", txtAddress.Text);
+            doc.ReplaceText("#name#", this.tech_name);
+            doc.ReplaceText("#contact#", txtContactName.Text);
+            doc.ReplaceText("#phone#", txtContactPhone.Text);
+            doc.ReplaceText("#email#", txtContactEmail.Text);
+
+            Table T = doc.AddTable(dgvReport.Rows.Count+1, 3);
+
+            T.Rows[0].Cells[0].Paragraphs.First().Append("Serial Number");
+            T.Rows[0].Cells[1].Paragraphs.First().Append("Complaint Report");
+            T.Rows[0].Cells[2].Paragraphs.First().Append("Field Technician Report");
+            T.Rows[0].Cells[0].Shading = SHADE_COLOUR;
+            T.Rows[0].Cells[1].Shading = SHADE_COLOUR;
+            T.Rows[0].Cells[2].Shading = SHADE_COLOUR;
+
+            for (int i = 0; i < dgvReport.Rows.Count; i++)
+            {
+                T.Rows[i+1].Cells[0].Paragraphs.First().Append(dgvReport.Rows[i].Cells["colSerialNumber"].Value.ToString());
+                T.Rows[i+1].Cells[1].Paragraphs.First().Append(dgvReport.Rows[i].Cells["colComplaint"].Value.ToString());
+                T.Rows[i+1].Cells[2].Paragraphs.First().Append(dgvReport.Rows[i].Cells["colTechReport"].Value.ToString());
+            }
+            T.AutoFit = AutoFit.Contents;
+            doc.InsertTable(T);
+
+            if (chkSignature.Checked)
+            {
+                doc.AddImage("Signature.png");
+            }
+
+            doc.SaveAs(Form1.DOCUMENTS_DIRECTORY+this.WO_string+" - "+txtCustomerSite.Text+".docx");
+            
+            doc.InsertSection();
+
+            Table QAT = doc.AddTable(dgvReport.Rows.Count + 1, 4);
+
+            QAT.Rows[0].Cells[0].Paragraphs.First().Append("Serial Number");
+            QAT.Rows[0].Cells[1].Paragraphs.First().Append("RFU Status");
+            QAT.Rows[0].Cells[2].Paragraphs.First().Append("Event Occurrence");
+            QAT.Rows[0].Cells[3].Paragraphs.First().Append("Additional Information for QA");
+            QAT.Rows[0].Cells[0].Shading = SHADE_COLOUR;
+            QAT.Rows[0].Cells[1].Shading = SHADE_COLOUR;
+            QAT.Rows[0].Cells[2].Shading = SHADE_COLOUR;
+            QAT.Rows[0].Cells[3].Shading = SHADE_COLOUR;
+
+            for (int i = 0; i < dgvReport.Rows.Count; i++)
+            {
+                QAT.Rows[i + 1].Cells[0].Paragraphs.First().Append(dgvReport.Rows[i].Cells["colSerialNumber"].Value.ToString());
+                QAT.Rows[i + 1].Cells[1].Paragraphs.First().Append(dgvReport.Rows[i].Cells["colRFU"].Value.ToString());
+                QAT.Rows[i + 1].Cells[2].Paragraphs.First().Append(dgvReport.Rows[i].Cells["colFailureMode"].Value.ToString());
+                QAT.Rows[i + 1].Cells[3].Paragraphs.First().Append(dgvReport.Rows[i].Cells["colQAInformation"].Value.ToString());
+            }
+            QAT.AutoFit = AutoFit.Contents;
+            doc.InsertTable(QAT);
+
+            doc.SaveAs(Form1.DOCUMENTS_DIRECTORY + "OFFICE-"+this.WO_string + " - " + txtCustomerSite.Text + ".docx");
+        }
+
+        private void cmbFailureEvent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void chkSignature_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkSignature.Checked)
+            {
+                Process.Start("Signature.exe");
+                MessageBox.Show("Press OK after signature is entered.");
+                //picSignature.Image = System.Drawing.Image.FromFile("Signature.png");
+
+                System.Drawing.Image img;
+                using (var bmpTemp = new Bitmap("Signature.png"))
+                {
+                    img = new Bitmap(bmpTemp);
+                }
+
+                picSignature.Image = img;
+            }
+            else
+            {
+                picSignature.Image = null;
             }
         }
     }
