@@ -20,8 +20,9 @@ namespace WorkOrder3
         string tech_name = "";
         string username = "";
         List<Customer> customer_list = new List<Customer>();
+        List<Unit> units_list = new List<Unit>();
+        
         public static Color SHADE_COLOUR = Color.LightGray;
-
 
         public static string WO_NUMBER_FILENAME = "WO";
         public static string USER_FILENAME = "user";
@@ -29,11 +30,12 @@ namespace WorkOrder3
         public static string ARCHIVE_DIRECTORY = "Archive\\";
         public static string TEMPLATES_DIRECTORY = "Templates\\";
         public static string DOCUMENTS_DIRECTORY = "Documents\\";
+        public static string SAVED_DIRECTORY = "Saved\\";
+        public static string UNITS_DIRECTORY = "Units\\";
 
         public Form1()
         {
             InitializeComponent();
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -52,6 +54,7 @@ namespace WorkOrder3
                 InitializeFiles();
                 LoadUserAndWorkOrder();
                 LoadCustomersList();
+                txtCustomerSite.Focus();
             }
         }
 
@@ -165,6 +168,32 @@ namespace WorkOrder3
                         txtContactPhone.Text = C.phone;
                         txtContactEmail.Text = C.email;
 
+                        if (C.units_list_filename != "")
+                        {
+                            try
+                            {
+                                var reader = new StreamReader(C.units_list_filename);
+                                units_list.Clear();
+                                txtSerial.AutoCompleteCustomSource.Clear();
+
+                                while (!reader.EndOfStream)
+                                {
+                                    units_list.Add(Unit.UnitFromLine(reader.ReadLine()));
+                                }
+                                reader.Close();
+                                
+                                
+                                foreach (Unit U in this.units_list)
+                                {
+                                    txtSerial.AutoCompleteCustomSource.Add(U.serial);
+                                }
+                                
+                            }
+                            catch
+                            {
+
+                            }
+                        }
                         return;
                     }
                 }
@@ -189,6 +218,15 @@ namespace WorkOrder3
             else
             {
                 grpFailureEvent.Visible = false;
+            }
+
+            if (cmbWorkType.Text == "PM")
+            {
+                chkFailedPM.Visible = true;
+            }
+            else
+            {
+                chkFailedPM.Visible = false;
             }
         }
 
@@ -295,7 +333,13 @@ namespace WorkOrder3
                 }
                 else
                 {
-                    AddToReport(txtSerial.Text, txtPartNumber.Text, worktype, txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, additional_qa );
+                    if(cmbWorkType.Text=="PM" && chkFailedPM.Checked)
+                    {
+                        txtTechReport.Text = "[FAILED PM] " + txtTechReport.Text;
+                        chkFailedPM.Checked = false;
+                    }
+
+                    AddToReport(txtSerial.Text, txtPartNumber.Text, worktype, txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, additional_qa.Replace(Environment.NewLine,"`"));
                     ClearReporting();
 
                     txtSerial.Focus();
@@ -305,6 +349,7 @@ namespace WorkOrder3
 
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {
+            #region Customer copy
             DocX doc = DocX.Load(Form1.TEMPLATES_DIRECTORY+"template.docx");
 
             doc.ReplaceText("#wo#", this.WO_string);
@@ -321,9 +366,9 @@ namespace WorkOrder3
 
             Table T = doc.AddTable(dgvReport.Rows.Count+1, 3);
 
-            T.Rows[0].Cells[0].Paragraphs.First().Append("Serial Number");
-            T.Rows[0].Cells[1].Paragraphs.First().Append("Complaint Report");
-            T.Rows[0].Cells[2].Paragraphs.First().Append("Field Technician Report");
+            T.Rows[0].Cells[0].Paragraphs.First().Append("     Serial Number     ");
+            T.Rows[0].Cells[1].Paragraphs.First().Append("     Complaint Report     ");
+            T.Rows[0].Cells[2].Paragraphs.First().Append("     Field Technician Report     ");
             T.Rows[0].Cells[0].Shading = SHADE_COLOUR;
             T.Rows[0].Cells[1].Shading = SHADE_COLOUR;
             T.Rows[0].Cells[2].Shading = SHADE_COLOUR;
@@ -339,11 +384,20 @@ namespace WorkOrder3
 
             if (chkSignature.Checked)
             {
-                doc.AddImage("Signature.png");
+                var logo = doc.AddImage("Signature.png");
+                Picture Image = logo.CreatePicture(100, 250);
+                Paragraph p = doc.InsertParagraph("");
+                p.AppendLine("Signed by:");
+                p.AppendLine();
+                p.AppendPicture(Image);
+                p.AppendLine();
+                p.Append(txtContactName.Text);
             }
 
             doc.SaveAs(Form1.DOCUMENTS_DIRECTORY+this.WO_string+" - "+txtCustomerSite.Text+".docx");
-            
+            #endregion
+
+            #region Office Copy - QA information
             doc.InsertSection();
 
             Table QAT = doc.AddTable(dgvReport.Rows.Count + 1, 4);
@@ -351,7 +405,7 @@ namespace WorkOrder3
             QAT.Rows[0].Cells[0].Paragraphs.First().Append("Serial Number");
             QAT.Rows[0].Cells[1].Paragraphs.First().Append("RFU Status");
             QAT.Rows[0].Cells[2].Paragraphs.First().Append("Event Occurrence");
-            QAT.Rows[0].Cells[3].Paragraphs.First().Append("Additional Information for QA");
+            QAT.Rows[0].Cells[3].Paragraphs.First().Append("Additional Information for QA                 ");
             QAT.Rows[0].Cells[0].Shading = SHADE_COLOUR;
             QAT.Rows[0].Cells[1].Shading = SHADE_COLOUR;
             QAT.Rows[0].Cells[2].Shading = SHADE_COLOUR;
@@ -362,12 +416,39 @@ namespace WorkOrder3
                 QAT.Rows[i + 1].Cells[0].Paragraphs.First().Append(dgvReport.Rows[i].Cells["colSerialNumber"].Value.ToString());
                 QAT.Rows[i + 1].Cells[1].Paragraphs.First().Append(dgvReport.Rows[i].Cells["colRFU"].Value.ToString());
                 QAT.Rows[i + 1].Cells[2].Paragraphs.First().Append(dgvReport.Rows[i].Cells["colFailureMode"].Value.ToString());
-                QAT.Rows[i + 1].Cells[3].Paragraphs.First().Append(dgvReport.Rows[i].Cells["colQAInformation"].Value.ToString());
+                QAT.Rows[i + 1].Cells[3].Paragraphs.First().Append(dgvReport.Rows[i].Cells["colQAInformation"].Value.ToString().Replace("`",Environment.NewLine));
             }
             QAT.AutoFit = AutoFit.Contents;
             doc.InsertTable(QAT);
 
             doc.SaveAs(Form1.DOCUMENTS_DIRECTORY + "OFFICE-"+this.WO_string + " - " + txtCustomerSite.Text + ".docx");
+            doc.Dispose();
+            #endregion
+
+            #region PM Letters
+            foreach(DataGridViewRow dgvr in dgvReport.Rows)
+            {
+                if (dgvr.Cells["colWorkType"].Value.ToString() == "PM" && !dgvr.Cells["colTechReport"].Value.ToString().Contains("[FAILED PM]"))
+                {
+                    DocX pm_letter = DocX.Load(Form1.TEMPLATES_DIRECTORY + "pm_letter_template.docx");
+
+                    pm_letter.ReplaceText("#date#", dtpCheckIn.Value.ToString("dd/MMM/yyyy"));
+                    pm_letter.ReplaceText("#contact#", txtContactName.Text);
+                    pm_letter.ReplaceText("#customer#", txtCustomerSite.Text);
+                    pm_letter.ReplaceText("#address#", txtAddress.Text);
+                    pm_letter.ReplaceText("#phone#", txtContactPhone.Text);
+                    pm_letter.ReplaceText("#email#", txtContactEmail.Text);
+                    pm_letter.ReplaceText("#serial#", dgvr.Cells["colSerialNumber"].Value.ToString());
+                    pm_letter.ReplaceText("#techname#", this.tech_name);
+                    pm_letter.ReplaceText("#nextdate#", dtpCheckIn.Value.AddYears(1).ToString("dd/MMM/yyyy"));
+
+                    pm_letter.SaveAs(Form1.DOCUMENTS_DIRECTORY + this.WO_string + "- " + dgvr.Cells["colSerialNumber"].Value.ToString() + " - PM Letter.docx");
+                    pm_letter.Dispose();
+                }
+            }
+            #endregion
+
+            MessageBox.Show("Work Order generated!");
         }
 
         private void cmbFailureEvent_SelectedIndexChanged(object sender, EventArgs e)
@@ -381,7 +462,6 @@ namespace WorkOrder3
             {
                 Process.Start("Signature.exe");
                 MessageBox.Show("Press OK after signature is entered.");
-                //picSignature.Image = System.Drawing.Image.FromFile("Signature.png");
 
                 System.Drawing.Image img;
                 using (var bmpTemp = new Bitmap("Signature.png"))
@@ -395,6 +475,86 @@ namespace WorkOrder3
             {
                 picSignature.Image = null;
             }
+        }
+
+        private void saveWorkOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WO W = new WorkOrder3.WO(this.WO_string);
+            W.customer_site = txtCustomerSite.Text;
+            W.address = txtAddress.Text;
+            W.PO = txtPO.Text;
+            W.contact_name = txtContactName.Text;
+            W.contact_phone = txtContactPhone.Text;
+            W.contact_email = txtContactEmail.Text;
+            W.check_in_time = dtpCheckIn.Value;
+            W.check_out_time = dtpCheckOut.Value;
+
+            foreach(DataGridViewRow dgvr in dgvReport.Rows)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                for(int i =0; i < dgvr.Cells.Count; i++)
+                {
+                    sb.Append(dgvr.Cells[i].Value.ToString());
+                    sb.Append("|");
+                }
+                W.report_data.Add(sb.ToString());
+            }
+
+            W.ExportToFile();            
+        }
+
+        private void loadWorkOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                WO W = WorkOrder3.WO.WorkOrderFromFile(ofd.FileName);
+                
+                lblWorkOrderNumber.Text = "WO# " + W.work_order_string;
+                this.WO_string = W.work_order_string;
+
+                txtCustomerSite.Text = W.customer_site;
+                txtAddress.Text = W.address;
+                txtPO.Text = W.PO;
+                txtContactName.Text = W.contact_name;
+                txtContactPhone.Text = W.contact_phone;
+                txtContactEmail.Text = W.contact_email;
+
+                dtpCheckIn.Value = W.check_in_time;
+                dtpCheckOut.Value = W.check_out_time;
+
+                dgvReport.Rows.Clear();
+
+                foreach(string S in W.report_data)
+                {
+                    dgvReport.Rows.Add(S.Split('|'));
+                }
+            }
+        }
+
+        private void txtSerial_Leave(object sender, EventArgs e)
+        {
+            if (txtSerial.Text.Length > 2)
+            {
+                if (txtSerial.Text[0] == 'T' || txtSerial.Text.Substring(0,2)=="AB")
+                {
+                    cmbRFU.Text = "None";
+                }
+            }
+
+            foreach (Unit U in this.units_list)
+            {
+                if (txtSerial.Text==U.serial)
+                {
+                    txtPartNumber.Text = U.part_number;
+                    return;
+                }
+            }
+
+            txtPartNumber.Text = "";
+        
         }
     }
 }

@@ -80,6 +80,8 @@
     <Compile Include="TechNameWindow.Designer.cs">
       <DependentUpon>TechNameWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Unit.cs" />
+    <Compile Include="WO.cs" />
     <EmbeddedResource Include="AdditionalQA.resx">
       <DependentUpon>AdditionalQA.cs</DependentUpon>
     </EmbeddedResource>

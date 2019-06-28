@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Customer_Preset));
             this.grpCustomerInformation = new System.Windows.Forms.GroupBox();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.lblSaved = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.txtUnitList = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -48,13 +50,13 @@
             this.lstCustomers = new System.Windows.Forms.ListBox();
             this.btnNew = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.lblSaved = new System.Windows.Forms.Label();
-            this.btnBrowse = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             this.grpCustomerInformation.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpCustomerInformation
             // 
+            this.grpCustomerInformation.Controls.Add(this.label8);
             this.grpCustomerInformation.Controls.Add(this.btnBrowse);
             this.grpCustomerInformation.Controls.Add(this.lblSaved);
             this.grpCustomerInformation.Controls.Add(this.btnConfirm);
@@ -77,14 +79,36 @@
             this.grpCustomerInformation.Margin = new System.Windows.Forms.Padding(4);
             this.grpCustomerInformation.Name = "grpCustomerInformation";
             this.grpCustomerInformation.Padding = new System.Windows.Forms.Padding(4);
-            this.grpCustomerInformation.Size = new System.Drawing.Size(576, 446);
+            this.grpCustomerInformation.Size = new System.Drawing.Size(604, 475);
             this.grpCustomerInformation.TabIndex = 1;
             this.grpCustomerInformation.TabStop = false;
             this.grpCustomerInformation.Text = "Customer Information";
             // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Location = new System.Drawing.Point(419, 326);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(82, 30);
+            this.btnBrowse.TabIndex = 18;
+            this.btnBrowse.Text = "Browse";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
+            // lblSaved
+            // 
+            this.lblSaved.AutoSize = true;
+            this.lblSaved.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.lblSaved.Location = new System.Drawing.Point(308, 421);
+            this.lblSaved.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSaved.Name = "lblSaved";
+            this.lblSaved.Size = new System.Drawing.Size(109, 17);
+            this.lblSaved.TabIndex = 17;
+            this.lblSaved.Text = "Changes saved!";
+            this.lblSaved.Visible = false;
+            // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(157, 395);
+            this.btnConfirm.Location = new System.Drawing.Point(157, 411);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(132, 36);
             this.btnConfirm.TabIndex = 16;
@@ -233,13 +257,13 @@
             this.lstCustomers.ItemHeight = 16;
             this.lstCustomers.Location = new System.Drawing.Point(12, 12);
             this.lstCustomers.Name = "lstCustomers";
-            this.lstCustomers.Size = new System.Drawing.Size(201, 404);
+            this.lstCustomers.Size = new System.Drawing.Size(201, 436);
             this.lstCustomers.TabIndex = 2;
             this.lstCustomers.SelectedIndexChanged += new System.EventHandler(this.lstCustomers_SelectedIndexChanged);
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(12, 428);
+            this.btnNew.Location = new System.Drawing.Point(12, 457);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(95, 30);
             this.btnNew.TabIndex = 14;
@@ -249,7 +273,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(118, 428);
+            this.btnDelete.Location = new System.Drawing.Point(118, 457);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(95, 30);
             this.btnDelete.TabIndex = 15;
@@ -257,32 +281,22 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // lblSaved
+            // label8
             // 
-            this.lblSaved.AutoSize = true;
-            this.lblSaved.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.lblSaved.Location = new System.Drawing.Point(308, 405);
-            this.lblSaved.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblSaved.Name = "lblSaved";
-            this.lblSaved.Size = new System.Drawing.Size(109, 17);
-            this.lblSaved.TabIndex = 17;
-            this.lblSaved.Text = "Changes saved!";
-            this.lblSaved.Visible = false;
-            // 
-            // btnBrowse
-            // 
-            this.btnBrowse.Location = new System.Drawing.Point(419, 330);
-            this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(82, 30);
-            this.btnBrowse.TabIndex = 18;
-            this.btnBrowse.Text = "Browse";
-            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(26, 359);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(415, 34);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "File must be text or csv. The file will be copied to the Units folder,\r\nand named" +
+    " after the Customer Site.";
             // 
             // Customer_Preset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(806, 468);
+            this.ClientSize = new System.Drawing.Size(837, 500);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnNew);
             this.Controls.Add(this.lstCustomers);
@@ -320,5 +334,6 @@
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Label lblSaved;
         private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.Label label8;
     }
 }

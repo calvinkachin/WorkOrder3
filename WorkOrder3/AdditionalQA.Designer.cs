@@ -30,6 +30,25 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdditionalQA));
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnSubmit = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.txtAdditional = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.cmbDataAvail = new System.Windows.Forms.ComboBox();
+            this.cmbMalStatus = new System.Windows.Forms.ComboBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.cmbStripsAvail = new System.Windows.Forms.ComboBox();
+            this.cmbMalDupe = new System.Windows.Forms.ComboBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.cmbReportAvail = new System.Windows.Forms.ComboBox();
+            this.cmbError = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.lblError = new System.Windows.Forms.Label();
+            this.txtErrorMessages = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label35 = new System.Windows.Forms.Label();
             this.cmbTherapy = new System.Windows.Forms.ComboBox();
@@ -49,28 +68,9 @@
             this.txtSettings = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.cmbActionTaken = new System.Windows.Forms.ComboBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.txtAdditional = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.cmbDataAvail = new System.Windows.Forms.ComboBox();
-            this.cmbMalStatus = new System.Windows.Forms.ComboBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.cmbStripsAvail = new System.Windows.Forms.ComboBox();
-            this.cmbMalDupe = new System.Windows.Forms.ComboBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.cmbReportAvail = new System.Windows.Forms.ComboBox();
-            this.cmbError = new System.Windows.Forms.ComboBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.lblError = new System.Windows.Forms.Label();
-            this.txtErrorMessages = new System.Windows.Forms.TextBox();
-            this.btnSubmit = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -84,8 +84,241 @@
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(705, 693);
+            this.pnlMain.Size = new System.Drawing.Size(837, 693);
             this.pnlMain.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(17, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(321, 32);
+            this.label1.TabIndex = 34;
+            this.label1.Text = "Patient Event Questions";
+            // 
+            // btnSubmit
+            // 
+            this.btnSubmit.Location = new System.Drawing.Point(30, 914);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(170, 41);
+            this.btnSubmit.TabIndex = 3;
+            this.btnSubmit.Text = "Submit";
+            this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label28);
+            this.groupBox5.Controls.Add(this.txtAdditional);
+            this.groupBox5.Controls.Add(this.label26);
+            this.groupBox5.Controls.Add(this.label21);
+            this.groupBox5.Controls.Add(this.cmbDataAvail);
+            this.groupBox5.Controls.Add(this.cmbMalStatus);
+            this.groupBox5.Controls.Add(this.label27);
+            this.groupBox5.Controls.Add(this.label22);
+            this.groupBox5.Controls.Add(this.cmbStripsAvail);
+            this.groupBox5.Controls.Add(this.cmbMalDupe);
+            this.groupBox5.Controls.Add(this.label23);
+            this.groupBox5.Controls.Add(this.cmbReportAvail);
+            this.groupBox5.Controls.Add(this.cmbError);
+            this.groupBox5.Controls.Add(this.label25);
+            this.groupBox5.Controls.Add(this.lblError);
+            this.groupBox5.Controls.Add(this.txtErrorMessages);
+            this.groupBox5.Location = new System.Drawing.Point(14, 563);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Size = new System.Drawing.Size(798, 326);
+            this.groupBox5.TabIndex = 2;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "2. Error Description";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(15, 251);
+            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(144, 17);
+            this.label28.TabIndex = 30;
+            this.label28.Text = "Additional Information";
+            // 
+            // txtAdditional
+            // 
+            this.txtAdditional.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAdditional.Location = new System.Drawing.Point(13, 272);
+            this.txtAdditional.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAdditional.Name = "txtAdditional";
+            this.txtAdditional.Size = new System.Drawing.Size(727, 26);
+            this.txtAdditional.TabIndex = 16;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(198, 170);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(162, 17);
+            this.label26.TabIndex = 26;
+            this.label26.Text = "Are print-outs available?";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(12, 32);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(124, 17);
+            this.label21.TabIndex = 16;
+            this.label21.Text = "Malfunction Status";
+            // 
+            // cmbDataAvail
+            // 
+            this.cmbDataAvail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbDataAvail.FormattingEnabled = true;
+            this.cmbDataAvail.Items.AddRange(new object[] {
+            "Yes",
+            "No",
+            "Unknown"});
+            this.cmbDataAvail.Location = new System.Drawing.Point(398, 190);
+            this.cmbDataAvail.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbDataAvail.Name = "cmbDataAvail";
+            this.cmbDataAvail.Size = new System.Drawing.Size(102, 28);
+            this.cmbDataAvail.TabIndex = 7;
+            // 
+            // cmbMalStatus
+            // 
+            this.cmbMalStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbMalStatus.FormattingEnabled = true;
+            this.cmbMalStatus.Items.AddRange(new object[] {
+            "Continuous",
+            "Intermittent",
+            "Unknown"});
+            this.cmbMalStatus.Location = new System.Drawing.Point(16, 52);
+            this.cmbMalStatus.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbMalStatus.Name = "cmbMalStatus";
+            this.cmbMalStatus.Size = new System.Drawing.Size(195, 28);
+            this.cmbMalStatus.TabIndex = 1;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(394, 170);
+            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(164, 17);
+            this.label27.TabIndex = 28;
+            this.label27.Text = "Is the data file available?";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(238, 32);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(159, 17);
+            this.label22.TabIndex = 18;
+            this.label22.Text = "Malfunction Duplicated?";
+            // 
+            // cmbStripsAvail
+            // 
+            this.cmbStripsAvail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbStripsAvail.FormattingEnabled = true;
+            this.cmbStripsAvail.Items.AddRange(new object[] {
+            "Yes",
+            "No",
+            "Unknown"});
+            this.cmbStripsAvail.Location = new System.Drawing.Point(201, 190);
+            this.cmbStripsAvail.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbStripsAvail.Name = "cmbStripsAvail";
+            this.cmbStripsAvail.Size = new System.Drawing.Size(102, 28);
+            this.cmbStripsAvail.TabIndex = 6;
+            // 
+            // cmbMalDupe
+            // 
+            this.cmbMalDupe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbMalDupe.FormattingEnabled = true;
+            this.cmbMalDupe.Items.AddRange(new object[] {
+            "No, malfunction not duplicated after event",
+            "Not attempted, Facility did not attempt to duplicate after the events",
+            "Yes, malfunction was duplicated after event",
+            "Unknown if malfunction was duplicated after event"});
+            this.cmbMalDupe.Location = new System.Drawing.Point(241, 52);
+            this.cmbMalDupe.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbMalDupe.Name = "cmbMalDupe";
+            this.cmbMalDupe.Size = new System.Drawing.Size(499, 28);
+            this.cmbMalDupe.TabIndex = 2;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(11, 94);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(186, 17);
+            this.label23.TabIndex = 20;
+            this.label23.Text = "Any Error Messsages seen?";
+            // 
+            // cmbReportAvail
+            // 
+            this.cmbReportAvail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbReportAvail.FormattingEnabled = true;
+            this.cmbReportAvail.Items.AddRange(new object[] {
+            "Yes",
+            "No",
+            "Unknown"});
+            this.cmbReportAvail.Location = new System.Drawing.Point(14, 190);
+            this.cmbReportAvail.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbReportAvail.Name = "cmbReportAvail";
+            this.cmbReportAvail.Size = new System.Drawing.Size(102, 28);
+            this.cmbReportAvail.TabIndex = 5;
+            // 
+            // cmbError
+            // 
+            this.cmbError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbError.FormattingEnabled = true;
+            this.cmbError.Items.AddRange(new object[] {
+            "Yes",
+            "No",
+            "Unknown"});
+            this.cmbError.Location = new System.Drawing.Point(15, 114);
+            this.cmbError.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbError.Name = "cmbError";
+            this.cmbError.Size = new System.Drawing.Size(196, 28);
+            this.cmbError.TabIndex = 3;
+            this.cmbError.SelectedIndexChanged += new System.EventHandler(this.cmbError_SelectedIndexChanged);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(10, 170);
+            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(177, 17);
+            this.label25.TabIndex = 24;
+            this.label25.Text = "Is there a report available?";
+            // 
+            // lblError
+            // 
+            this.lblError.AutoSize = true;
+            this.lblError.Location = new System.Drawing.Point(237, 94);
+            this.lblError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(249, 17);
+            this.lblError.TabIndex = 22;
+            this.lblError.Text = "What error messages were observed?";
+            this.lblError.Visible = false;
+            // 
+            // txtErrorMessages
+            // 
+            this.txtErrorMessages.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtErrorMessages.Location = new System.Drawing.Point(240, 116);
+            this.txtErrorMessages.Margin = new System.Windows.Forms.Padding(4);
+            this.txtErrorMessages.Name = "txtErrorMessages";
+            this.txtErrorMessages.Size = new System.Drawing.Size(500, 26);
+            this.txtErrorMessages.TabIndex = 4;
+            this.txtErrorMessages.Visible = false;
             // 
             // groupBox4
             // 
@@ -111,7 +344,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(666, 477);
+            this.groupBox4.Size = new System.Drawing.Size(798, 477);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "1. Event Description";
@@ -247,7 +480,7 @@
             this.cmbAdverse.Location = new System.Drawing.Point(26, 344);
             this.cmbAdverse.Margin = new System.Windows.Forms.Padding(4);
             this.cmbAdverse.Name = "cmbAdverse";
-            this.cmbAdverse.Size = new System.Drawing.Size(298, 28);
+            this.cmbAdverse.Size = new System.Drawing.Size(714, 28);
             this.cmbAdverse.TabIndex = 8;
             // 
             // label18
@@ -274,7 +507,7 @@
             this.cmbDuring.Location = new System.Drawing.Point(309, 203);
             this.cmbDuring.Margin = new System.Windows.Forms.Padding(4);
             this.cmbDuring.Name = "cmbDuring";
-            this.cmbDuring.Size = new System.Drawing.Size(216, 28);
+            this.cmbDuring.Size = new System.Drawing.Size(292, 28);
             this.cmbDuring.TabIndex = 6;
             // 
             // label19
@@ -293,7 +526,7 @@
             this.txtSettings.Location = new System.Drawing.Point(27, 277);
             this.txtSettings.Margin = new System.Windows.Forms.Padding(4);
             this.txtSettings.Name = "txtSettings";
-            this.txtSettings.Size = new System.Drawing.Size(498, 26);
+            this.txtSettings.Size = new System.Drawing.Size(574, 26);
             this.txtSettings.TabIndex = 7;
             // 
             // label20
@@ -317,258 +550,24 @@
             this.cmbActionTaken.Location = new System.Drawing.Point(240, 133);
             this.cmbActionTaken.Margin = new System.Windows.Forms.Padding(4);
             this.cmbActionTaken.Name = "cmbActionTaken";
-            this.cmbActionTaken.Size = new System.Drawing.Size(216, 28);
+            this.cmbActionTaken.Size = new System.Drawing.Size(361, 28);
             this.cmbActionTaken.TabIndex = 4;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.label28);
-            this.groupBox5.Controls.Add(this.txtAdditional);
-            this.groupBox5.Controls.Add(this.label26);
-            this.groupBox5.Controls.Add(this.label21);
-            this.groupBox5.Controls.Add(this.cmbDataAvail);
-            this.groupBox5.Controls.Add(this.cmbMalStatus);
-            this.groupBox5.Controls.Add(this.label27);
-            this.groupBox5.Controls.Add(this.label22);
-            this.groupBox5.Controls.Add(this.cmbStripsAvail);
-            this.groupBox5.Controls.Add(this.cmbMalDupe);
-            this.groupBox5.Controls.Add(this.label23);
-            this.groupBox5.Controls.Add(this.cmbReportAvail);
-            this.groupBox5.Controls.Add(this.cmbError);
-            this.groupBox5.Controls.Add(this.label25);
-            this.groupBox5.Controls.Add(this.lblError);
-            this.groupBox5.Controls.Add(this.txtErrorMessages);
-            this.groupBox5.Location = new System.Drawing.Point(14, 563);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(666, 326);
-            this.groupBox5.TabIndex = 2;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "2. Error Description";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(15, 251);
-            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(144, 17);
-            this.label28.TabIndex = 30;
-            this.label28.Text = "Additional Information";
-            // 
-            // txtAdditional
-            // 
-            this.txtAdditional.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAdditional.Location = new System.Drawing.Point(13, 272);
-            this.txtAdditional.Margin = new System.Windows.Forms.Padding(4);
-            this.txtAdditional.Name = "txtAdditional";
-            this.txtAdditional.Size = new System.Drawing.Size(618, 26);
-            this.txtAdditional.TabIndex = 16;
-            this.txtAdditional.Text = "8";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(198, 170);
-            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(162, 17);
-            this.label26.TabIndex = 26;
-            this.label26.Text = "Are print-outs available?";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(12, 32);
-            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(124, 17);
-            this.label21.TabIndex = 16;
-            this.label21.Text = "Malfunction Status";
-            // 
-            // cmbDataAvail
-            // 
-            this.cmbDataAvail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbDataAvail.FormattingEnabled = true;
-            this.cmbDataAvail.Items.AddRange(new object[] {
-            "Yes",
-            "No",
-            "Unknown"});
-            this.cmbDataAvail.Location = new System.Drawing.Point(398, 190);
-            this.cmbDataAvail.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbDataAvail.Name = "cmbDataAvail";
-            this.cmbDataAvail.Size = new System.Drawing.Size(102, 28);
-            this.cmbDataAvail.TabIndex = 7;
-            // 
-            // cmbMalStatus
-            // 
-            this.cmbMalStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbMalStatus.FormattingEnabled = true;
-            this.cmbMalStatus.Items.AddRange(new object[] {
-            "Continuous",
-            "Intermittent",
-            "Unknown"});
-            this.cmbMalStatus.Location = new System.Drawing.Point(16, 52);
-            this.cmbMalStatus.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbMalStatus.Name = "cmbMalStatus";
-            this.cmbMalStatus.Size = new System.Drawing.Size(195, 28);
-            this.cmbMalStatus.TabIndex = 1;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(394, 170);
-            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(164, 17);
-            this.label27.TabIndex = 28;
-            this.label27.Text = "Is the data file available?";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(238, 32);
-            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(159, 17);
-            this.label22.TabIndex = 18;
-            this.label22.Text = "Malfunction Duplicated?";
-            // 
-            // cmbStripsAvail
-            // 
-            this.cmbStripsAvail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbStripsAvail.FormattingEnabled = true;
-            this.cmbStripsAvail.Items.AddRange(new object[] {
-            "Yes",
-            "No",
-            "Unknown"});
-            this.cmbStripsAvail.Location = new System.Drawing.Point(201, 190);
-            this.cmbStripsAvail.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbStripsAvail.Name = "cmbStripsAvail";
-            this.cmbStripsAvail.Size = new System.Drawing.Size(102, 28);
-            this.cmbStripsAvail.TabIndex = 6;
-            // 
-            // cmbMalDupe
-            // 
-            this.cmbMalDupe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbMalDupe.FormattingEnabled = true;
-            this.cmbMalDupe.Items.AddRange(new object[] {
-            "No, malfunction not duplicated after event",
-            "Not attempted, Facility did not attempt to duplicate after the events",
-            "Yes, malfunction was duplicated after event",
-            "Unknown if malfunction was duplicated after event"});
-            this.cmbMalDupe.Location = new System.Drawing.Point(241, 52);
-            this.cmbMalDupe.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbMalDupe.Name = "cmbMalDupe";
-            this.cmbMalDupe.Size = new System.Drawing.Size(392, 28);
-            this.cmbMalDupe.TabIndex = 2;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(11, 94);
-            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(186, 17);
-            this.label23.TabIndex = 20;
-            this.label23.Text = "Any Error Messsages seen?";
-            // 
-            // cmbReportAvail
-            // 
-            this.cmbReportAvail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbReportAvail.FormattingEnabled = true;
-            this.cmbReportAvail.Items.AddRange(new object[] {
-            "Yes",
-            "No",
-            "Unknown"});
-            this.cmbReportAvail.Location = new System.Drawing.Point(14, 190);
-            this.cmbReportAvail.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbReportAvail.Name = "cmbReportAvail";
-            this.cmbReportAvail.Size = new System.Drawing.Size(102, 28);
-            this.cmbReportAvail.TabIndex = 5;
-            // 
-            // cmbError
-            // 
-            this.cmbError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbError.FormattingEnabled = true;
-            this.cmbError.Items.AddRange(new object[] {
-            "Yes",
-            "No",
-            "Unknown"});
-            this.cmbError.Location = new System.Drawing.Point(15, 114);
-            this.cmbError.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbError.Name = "cmbError";
-            this.cmbError.Size = new System.Drawing.Size(196, 28);
-            this.cmbError.TabIndex = 3;
-            this.cmbError.SelectedIndexChanged += new System.EventHandler(this.cmbError_SelectedIndexChanged);
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(10, 170);
-            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(177, 17);
-            this.label25.TabIndex = 24;
-            this.label25.Text = "Is there a report available?";
-            // 
-            // lblError
-            // 
-            this.lblError.AutoSize = true;
-            this.lblError.Location = new System.Drawing.Point(237, 94);
-            this.lblError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(249, 17);
-            this.lblError.TabIndex = 22;
-            this.lblError.Text = "What error messages were observed?";
-            this.lblError.Visible = false;
-            // 
-            // txtErrorMessages
-            // 
-            this.txtErrorMessages.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtErrorMessages.Location = new System.Drawing.Point(240, 116);
-            this.txtErrorMessages.Margin = new System.Windows.Forms.Padding(4);
-            this.txtErrorMessages.Name = "txtErrorMessages";
-            this.txtErrorMessages.Size = new System.Drawing.Size(276, 26);
-            this.txtErrorMessages.TabIndex = 4;
-            this.txtErrorMessages.Visible = false;
-            // 
-            // btnSubmit
-            // 
-            this.btnSubmit.Location = new System.Drawing.Point(30, 914);
-            this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(170, 41);
-            this.btnSubmit.TabIndex = 3;
-            this.btnSubmit.Text = "Submit";
-            this.btnSubmit.UseVisualStyleBackColor = true;
-            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(321, 32);
-            this.label1.TabIndex = 34;
-            this.label1.Text = "Patient Event Questions";
             // 
             // AdditionalQA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(705, 693);
+            this.ClientSize = new System.Drawing.Size(837, 693);
             this.Controls.Add(this.pnlMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AdditionalQA";
             this.Text = "AdditionalQA";
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }

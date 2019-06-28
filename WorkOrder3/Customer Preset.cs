@@ -95,7 +95,23 @@ namespace WorkOrder3
                 current_customer.contact_name = txtContactName.Text;
                 current_customer.phone = txtContactPhone.Text;
                 current_customer.email = txtContactEmail.Text;
-                current_customer.units_list_filename = txtUnitList.Text;
+
+                if (txtUnitList.Text != "")
+                {
+                    try
+                    {
+                        File.Copy(txtUnitList.Text, Form1.UNITS_DIRECTORY + txtCustomerSite.Text);
+                        current_customer.units_list_filename = Form1.UNITS_DIRECTORY + txtCustomerSite.Text;
+                    }
+                    catch
+                    {
+                        current_customer.units_list_filename = "";
+                    }
+                }
+                else
+                {
+                    current_customer.units_list_filename = "";
+                }
 
                 if (this.new_customer == true)
                 {
@@ -164,6 +180,16 @@ namespace WorkOrder3
                     lstCustomers.Items.Remove(current_customer);
                     SaveChanges();
                 }
+            }
+        }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtUnitList.Text = ofd.FileName;
             }
         }
     }

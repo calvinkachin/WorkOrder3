@@ -19,7 +19,23 @@ namespace WorkOrder3
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            string additional = "Patient Age: " + txtAge.Text + " \nGender: " + cmbGender.Text + " \nTreatment: " + txtTreatment.Text + " \nEvent Date: " + datePicker.Value.ToString("dd - MM - yyyy") + " \nAction taken: " + cmbActionTaken.Text + " \nAdverse Effects: " + cmbAdverse.Text + " \nDuring: " + cmbDuring.Text + " \nSettings used: " + txtSettings.Text + " \nCould therapy still be delivered?: " + cmbTherapy.Text + " \n\nMalfunction Status: " + cmbMalStatus.Text + " \nMalfunction Duplicated?: " + cmbMalDupe.Text + " \nError Messages?: " + cmbError.Text + " \nError Messages Found: " + txtErrorMessages.Text + " \nReport Available?: " + cmbReportAvail.Text + " \nPrint-Outs Available?: " + cmbStripsAvail.Text + " \nData File Available?: " + cmbDataAvail.Text + " \nAdditional Info: " + txtAdditional.Text;
+            string additional = "Patient Age: " + txtAge.Text + "`" +
+                "Gender: " + cmbGender.Text + "`" + 
+                "Treatment: " + txtTreatment.Text + "`" + 
+                "Event Date: " + datePicker.Value.ToString("dd - MMM - yyyy") + "`" + 
+                "Action taken: " + cmbActionTaken.Text + "`" + 
+                "Adverse Effects: " + cmbAdverse.Text + "`" + 
+                "During: " + cmbDuring.Text + "`" + 
+                "Settings used: " + txtSettings.Text + "`" + 
+                "Could therapy still be delivered?: " + cmbTherapy.Text + "`"+"`" + 
+                "Malfunction Status: " + cmbMalStatus.Text + "`" + 
+                "Malfunction Duplicated?: " + cmbMalDupe.Text + "`" + 
+                "Error Messages?: " + cmbError.Text + "`" + 
+                "Error Messages Found: " + txtErrorMessages.Text + "`" + 
+                "Report Available?: " + cmbReportAvail.Text + "`" + 
+                "Print -Outs Available?: " + cmbStripsAvail.Text + "`" + 
+                "Data File Available?: " + cmbDataAvail.Text + "`" + 
+                "Additional Info: " + txtAdditional.Text;
 
             Form1 myform = Application.OpenForms.OfType<WorkOrder3.Form1>().First();
             myform.SetPatientInfo(additional);
