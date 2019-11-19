@@ -37,11 +37,10 @@ namespace WorkOrder3
                 "Data File Available?: " + cmbDataAvail.Text + "`" + 
                 "Additional Info: " + txtAdditional.Text;
 
-            Form1 myform = Application.OpenForms.OfType<WorkOrder3.Form1>().First();
-            myform.SetPatientInfo(additional);
+            AddReportForm arf = Application.OpenForms.OfType<WorkOrder3.AddReportForm>().First();
+            arf.SetPatientInfo(additional);
 
             this.Close();
-            
         }
 
         private void cmbError_SelectedIndexChanged(object sender, EventArgs e)

@@ -59,6 +59,12 @@
     <Compile Include="AdditionalQA.Designer.cs">
       <DependentUpon>AdditionalQA.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddReportForm.Designer.cs">
+      <DependentUpon>AddReportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Customer Preset.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +90,9 @@
     <Compile Include="WO.cs" />
     <EmbeddedResource Include="AdditionalQA.resx">
       <DependentUpon>AdditionalQA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddReportForm.resx">
+      <DependentUpon>AddReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Preset.resx">
       <DependentUpon>Customer Preset.cs</DependentUpon>

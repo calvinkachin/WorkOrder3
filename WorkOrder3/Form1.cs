@@ -20,7 +20,7 @@ namespace WorkOrder3
         string tech_name = "";
         string username = "";
         List<Customer> customer_list = new List<Customer>();
-        List<Unit> units_list = new List<Unit>();
+        public List<Unit> units_list = new List<Unit>();
         
         public static Color SHADE_COLOUR = Color.LightGray;
 
@@ -174,20 +174,12 @@ namespace WorkOrder3
                             {
                                 var reader = new StreamReader(C.units_list_filename);
                                 units_list.Clear();
-                                txtSerial.AutoCompleteCustomSource.Clear();
 
                                 while (!reader.EndOfStream)
                                 {
                                     units_list.Add(Unit.UnitFromLine(reader.ReadLine()));
                                 }
                                 reader.Close();
-                                
-                                
-                                foreach (Unit U in this.units_list)
-                                {
-                                    txtSerial.AutoCompleteCustomSource.Add(U.serial);
-                                }
-                                
                             }
                             catch
                             {
@@ -199,112 +191,22 @@ namespace WorkOrder3
                 }
             }
         }
+        
 
-        private void cmbWorkType_SelectedIndexChanged(object sender, EventArgs e)
+        public void AddToReport(string serial, string tested_functions, string work_type,string complaint,string tech_report,string RFU, string failure_mode, string additional_qa)
         {
-            if (cmbWorkType.Text == "Other...")
-            {
-                grpOtherWorkType.Visible = true;
-            }
-            else
-            {
-                grpOtherWorkType.Visible = false;
-            }
-
-            if (cmbWorkType.Text == "Defib Evaluation")
-            {
-                grpFailureEvent.Visible = true;
-            }
-            else
-            {
-                grpFailureEvent.Visible = false;
-            }
-
-            if (cmbWorkType.Text == "PM")
-            {
-                chkFailedPM.Visible = true;
-            }
-            else
-            {
-                chkFailedPM.Visible = false;
-            }
-        }
-
-        private bool CheckIfReportFilled()
-        {
-            if (cmbWorkType.Text == "")
-            {
-                MessageBox.Show("Please select a Work Type.");
-                return false;
-            }
-            else if (cmbWorkType.Text == "Other..." && txtOtherWorkType.Text=="")
-            {
-                MessageBox.Show("Please enter a Work Type in the 'Other Work Type' field.");
-                return false;
-            }
-            else if (txtSerial.Text=="")
-            {
-                MessageBox.Show("Please enter a serial number.");
-                return false;
-            }
-            else if (txtPartNumber.Text=="")
-            {
-                MessageBox.Show("Please enter a part number.");
-                return false;
-            }
-            else if (cmbRFU.Text=="")
-            {
-                MessageBox.Show("Please select an RFU status.");
-                return false;
-            }
-            else if (txtComplaint.Text=="")
-            {
-                MessageBox.Show("Please enter a complaint.");
-                return false;
-            }
-            else if (txtTechReport.Text=="")
-            {
-                MessageBox.Show("Please enter a report (what you did on this unit).");
-                return false;
-            }
-            else if(cmbWorkType.Text == "Defib Evaluation" && cmbFailureEvent.Text=="")
-            {
-                MessageBox.Show("Please select a failure event for this unit.");
-                return false;
-            }
-            else
-            {
-                return true;
-            }        
-        }
-
-        public void AddToReport(string serial, string part_number, string work_type,string complaint,string tech_report,string RFU, string failure_mode, string additional_qa)
-        {
-            string[] line = { serial, part_number,work_type,complaint,tech_report,RFU,failure_mode,additional_qa, "Remove" };
+            string[] line = { serial, work_type,complaint,tech_report,RFU, tested_functions, failure_mode,additional_qa, "Remove" };
 
             dgvReport.Rows.Add(line);
         }
         
-        public void ClearReporting()
-        {
-            txtSerial.Clear();
-            txtPartNumber.Clear();
-            cmbRFU.SelectedIndex = -1;
-            txtComplaint.Clear();
-            txtTechReport.Clear();
-            cmbFailureEvent.SelectedIndex = -1;
-            txtPatient.Clear();
-            txtPatient.Visible = false;
-        }
-
-        public void SetPatientInfo(string input)
-        {
-            txtPatient.Visible = true;
-            txtPatient.Text = input;
-        }
 
         private void btnAddToReport_Click(object sender, EventArgs e)
         {
+            AddReportForm ARF = new AddReportForm();
+            ARF.Show();
+
+            /*
             if (CheckIfReportFilled())
             {
                 string worktype = cmbWorkType.Text;
@@ -344,7 +246,7 @@ namespace WorkOrder3
 
                     txtSerial.Focus();
                 }
-            }
+            }*/
         }
 
         private void btnGenerateReport_Click(object sender, EventArgs e)
@@ -534,27 +436,18 @@ namespace WorkOrder3
             }
         }
 
-        private void txtSerial_Leave(object sender, EventArgs e)
+       
+
+        private void chkTechSignature_CheckedChanged(object sender, EventArgs e)
         {
-            if (txtSerial.Text.Length > 2)
+            if (chkTechSignature.Checked)
             {
-                if (txtSerial.Text[0] == 'T' || txtSerial.Text.Substring(0,2)=="AB")
-                {
-                    cmbRFU.Text = "None";
-                }
+                chkTechSignature.ForeColor = Color.Black;
             }
-
-            foreach (Unit U in this.units_list)
+            else
             {
-                if (txtSerial.Text==U.serial)
-                {
-                    txtPartNumber.Text = U.part_number;
-                    return;
-                }
+                chkTechSignature.ForeColor = Color.Red;
             }
-
-            txtPartNumber.Text = "";
-        
         }
     }
 }
