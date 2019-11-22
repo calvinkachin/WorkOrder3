@@ -276,7 +276,7 @@
             this.dtpCheckOut.Location = new System.Drawing.Point(852, 23);
             this.dtpCheckOut.Margin = new System.Windows.Forms.Padding(4);
             this.dtpCheckOut.Name = "dtpCheckOut";
-            this.dtpCheckOut.Size = new System.Drawing.Size(204, 22);
+            this.dtpCheckOut.Size = new System.Drawing.Size(199, 22);
             this.dtpCheckOut.TabIndex = 13;
             // 
             // chkSignature
