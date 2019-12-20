@@ -33,6 +33,8 @@ namespace WorkOrder3
         public static string SAVED_DIRECTORY = "Saved\\";
         public static string UNITS_DIRECTORY = "Units\\";
 
+        public enum MODELS { AED_3, AED_PLUS, AED_PRO, E_SERIES, M_SERIES, PROPAQ_M, PROPAQ_MD, R_SERIES, VENTILATOR, X_SERIES};
+
         public Form1()
         {
             InitializeComponent();
@@ -193,9 +195,9 @@ namespace WorkOrder3
         }
         
 
-        public void AddToReport(string serial, string tested_functions, string work_type,string complaint,string tech_report,string RFU, string failure_mode, string additional_qa)
+        public void AddToReport(string serial, string shock_values,string tested_functions, string work_type,string complaint,string tech_report,string RFU, string failure_mode, string additional_qa)
         {
-            string[] line = { serial, work_type,complaint,tech_report,RFU, tested_functions, failure_mode,additional_qa, "Remove" };
+            string[] line = { serial, work_type, complaint, tech_report, RFU, shock_values, tested_functions, failure_mode, additional_qa, "Remove" };
 
             dgvReport.Rows.Add(line);
         }
@@ -284,8 +286,24 @@ namespace WorkOrder3
             T.AutoFit = AutoFit.Contents;
             doc.InsertTable(T);
 
+            if (chkTechSignature.Checked)
+            {
+                picTechSignature.Image.Save("TechSignature.png");
+
+                var logo = doc.AddImage("TechSignature.png");
+                Picture Image = logo.CreatePicture(100, 250);
+                Paragraph p = doc.InsertParagraph("");
+                p.AppendLine("Technician:");
+                p.AppendLine();
+                p.AppendPicture(Image);
+                p.AppendLine();
+                p.Append(this.tech_name);
+            }
+
             if (chkSignature.Checked)
             {
+                picSignature.Image.Save("Signature.png");
+
                 var logo = doc.AddImage("Signature.png");
                 Picture Image = logo.CreatePicture(100, 250);
                 Paragraph p = doc.InsertParagraph("");
@@ -443,11 +461,29 @@ namespace WorkOrder3
             if (chkTechSignature.Checked)
             {
                 chkTechSignature.ForeColor = Color.Black;
+                
+                    Process.Start("Signature.exe");
+                    MessageBox.Show("Press OK after signature is entered.");
+
+                    System.Drawing.Image img;
+                    using (var bmpTemp = new Bitmap("Signature.png"))
+                    {
+                        img = new Bitmap(bmpTemp);
+                    }
+
+                    picTechSignature.Image = img;
             }
             else
             {
                 chkTechSignature.ForeColor = Color.Red;
+                picTechSignature.Image = null;
             }
+        }
+
+        private void pMTestValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PMTestValuesSettings PTVS = new PMTestValuesSettings();
+            PTVS.Show();
         }
     }
 }

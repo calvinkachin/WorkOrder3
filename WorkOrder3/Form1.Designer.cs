@@ -75,10 +75,12 @@
             this.colComplaint = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTechReport = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRFU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colShock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTestedFunctions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFailureMode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colQAInformation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRemove = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.pMTestValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.pnlMain.SuspendLayout();
             this.grpClosure.SuspendLayout();
@@ -118,20 +120,20 @@
             // newWorkOrderToolStripMenuItem
             // 
             this.newWorkOrderToolStripMenuItem.Name = "newWorkOrderToolStripMenuItem";
-            this.newWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.newWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(117, 26);
             this.newWorkOrderToolStripMenuItem.Text = "New";
             // 
             // saveWorkOrderToolStripMenuItem
             // 
             this.saveWorkOrderToolStripMenuItem.Name = "saveWorkOrderToolStripMenuItem";
-            this.saveWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.saveWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(117, 26);
             this.saveWorkOrderToolStripMenuItem.Text = "Save";
             this.saveWorkOrderToolStripMenuItem.Click += new System.EventHandler(this.saveWorkOrderToolStripMenuItem_Click);
             // 
             // loadWorkOrderToolStripMenuItem
             // 
             this.loadWorkOrderToolStripMenuItem.Name = "loadWorkOrderToolStripMenuItem";
-            this.loadWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.loadWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(117, 26);
             this.loadWorkOrderToolStripMenuItem.Text = "Load";
             this.loadWorkOrderToolStripMenuItem.Click += new System.EventHandler(this.loadWorkOrderToolStripMenuItem_Click);
             // 
@@ -139,7 +141,8 @@
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.changeTechNameToolStripMenuItem,
-            this.autoCheckOutTimeToolStripMenuItem});
+            this.autoCheckOutTimeToolStripMenuItem,
+            this.pMTestValuesToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.editToolStripMenuItem.Text = "Edit";
@@ -203,7 +206,7 @@
             this.grpClosure.Margin = new System.Windows.Forms.Padding(4);
             this.grpClosure.Name = "grpClosure";
             this.grpClosure.Padding = new System.Windows.Forms.Padding(4);
-            this.grpClosure.Size = new System.Drawing.Size(1064, 203);
+            this.grpClosure.Size = new System.Drawing.Size(1043, 203);
             this.grpClosure.TabIndex = 3;
             this.grpClosure.TabStop = false;
             this.grpClosure.Text = "Closure";
@@ -248,7 +251,7 @@
             // btnGenerateReport
             // 
             this.btnGenerateReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerateReport.Location = new System.Drawing.Point(775, 128);
+            this.btnGenerateReport.Location = new System.Drawing.Point(754, 128);
             this.btnGenerateReport.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateReport.Name = "btnGenerateReport";
             this.btnGenerateReport.Size = new System.Drawing.Size(276, 37);
@@ -261,7 +264,7 @@
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(766, 27);
+            this.label16.Location = new System.Drawing.Point(745, 27);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(74, 17);
@@ -273,7 +276,7 @@
             this.dtpCheckOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpCheckOut.CustomFormat = "dd/MMM/yyyy HH:mm";
             this.dtpCheckOut.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCheckOut.Location = new System.Drawing.Point(852, 23);
+            this.dtpCheckOut.Location = new System.Drawing.Point(831, 23);
             this.dtpCheckOut.Margin = new System.Windows.Forms.Padding(4);
             this.dtpCheckOut.Name = "dtpCheckOut";
             this.dtpCheckOut.Size = new System.Drawing.Size(199, 22);
@@ -301,7 +304,7 @@
             this.grpReport.Margin = new System.Windows.Forms.Padding(4);
             this.grpReport.Name = "grpReport";
             this.grpReport.Padding = new System.Windows.Forms.Padding(4);
-            this.grpReport.Size = new System.Drawing.Size(1064, 649);
+            this.grpReport.Size = new System.Drawing.Size(1043, 649);
             this.grpReport.TabIndex = 2;
             this.grpReport.TabStop = false;
             this.grpReport.Text = "Report";
@@ -333,6 +336,7 @@
             this.colComplaint,
             this.colTechReport,
             this.colRFU,
+            this.colShock,
             this.colTestedFunctions,
             this.colFailureMode,
             this.colQAInformation,
@@ -341,7 +345,7 @@
             this.dgvReport.Location = new System.Drawing.Point(9, 74);
             this.dgvReport.Margin = new System.Windows.Forms.Padding(4);
             this.dgvReport.Name = "dgvReport";
-            this.dgvReport.Size = new System.Drawing.Size(1042, 567);
+            this.dgvReport.Size = new System.Drawing.Size(1021, 567);
             this.dgvReport.TabIndex = 24;
             // 
             // grpWorkOrderInformation
@@ -355,7 +359,7 @@
             this.grpWorkOrderInformation.Margin = new System.Windows.Forms.Padding(4);
             this.grpWorkOrderInformation.Name = "grpWorkOrderInformation";
             this.grpWorkOrderInformation.Padding = new System.Windows.Forms.Padding(4);
-            this.grpWorkOrderInformation.Size = new System.Drawing.Size(1068, 53);
+            this.grpWorkOrderInformation.Size = new System.Drawing.Size(1047, 53);
             this.grpWorkOrderInformation.TabIndex = 1;
             this.grpWorkOrderInformation.TabStop = false;
             this.grpWorkOrderInformation.Text = "Work Order Information";
@@ -364,7 +368,7 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(776, 23);
+            this.label8.Location = new System.Drawing.Point(755, 23);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(62, 17);
@@ -376,7 +380,7 @@
             this.dtpCheckIn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpCheckIn.CustomFormat = "dd/MMM/yyyy HH:mm";
             this.dtpCheckIn.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCheckIn.Location = new System.Drawing.Point(851, 20);
+            this.dtpCheckIn.Location = new System.Drawing.Point(830, 20);
             this.dtpCheckIn.Margin = new System.Windows.Forms.Padding(4);
             this.dtpCheckIn.Name = "dtpCheckIn";
             this.dtpCheckIn.Size = new System.Drawing.Size(204, 22);
@@ -415,7 +419,7 @@
             this.grpCustomerInformation.Margin = new System.Windows.Forms.Padding(4);
             this.grpCustomerInformation.Name = "grpCustomerInformation";
             this.grpCustomerInformation.Padding = new System.Windows.Forms.Padding(4);
-            this.grpCustomerInformation.Size = new System.Drawing.Size(1064, 168);
+            this.grpCustomerInformation.Size = new System.Drawing.Size(1043, 168);
             this.grpCustomerInformation.TabIndex = 0;
             this.grpCustomerInformation.TabStop = false;
             this.grpCustomerInformation.Text = "Customer Information";
@@ -464,7 +468,7 @@
             this.txtContactEmail.Location = new System.Drawing.Point(696, 131);
             this.txtContactEmail.Margin = new System.Windows.Forms.Padding(4);
             this.txtContactEmail.Name = "txtContactEmail";
-            this.txtContactEmail.Size = new System.Drawing.Size(355, 22);
+            this.txtContactEmail.Size = new System.Drawing.Size(334, 22);
             this.txtContactEmail.TabIndex = 8;
             // 
             // label5
@@ -484,7 +488,7 @@
             this.txtContactPhone.Location = new System.Drawing.Point(696, 99);
             this.txtContactPhone.Margin = new System.Windows.Forms.Padding(4);
             this.txtContactPhone.Name = "txtContactPhone";
-            this.txtContactPhone.Size = new System.Drawing.Size(355, 22);
+            this.txtContactPhone.Size = new System.Drawing.Size(334, 22);
             this.txtContactPhone.TabIndex = 7;
             // 
             // label6
@@ -504,7 +508,7 @@
             this.txtContactName.Location = new System.Drawing.Point(696, 67);
             this.txtContactName.Margin = new System.Windows.Forms.Padding(4);
             this.txtContactName.Name = "txtContactName";
-            this.txtContactName.Size = new System.Drawing.Size(355, 22);
+            this.txtContactName.Size = new System.Drawing.Size(334, 22);
             this.txtContactName.TabIndex = 6;
             // 
             // label4
@@ -589,6 +593,12 @@
             this.colRFU.Name = "colRFU";
             this.colRFU.Width = 65;
             // 
+            // colShock
+            // 
+            this.colShock.HeaderText = "Shock Values";
+            this.colShock.Name = "colShock";
+            this.colShock.Width = 123;
+            // 
             // colTestedFunctions
             // 
             this.colTestedFunctions.HeaderText = "Tested Functions";
@@ -615,6 +625,13 @@
             this.colRemove.HeaderText = "Remove";
             this.colRemove.Name = "colRemove";
             this.colRemove.Width = 66;
+            // 
+            // pMTestValuesToolStripMenuItem
+            // 
+            this.pMTestValuesToolStripMenuItem.Name = "pMTestValuesToolStripMenuItem";
+            this.pMTestValuesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.pMTestValuesToolStripMenuItem.Text = "PM Test Values";
+            this.pMTestValuesToolStripMenuItem.Click += new System.EventHandler(this.pMTestValuesToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -695,10 +712,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colComplaint;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTechReport;
         private System.Windows.Forms.DataGridViewTextBoxColumn colRFU;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colShock;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTestedFunctions;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFailureMode;
         private System.Windows.Forms.DataGridViewTextBoxColumn colQAInformation;
         private System.Windows.Forms.DataGridViewButtonColumn colRemove;
+        private System.Windows.Forms.ToolStripMenuItem pMTestValuesToolStripMenuItem;
     }
 }
 

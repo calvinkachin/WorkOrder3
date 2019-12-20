@@ -175,10 +175,17 @@ namespace WorkOrder3
                 }
                 else
                 {
+
                     if (cmbWorkType.Text == "PM" && chkFailedPM.Checked)
                     {
                         txtTechReport.Text = "[FAILED PM] " + txtTechReport.Text;
+
                         chkFailedPM.Checked = false;
+                    }
+
+                    if (cmbWorkType.Text == "PM")
+                    {
+
                     }
 
                     string worktype = cmbWorkType.Text;
@@ -202,7 +209,16 @@ namespace WorkOrder3
 
                     string tested_functions = "";
 
-                    myform.AddToReport(txtSerial.Text, worktype, txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, tested_functions, failuremode, additional_qa.Replace(Environment.NewLine, "`"));
+                    StringBuilder sb = new StringBuilder();
+                    string shock_values = "";
+                    foreach(DataGridViewRow dgvr in dgvShockValues.Rows)
+                    {
+                        sb.Append(dgvr.Cells[0].Value.ToString() + ":" + dgvr.Cells[1].Value.ToString() + "`");
+                    }
+                    sb=sb.Remove(sb.Length - 1, 1);
+                    shock_values = sb.ToString();
+
+                    myform.AddToReport(txtSerial.Text, shock_values, tested_functions, worktype,  txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, additional_qa.Replace(Environment.NewLine, "`"));
                     ClearReporting();
 
                     txtSerial.Focus();
@@ -242,6 +258,7 @@ namespace WorkOrder3
         private void PopulateShockValues()
         {
             dgvShockValues.Rows.Clear();
+            dgvTestedFunctions.Rows.Clear();
 
             if (cmbModel.Text.ToUpper().Contains("AED"))
             {
@@ -273,6 +290,11 @@ namespace WorkOrder3
 
                 dgvShockValues.Rows[0].DefaultCellStyle.BackColor = Color.Gray;
                 dgvShockValues.Rows[5].DefaultCellStyle.BackColor = Color.Gray;
+
+                if (cmbModel.Text.ToUpper().Contains("X-SERIES"))
+                {
+                    dgvTestedFunctions.Rows.Add(new string[] { "SpO2" });
+                }
             }
         }
     }
