@@ -15,7 +15,7 @@ namespace WorkOrder3
     {
         Customer current_customer = null;
         bool new_customer = false;
-
+        WorkOrder3.Form1 myform = Application.OpenForms.OfType<WorkOrder3.Form1>().First();
 
         public Customer_Preset()
         {
@@ -191,6 +191,11 @@ namespace WorkOrder3
             {
                 txtUnitList.Text = ofd.FileName;
             }
+        }
+
+        private void Customer_Preset_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            myform.LoadCustomersList();
         }
     }
 }

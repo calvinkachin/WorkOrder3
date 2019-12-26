@@ -208,15 +208,23 @@ namespace WorkOrder3
                     }
 
                     string tested_functions = "";
-
                     StringBuilder sb = new StringBuilder();
                     string shock_values = "";
-                    foreach(DataGridViewRow dgvr in dgvShockValues.Rows)
+
+                    if (cmbWorkType.Text == "PM")
                     {
-                        sb.Append(dgvr.Cells[0].Value.ToString() + ":" + dgvr.Cells[1].Value.ToString() + "`");
+                        foreach (DataGridViewRow dgvr in dgvShockValues.Rows)
+                        {
+                            sb.Append(dgvr.Cells[0].Value.ToString() + ":" + dgvr.Cells[1].Value.ToString() + "`");
+                        }
+                        sb = sb.Remove(sb.Length - 1, 1);
+                        shock_values = sb.ToString();
                     }
-                    sb=sb.Remove(sb.Length - 1, 1);
-                    shock_values = sb.ToString();
+                    else
+                    {
+                        shock_values = "N/A";
+                        tested_functions = "N/A";
+                    }
 
                     myform.AddToReport(txtSerial.Text, shock_values, tested_functions, worktype,  txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, additional_qa.Replace(Environment.NewLine, "`"));
                     ClearReporting();

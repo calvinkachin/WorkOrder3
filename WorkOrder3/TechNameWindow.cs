@@ -51,11 +51,11 @@ namespace WorkOrder3
         {
             if (txtUser.Text.Length > 5)
             {
-                lblWOExample.Text = "WO# " + txtUser.Text.ToUpper().Substring(0, 6) + R.Next(10000).ToString();
+                lblWOExample.Text = "WO# " + txtUser.Text.ToUpper().Substring(0, 6) + R.Next(100000).ToString();
             }
             else
             {
-                lblWOExample.Text = "WO# " + txtUser.Text.ToUpper() + R.Next(10000).ToString();
+                lblWOExample.Text = "WO# " + txtUser.Text.ToUpper() + R.Next(100000).ToString();
             }
         }
 

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Xceed.Document.NET;
 using Xceed.Words.NET;
 
 namespace WorkOrder3
@@ -93,6 +94,27 @@ namespace WorkOrder3
             }
         }
 
+        public void NewWorkOrder()
+        {
+            dgvReport.Rows.Clear();
+            dtpCheckIn.Enabled = true;
+            dtpCheckOut.Enabled = true;
+            dtpCheckIn.Value = DateTime.Now;
+            dtpCheckOut.Value = DateTime.Now;
+            chkSignature.Checked = false;
+            chkTechSignature.Checked = false;
+
+            var woreader = new StreamReader(WO_NUMBER_FILENAME);
+            int num = Int32.Parse(woreader.ReadLine());
+            woreader.Close();
+
+            var wowriter = new StreamWriter(WO_NUMBER_FILENAME);
+            wowriter.WriteLine((num + 1).ToString());
+            wowriter.Close();
+
+            LoadUserAndWorkOrder();
+        }
+        
         public void LoadUserAndWorkOrder()
         {
             var reader = new StreamReader(USER_FILENAME);
@@ -106,14 +128,13 @@ namespace WorkOrder3
 
             if (this.username.Length > 5)
             {
-                
-                this.WO_string= this.username.ToUpper().Substring(0, 6) + this.WO.ToString("0000#");
+                this.WO_string= this.username.ToUpper().Substring(0, 6) + this.WO.ToString("00000#");
                 lblWorkOrderNumber.Text = "WO# " + this.WO_string;
             }
             else
             {
                 
-                this.WO_string = this.username.ToUpper() + this.WO.ToString("0000#");
+                this.WO_string = this.username.ToUpper() + this.WO.ToString("00000#");
                 lblWorkOrderNumber.Text = "WO# " + this.WO_string;
             }
         }
@@ -253,6 +274,12 @@ namespace WorkOrder3
 
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {
+            if (!chkTechSignature.Checked)
+            {
+                MessageBox.Show("Please include a tech signature!");
+                return;
+            }
+
             #region Customer copy
             DocX doc = DocX.Load(Form1.TEMPLATES_DIRECTORY+"template.docx");
 
@@ -267,8 +294,8 @@ namespace WorkOrder3
             doc.ReplaceText("#contact#", txtContactName.Text);
             doc.ReplaceText("#phone#", txtContactPhone.Text);
             doc.ReplaceText("#email#", txtContactEmail.Text);
-
-            Table T = doc.AddTable(dgvReport.Rows.Count+1, 3);
+            
+            Xceed.Document.NET.Table T = doc.AddTable(dgvReport.Rows.Count+1, 3);
 
             T.Rows[0].Cells[0].Paragraphs.First().Append("     Serial Number     ");
             T.Rows[0].Cells[1].Paragraphs.First().Append("     Complaint Report     ");
@@ -289,7 +316,6 @@ namespace WorkOrder3
             if (chkTechSignature.Checked)
             {
                 picTechSignature.Image.Save("TechSignature.png");
-
                 var logo = doc.AddImage("TechSignature.png");
                 Picture Image = logo.CreatePicture(100, 250);
                 Paragraph p = doc.InsertParagraph("");
@@ -303,7 +329,7 @@ namespace WorkOrder3
             if (chkSignature.Checked)
             {
                 picSignature.Image.Save("Signature.png");
-
+                
                 var logo = doc.AddImage("Signature.png");
                 Picture Image = logo.CreatePicture(100, 250);
                 Paragraph p = doc.InsertParagraph("");
@@ -427,6 +453,7 @@ namespace WorkOrder3
         private void loadWorkOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = Directory.GetCurrentDirectory()+Form1.SAVED_DIRECTORY;
 
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -445,6 +472,10 @@ namespace WorkOrder3
                 dtpCheckIn.Value = W.check_in_time;
                 dtpCheckOut.Value = W.check_out_time;
 
+                dtpCheckIn.Enabled = false;
+                dtpCheckOut.Enabled = false;
+                autoCheckOutTimeToolStripMenuItem.Checked = false;
+
                 dgvReport.Rows.Clear();
 
                 foreach(string S in W.report_data)
@@ -453,9 +484,7 @@ namespace WorkOrder3
                 }
             }
         }
-
-       
-
+        
         private void chkTechSignature_CheckedChanged(object sender, EventArgs e)
         {
             if (chkTechSignature.Checked)
@@ -484,6 +513,34 @@ namespace WorkOrder3
         {
             PMTestValuesSettings PTVS = new PMTestValuesSettings();
             PTVS.Show();
+        }
+
+        private void autoCheckOutTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (autoCheckOutTimeToolStripMenuItem.Checked)
+            {
+                dtpCheckOut.Value = DateTime.Now;
+                tmrCheckOut.Start();
+            }
+            else
+            {
+                tmrCheckOut.Stop();
+            }
+        }
+
+        private void tmrCheckOut_Tick(object sender, EventArgs e)
+        {
+            dtpCheckOut.Value = DateTime.Now;
+            tmrCheckOut.Start();
+        }
+
+        private void newWorkOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to start a new Work Order? All unsaved changes will be lost. Make sure you saved first!", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (dialogResult == DialogResult.Yes)
+            {
+                NewWorkOrder();
+            }
         }
     }
 }
