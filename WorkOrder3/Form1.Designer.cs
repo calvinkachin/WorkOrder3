@@ -215,7 +215,7 @@
             this.grpClosure.Controls.Add(this.chkSignature);
             this.grpClosure.Location = new System.Drawing.Point(3, 735);
             this.grpClosure.Name = "grpClosure";
-            this.grpClosure.Size = new System.Drawing.Size(876, 165);
+            this.grpClosure.Size = new System.Drawing.Size(859, 165);
             this.grpClosure.TabIndex = 3;
             this.grpClosure.TabStop = false;
             this.grpClosure.Text = "Closure";
@@ -223,6 +223,7 @@
             // picTechSignature
             // 
             this.picTechSignature.BackColor = System.Drawing.Color.White;
+            this.picTechSignature.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picTechSignature.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picTechSignature.Location = new System.Drawing.Point(9, 22);
             this.picTechSignature.Name = "picTechSignature";
@@ -257,7 +258,7 @@
             // btnGenerateReport
             // 
             this.btnGenerateReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerateReport.Location = new System.Drawing.Point(660, 104);
+            this.btnGenerateReport.Location = new System.Drawing.Point(643, 104);
             this.btnGenerateReport.Name = "btnGenerateReport";
             this.btnGenerateReport.Size = new System.Drawing.Size(207, 30);
             this.btnGenerateReport.TabIndex = 15;
@@ -269,7 +270,7 @@
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(653, 22);
+            this.label16.Location = new System.Drawing.Point(636, 22);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(58, 13);
             this.label16.TabIndex = 14;
@@ -280,7 +281,7 @@
             this.dtpCheckOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpCheckOut.CustomFormat = "dd/MMM/yyyy HH:mm";
             this.dtpCheckOut.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCheckOut.Location = new System.Drawing.Point(717, 19);
+            this.dtpCheckOut.Location = new System.Drawing.Point(700, 19);
             this.dtpCheckOut.Name = "dtpCheckOut";
             this.dtpCheckOut.Size = new System.Drawing.Size(150, 20);
             this.dtpCheckOut.TabIndex = 13;
@@ -304,7 +305,7 @@
             this.grpReport.Controls.Add(this.dgvReport);
             this.grpReport.Location = new System.Drawing.Point(3, 202);
             this.grpReport.Name = "grpReport";
-            this.grpReport.Size = new System.Drawing.Size(876, 527);
+            this.grpReport.Size = new System.Drawing.Size(859, 527);
             this.grpReport.TabIndex = 2;
             this.grpReport.TabStop = false;
             this.grpReport.Text = "Report";
@@ -343,7 +344,7 @@
             this.dgvReport.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvReport.Location = new System.Drawing.Point(7, 60);
             this.dgvReport.Name = "dgvReport";
-            this.dgvReport.Size = new System.Drawing.Size(860, 461);
+            this.dgvReport.Size = new System.Drawing.Size(843, 461);
             this.dgvReport.TabIndex = 24;
             // 
             // colSerialNumber
@@ -421,9 +422,9 @@
             this.grpWorkOrderInformation.Controls.Add(this.label8);
             this.grpWorkOrderInformation.Controls.Add(this.dtpCheckIn);
             this.grpWorkOrderInformation.Controls.Add(this.lblWorkOrderNumber);
-            this.grpWorkOrderInformation.Location = new System.Drawing.Point(0, 10);
+            this.grpWorkOrderInformation.Location = new System.Drawing.Point(3, 10);
             this.grpWorkOrderInformation.Name = "grpWorkOrderInformation";
-            this.grpWorkOrderInformation.Size = new System.Drawing.Size(879, 43);
+            this.grpWorkOrderInformation.Size = new System.Drawing.Size(859, 43);
             this.grpWorkOrderInformation.TabIndex = 1;
             this.grpWorkOrderInformation.TabStop = false;
             this.grpWorkOrderInformation.Text = "Work Order Information";
@@ -432,7 +433,7 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(660, 19);
+            this.label8.Location = new System.Drawing.Point(640, 19);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(50, 13);
             this.label8.TabIndex = 12;
@@ -443,7 +444,7 @@
             this.dtpCheckIn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpCheckIn.CustomFormat = "dd/MMM/yyyy HH:mm";
             this.dtpCheckIn.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCheckIn.Location = new System.Drawing.Point(716, 16);
+            this.dtpCheckIn.Location = new System.Drawing.Point(696, 16);
             this.dtpCheckIn.Name = "dtpCheckIn";
             this.dtpCheckIn.Size = new System.Drawing.Size(154, 20);
             this.dtpCheckIn.TabIndex = 1;
@@ -478,7 +479,7 @@
             this.grpCustomerInformation.Controls.Add(this.label2);
             this.grpCustomerInformation.Location = new System.Drawing.Point(3, 58);
             this.grpCustomerInformation.Name = "grpCustomerInformation";
-            this.grpCustomerInformation.Size = new System.Drawing.Size(876, 136);
+            this.grpCustomerInformation.Size = new System.Drawing.Size(859, 136);
             this.grpCustomerInformation.TabIndex = 0;
             this.grpCustomerInformation.TabStop = false;
             this.grpCustomerInformation.Text = "Customer Information";
@@ -602,7 +603,7 @@
             // tmrCheckOut
             // 
             this.tmrCheckOut.Enabled = true;
-            this.tmrCheckOut.Interval = 60000;
+            this.tmrCheckOut.Interval = 10000;
             this.tmrCheckOut.Tick += new System.EventHandler(this.tmrCheckOut_Tick);
             // 
             // Form1
