@@ -97,6 +97,12 @@
       <DependentUpon>TechNameWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Unit.cs" />
+    <Compile Include="UploadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UploadForm.Designer.cs">
+      <DependentUpon>UploadForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WO.cs" />
     <EmbeddedResource Include="AdditionalQA.resx">
       <DependentUpon>AdditionalQA.cs</DependentUpon>
@@ -124,6 +130,9 @@
     </Compile>
     <EmbeddedResource Include="TechNameWindow.resx">
       <DependentUpon>TechNameWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UploadForm.resx">
+      <DependentUpon>UploadForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

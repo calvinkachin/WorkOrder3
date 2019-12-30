@@ -59,6 +59,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.grpPicture = new System.Windows.Forms.GroupBox();
+            this.txtPicturePath = new System.Windows.Forms.TextBox();
+            this.btnBrowsePicture = new System.Windows.Forms.Button();
             this.grpFinish = new System.Windows.Forms.GroupBox();
             this.grpInfo = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -71,6 +74,7 @@
             this.grpShockValues.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestedFunctions)).BeginInit();
             this.panel1.SuspendLayout();
+            this.grpPicture.SuspendLayout();
             this.grpFinish.SuspendLayout();
             this.grpInfo.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -82,10 +86,11 @@
             this.chkFailedPM.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkFailedPM.ForeColor = System.Drawing.Color.Red;
             this.chkFailedPM.Location = new System.Drawing.Point(35, 249);
-            this.chkFailedPM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkFailedPM.Margin = new System.Windows.Forms.Padding(2);
             this.chkFailedPM.Name = "chkFailedPM";
             this.chkFailedPM.Size = new System.Drawing.Size(93, 22);
             this.chkFailedPM.TabIndex = 45;
+            this.chkFailedPM.TabStop = false;
             this.chkFailedPM.Text = "Failed PM";
             this.chkFailedPM.UseVisualStyleBackColor = true;
             this.chkFailedPM.Visible = false;
@@ -97,7 +102,7 @@
             this.grpOtherWorkType.Controls.Add(this.txtOtherWorkType);
             this.grpOtherWorkType.Location = new System.Drawing.Point(284, 11);
             this.grpOtherWorkType.Name = "grpOtherWorkType";
-            this.grpOtherWorkType.Size = new System.Drawing.Size(248, 49);
+            this.grpOtherWorkType.Size = new System.Drawing.Size(276, 49);
             this.grpOtherWorkType.TabIndex = 44;
             this.grpOtherWorkType.TabStop = false;
             this.grpOtherWorkType.Text = "Other Work Type";
@@ -109,8 +114,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOtherWorkType.Location = new System.Drawing.Point(6, 19);
             this.txtOtherWorkType.Name = "txtOtherWorkType";
-            this.txtOtherWorkType.Size = new System.Drawing.Size(237, 20);
-            this.txtOtherWorkType.TabIndex = 10;
+            this.txtOtherWorkType.Size = new System.Drawing.Size(265, 20);
+            this.txtOtherWorkType.TabIndex = 2;
             // 
             // grpFailureEvent
             // 
@@ -120,7 +125,7 @@
             this.grpFailureEvent.Controls.Add(this.cmbFailureEvent);
             this.grpFailureEvent.Location = new System.Drawing.Point(9, 557);
             this.grpFailureEvent.Name = "grpFailureEvent";
-            this.grpFailureEvent.Size = new System.Drawing.Size(537, 73);
+            this.grpFailureEvent.Size = new System.Drawing.Size(565, 73);
             this.grpFailureEvent.TabIndex = 39;
             this.grpFailureEvent.TabStop = false;
             this.grpFailureEvent.Text = "Failure Event";
@@ -130,11 +135,12 @@
             // 
             this.txtPatient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPatient.Location = new System.Drawing.Point(6, 44);
-            this.txtPatient.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPatient.Location = new System.Drawing.Point(13, 44);
+            this.txtPatient.Margin = new System.Windows.Forms.Padding(2);
             this.txtPatient.Name = "txtPatient";
-            this.txtPatient.Size = new System.Drawing.Size(526, 20);
+            this.txtPatient.Size = new System.Drawing.Size(547, 20);
             this.txtPatient.TabIndex = 17;
+            this.txtPatient.TabStop = false;
             this.txtPatient.Visible = false;
             // 
             // cmbFailureEvent
@@ -152,17 +158,17 @@
             "During training by ZOLL",
             "Other (Explained in the Service Request)",
             "Unknown"});
-            this.cmbFailureEvent.Location = new System.Drawing.Point(6, 19);
+            this.cmbFailureEvent.Location = new System.Drawing.Point(13, 19);
             this.cmbFailureEvent.Name = "cmbFailureEvent";
-            this.cmbFailureEvent.Size = new System.Drawing.Size(309, 21);
-            this.cmbFailureEvent.TabIndex = 16;
+            this.cmbFailureEvent.Size = new System.Drawing.Size(547, 21);
+            this.cmbFailureEvent.TabIndex = 10;
             // 
             // btnAddToReport
             // 
             this.btnAddToReport.Location = new System.Drawing.Point(13, 18);
             this.btnAddToReport.Name = "btnAddToReport";
             this.btnAddToReport.Size = new System.Drawing.Size(192, 35);
-            this.btnAddToReport.TabIndex = 41;
+            this.btnAddToReport.TabIndex = 12;
             this.btnAddToReport.Text = "Add to Report";
             this.btnAddToReport.UseVisualStyleBackColor = true;
             this.btnAddToReport.Click += new System.EventHandler(this.btnAddToReport_Click);
@@ -174,8 +180,8 @@
             this.txtTechReport.Location = new System.Drawing.Point(86, 197);
             this.txtTechReport.Multiline = true;
             this.txtTechReport.Name = "txtTechReport";
-            this.txtTechReport.Size = new System.Drawing.Size(440, 43);
-            this.txtTechReport.TabIndex = 38;
+            this.txtTechReport.Size = new System.Drawing.Size(468, 43);
+            this.txtTechReport.TabIndex = 8;
             // 
             // label14
             // 
@@ -206,7 +212,7 @@
             this.cmbRFU.Location = new System.Drawing.Point(86, 128);
             this.cmbRFU.Name = "cmbRFU";
             this.cmbRFU.Size = new System.Drawing.Size(192, 21);
-            this.cmbRFU.TabIndex = 35;
+            this.cmbRFU.TabIndex = 6;
             // 
             // txtComplaint
             // 
@@ -215,8 +221,8 @@
             this.txtComplaint.Location = new System.Drawing.Point(86, 154);
             this.txtComplaint.Multiline = true;
             this.txtComplaint.Name = "txtComplaint";
-            this.txtComplaint.Size = new System.Drawing.Size(440, 38);
-            this.txtComplaint.TabIndex = 36;
+            this.txtComplaint.Size = new System.Drawing.Size(468, 38);
+            this.txtComplaint.TabIndex = 7;
             // 
             // label12
             // 
@@ -235,7 +241,7 @@
             this.txtSerial.Location = new System.Drawing.Point(86, 79);
             this.txtSerial.Name = "txtSerial";
             this.txtSerial.Size = new System.Drawing.Size(192, 20);
-            this.txtSerial.TabIndex = 31;
+            this.txtSerial.TabIndex = 3;
             this.txtSerial.Leave += new System.EventHandler(this.txtSerial_Leave_1);
             // 
             // label10
@@ -270,7 +276,7 @@
             this.cmbWorkType.Location = new System.Drawing.Point(86, 28);
             this.cmbWorkType.Name = "cmbWorkType";
             this.cmbWorkType.Size = new System.Drawing.Size(192, 21);
-            this.cmbWorkType.TabIndex = 30;
+            this.cmbWorkType.TabIndex = 1;
             this.cmbWorkType.SelectedIndexChanged += new System.EventHandler(this.cmbWorkType_SelectedIndexChanged);
             // 
             // dgvShockValues
@@ -284,11 +290,11 @@
             this.colLevel,
             this.colValue});
             this.dgvShockValues.Location = new System.Drawing.Point(14, 39);
-            this.dgvShockValues.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvShockValues.Margin = new System.Windows.Forms.Padding(2);
             this.dgvShockValues.Name = "dgvShockValues";
             this.dgvShockValues.RowTemplate.Height = 24;
             this.dgvShockValues.Size = new System.Drawing.Size(236, 206);
-            this.dgvShockValues.TabIndex = 46;
+            this.dgvShockValues.TabIndex = 8;
             // 
             // colLevel
             // 
@@ -318,10 +324,10 @@
             this.grpShockValues.Controls.Add(this.dgvShockValues);
             this.grpShockValues.Controls.Add(this.chkFailedPM);
             this.grpShockValues.Location = new System.Drawing.Point(9, 269);
-            this.grpShockValues.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpShockValues.Margin = new System.Windows.Forms.Padding(2);
             this.grpShockValues.Name = "grpShockValues";
-            this.grpShockValues.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.grpShockValues.Size = new System.Drawing.Size(537, 283);
+            this.grpShockValues.Padding = new System.Windows.Forms.Padding(2);
+            this.grpShockValues.Size = new System.Drawing.Size(565, 283);
             this.grpShockValues.TabIndex = 47;
             this.grpShockValues.TabStop = false;
             this.grpShockValues.Text = "PM";
@@ -340,11 +346,11 @@
             this.colFunctionCheck,
             this.colFunctionValue});
             this.dgvTestedFunctions.Location = new System.Drawing.Point(255, 39);
-            this.dgvTestedFunctions.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvTestedFunctions.Margin = new System.Windows.Forms.Padding(2);
             this.dgvTestedFunctions.Name = "dgvTestedFunctions";
             this.dgvTestedFunctions.RowTemplate.Height = 24;
-            this.dgvTestedFunctions.Size = new System.Drawing.Size(269, 206);
-            this.dgvTestedFunctions.TabIndex = 52;
+            this.dgvTestedFunctions.Size = new System.Drawing.Size(297, 206);
+            this.dgvTestedFunctions.TabIndex = 9;
             // 
             // colFunction
             // 
@@ -394,27 +400,64 @@
             this.panel1.AutoScroll = true;
             this.panel1.AutoScrollMargin = new System.Drawing.Size(0, 50);
             this.panel1.AutoScrollMinSize = new System.Drawing.Size(0, 75);
+            this.panel1.Controls.Add(this.grpPicture);
             this.panel1.Controls.Add(this.grpFinish);
             this.panel1.Controls.Add(this.grpInfo);
             this.panel1.Controls.Add(this.grpShockValues);
             this.panel1.Controls.Add(this.grpFailureEvent);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(611, 542);
             this.panel1.TabIndex = 48;
+            // 
+            // grpPicture
+            // 
+            this.grpPicture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpPicture.Controls.Add(this.txtPicturePath);
+            this.grpPicture.Controls.Add(this.btnBrowsePicture);
+            this.grpPicture.Location = new System.Drawing.Point(9, 635);
+            this.grpPicture.Margin = new System.Windows.Forms.Padding(2);
+            this.grpPicture.Name = "grpPicture";
+            this.grpPicture.Padding = new System.Windows.Forms.Padding(2);
+            this.grpPicture.Size = new System.Drawing.Size(565, 80);
+            this.grpPicture.TabIndex = 52;
+            this.grpPicture.TabStop = false;
+            this.grpPicture.Text = "Add Picture (Optional)";
+            // 
+            // txtPicturePath
+            // 
+            this.txtPicturePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtPicturePath.Location = new System.Drawing.Point(13, 24);
+            this.txtPicturePath.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPicturePath.Name = "txtPicturePath";
+            this.txtPicturePath.Size = new System.Drawing.Size(545, 20);
+            this.txtPicturePath.TabIndex = 11;
+            // 
+            // btnBrowsePicture
+            // 
+            this.btnBrowsePicture.Location = new System.Drawing.Point(13, 49);
+            this.btnBrowsePicture.Name = "btnBrowsePicture";
+            this.btnBrowsePicture.Size = new System.Drawing.Size(98, 22);
+            this.btnBrowsePicture.TabIndex = 41;
+            this.btnBrowsePicture.TabStop = false;
+            this.btnBrowsePicture.Text = "Browse";
+            this.btnBrowsePicture.UseVisualStyleBackColor = true;
+            this.btnBrowsePicture.Click += new System.EventHandler(this.btnBrowsePicture_Click);
             // 
             // grpFinish
             // 
             this.grpFinish.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpFinish.Controls.Add(this.btnAddToReport);
-            this.grpFinish.Location = new System.Drawing.Point(9, 636);
-            this.grpFinish.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpFinish.Location = new System.Drawing.Point(9, 719);
+            this.grpFinish.Margin = new System.Windows.Forms.Padding(2);
             this.grpFinish.Name = "grpFinish";
-            this.grpFinish.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.grpFinish.Size = new System.Drawing.Size(537, 63);
+            this.grpFinish.Padding = new System.Windows.Forms.Padding(2);
+            this.grpFinish.Size = new System.Drawing.Size(565, 63);
             this.grpFinish.TabIndex = 51;
             this.grpFinish.TabStop = false;
             // 
@@ -437,10 +480,10 @@
             this.grpInfo.Controls.Add(this.cmbWorkType);
             this.grpInfo.Controls.Add(this.label14);
             this.grpInfo.Location = new System.Drawing.Point(9, 10);
-            this.grpInfo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpInfo.Margin = new System.Windows.Forms.Padding(2);
             this.grpInfo.Name = "grpInfo";
-            this.grpInfo.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.grpInfo.Size = new System.Drawing.Size(537, 254);
+            this.grpInfo.Padding = new System.Windows.Forms.Padding(2);
+            this.grpInfo.Size = new System.Drawing.Size(565, 254);
             this.grpInfo.TabIndex = 50;
             this.grpInfo.TabStop = false;
             this.grpInfo.Text = "Work Information";
@@ -452,7 +495,7 @@
             this.groupBox1.Controls.Add(this.txtOtherModel);
             this.groupBox1.Location = new System.Drawing.Point(283, 85);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(248, 49);
+            this.groupBox1.Size = new System.Drawing.Size(276, 49);
             this.groupBox1.TabIndex = 45;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Other Model Type";
@@ -464,8 +507,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOtherModel.Location = new System.Drawing.Point(6, 19);
             this.txtOtherModel.Name = "txtOtherModel";
-            this.txtOtherModel.Size = new System.Drawing.Size(237, 20);
-            this.txtOtherModel.TabIndex = 10;
+            this.txtOtherModel.Size = new System.Drawing.Size(265, 20);
+            this.txtOtherModel.TabIndex = 5;
             // 
             // cmbModel
             // 
@@ -483,7 +526,7 @@
             this.cmbModel.Location = new System.Drawing.Point(86, 102);
             this.cmbModel.Name = "cmbModel";
             this.cmbModel.Size = new System.Drawing.Size(192, 21);
-            this.cmbModel.TabIndex = 50;
+            this.cmbModel.TabIndex = 4;
             this.cmbModel.SelectedIndexChanged += new System.EventHandler(this.cmbModel_SelectedIndexChanged);
             // 
             // label1
@@ -502,7 +545,7 @@
             this.ClientSize = new System.Drawing.Size(611, 542);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AddReportForm";
             this.Text = "Add Report";
             this.Load += new System.EventHandler(this.AddReportForm_Load);
@@ -515,6 +558,8 @@
             this.grpShockValues.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestedFunctions)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.grpPicture.ResumeLayout(false);
+            this.grpPicture.PerformLayout();
             this.grpFinish.ResumeLayout(false);
             this.grpInfo.ResumeLayout(false);
             this.grpInfo.PerformLayout();
@@ -560,5 +605,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colFunction;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colFunctionCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFunctionValue;
+        private System.Windows.Forms.GroupBox grpPicture;
+        private System.Windows.Forms.TextBox txtPicturePath;
+        private System.Windows.Forms.Button btnBrowsePicture;
     }
 }

@@ -103,15 +103,7 @@ namespace WorkOrder3
             dtpCheckOut.Value = DateTime.Now;
             chkSignature.Checked = false;
             chkTechSignature.Checked = false;
-
-            var woreader = new StreamReader(WO_NUMBER_FILENAME);
-            int num = Int32.Parse(woreader.ReadLine());
-            woreader.Close();
-
-            var wowriter = new StreamWriter(WO_NUMBER_FILENAME);
-            wowriter.WriteLine((num + 1).ToString());
-            wowriter.Close();
-
+            
             LoadUserAndWorkOrder();
         }
         
@@ -216,9 +208,9 @@ namespace WorkOrder3
         }
         
 
-        public void AddToReport(string serial, string shock_values,string tested_functions, string work_type,string complaint,string tech_report,string RFU, string failure_mode, string additional_qa)
+        public void AddToReport(string serial, string shock_values,string tested_functions, string work_type,string complaint,string tech_report,string RFU, string failure_mode, string photo_path, string additional_qa)
         {
-            string[] line = { serial, work_type, complaint, tech_report, RFU, shock_values, tested_functions, failure_mode, additional_qa, "Remove" };
+            string[] line = { serial, work_type, complaint, tech_report, RFU, shock_values, tested_functions, failure_mode, additional_qa, photo_path, "Remove" };
 
             dgvReport.Rows.Add(line);
         }
@@ -395,6 +387,8 @@ namespace WorkOrder3
             #endregion
 
             MessageBox.Show("Work Order generated!");
+
+            SaveWorkOrder();
         }
 
         private void cmbFailureEvent_SelectedIndexChanged(object sender, EventArgs e)
@@ -423,7 +417,7 @@ namespace WorkOrder3
             }
         }
 
-        private void saveWorkOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveWorkOrder()
         {
             WO W = new WorkOrder3.WO(this.WO_string);
             W.customer_site = txtCustomerSite.Text;
@@ -435,11 +429,11 @@ namespace WorkOrder3
             W.check_in_time = dtpCheckIn.Value;
             W.check_out_time = dtpCheckOut.Value;
 
-            foreach(DataGridViewRow dgvr in dgvReport.Rows)
+            foreach (DataGridViewRow dgvr in dgvReport.Rows)
             {
                 StringBuilder sb = new StringBuilder();
 
-                for(int i =0; i < dgvr.Cells.Count; i++)
+                for (int i = 0; i < dgvr.Cells.Count; i++)
                 {
                     sb.Append(dgvr.Cells[i].Value.ToString());
                     sb.Append("|");
@@ -447,7 +441,23 @@ namespace WorkOrder3
                 W.report_data.Add(sb.ToString());
             }
 
-            W.ExportToFile();            
+            var woreader = new StreamReader(WO_NUMBER_FILENAME);
+            int num = Int32.Parse(woreader.ReadLine());
+            woreader.Close();
+
+            if (num == this.WO)
+            {
+                var wowriter = new StreamWriter(WO_NUMBER_FILENAME);
+                wowriter.WriteLine((num + 1).ToString());
+                wowriter.Close();
+            }
+
+            W.ExportToFile();
+        }
+
+        private void saveWorkOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveWorkOrder();     
         }
 
         private void loadWorkOrderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -536,11 +546,19 @@ namespace WorkOrder3
 
         private void newWorkOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to start a new Work Order? All unsaved changes will be lost. Make sure you saved first!", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            DialogResult dialogResult = MessageBox.Show("Would you like to SAVE before starting a NEW work order??", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (dialogResult == DialogResult.Yes)
             {
-                NewWorkOrder();
+                SaveWorkOrder();
             }
+
+            NewWorkOrder();
+        }
+
+        private void defineUploadPathToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UploadForm UF = new UploadForm();
+            UF.Show();
         }
     }
 }

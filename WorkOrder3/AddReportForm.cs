@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;    
 
 namespace WorkOrder3
 {
@@ -24,6 +25,7 @@ namespace WorkOrder3
             groupbox_list.Add(grpInfo);
             groupbox_list.Add(grpShockValues);
             groupbox_list.Add(grpFailureEvent);
+            groupbox_list.Add(grpPicture);
             groupbox_list.Add(grpFinish);
 
             ArrangeBoxes();
@@ -51,6 +53,8 @@ namespace WorkOrder3
             txtTechReport.Clear();
             cmbFailureEvent.SelectedIndex = -1;
             txtPatient.Clear();
+            cmbModel.SelectedIndex = -1;
+            txtPicturePath.Clear();
             txtPatient.Visible = false;
         }
 
@@ -226,7 +230,13 @@ namespace WorkOrder3
                         tested_functions = "N/A";
                     }
 
-                    myform.AddToReport(txtSerial.Text, shock_values, tested_functions, worktype,  txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, additional_qa.Replace(Environment.NewLine, "`"));
+                    string photo_path = "N/A";
+                    if (txtPicturePath.Text.Trim() != "" && File.Exists(txtPicturePath.Text))
+                    {
+                        photo_path = txtPicturePath.Text;
+                    }
+
+                    myform.AddToReport(txtSerial.Text, shock_values, tested_functions, worktype,  txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, photo_path, additional_qa.Replace(Environment.NewLine, "`"));
                     ClearReporting();
 
                     txtSerial.Focus();
@@ -242,6 +252,8 @@ namespace WorkOrder3
             {
                 txtSerial.AutoCompleteCustomSource.Add(U.serial);
             }
+
+            cmbWorkType.SelectedIndex = 0;
         }
 
         private void txtSerial_Leave_1(object sender, EventArgs e)
@@ -303,6 +315,25 @@ namespace WorkOrder3
                 {
                     dgvTestedFunctions.Rows.Add(new string[] { "SpO2" });
                 }
+            }
+        }
+
+        private void btnBrowsePicture_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (File.Exists(ofd.FileName))
+                {
+                    txtPicturePath.Text = ofd.FileName;
+                }
+                else
+                {
+                    MessageBox.Show("Could not access this file.");
+                    return;
+                }
+                
             }
         }
     }
