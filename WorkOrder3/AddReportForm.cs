@@ -236,7 +236,7 @@ namespace WorkOrder3
                         photo_path = txtPicturePath.Text;
                     }
 
-                    myform.AddToReport(txtSerial.Text, shock_values, tested_functions, worktype,  txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, photo_path, additional_qa.Replace(Environment.NewLine, "`"));
+                    myform.AddToReport(txtSerial.Text,cmbModel.Text, shock_values, tested_functions, worktype,  txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, photo_path, additional_qa.Replace(Environment.NewLine, "`"));
                     ClearReporting();
 
                     txtSerial.Focus();

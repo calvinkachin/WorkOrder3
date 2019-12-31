@@ -41,6 +41,8 @@
             this.pMTestValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.presetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defineUploadPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.grpClosure = new System.Windows.Forms.GroupBox();
             this.picTechSignature = new System.Windows.Forms.PictureBox();
@@ -73,9 +75,8 @@
             this.txtCustomerSite = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tmrCheckOut = new System.Windows.Forms.Timer(this.components);
-            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.defineUploadPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colSerialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colModel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colWorkType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colComplaint = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTechReport = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -125,21 +126,21 @@
             // newWorkOrderToolStripMenuItem
             // 
             this.newWorkOrderToolStripMenuItem.Name = "newWorkOrderToolStripMenuItem";
-            this.newWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.newWorkOrderToolStripMenuItem.Text = "New";
             this.newWorkOrderToolStripMenuItem.Click += new System.EventHandler(this.newWorkOrderToolStripMenuItem_Click);
             // 
             // saveWorkOrderToolStripMenuItem
             // 
             this.saveWorkOrderToolStripMenuItem.Name = "saveWorkOrderToolStripMenuItem";
-            this.saveWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.saveWorkOrderToolStripMenuItem.Text = "Save";
             this.saveWorkOrderToolStripMenuItem.Click += new System.EventHandler(this.saveWorkOrderToolStripMenuItem_Click);
             // 
             // loadWorkOrderToolStripMenuItem
             // 
             this.loadWorkOrderToolStripMenuItem.Name = "loadWorkOrderToolStripMenuItem";
-            this.loadWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadWorkOrderToolStripMenuItem.Text = "Load";
             this.loadWorkOrderToolStripMenuItem.Click += new System.EventHandler(this.loadWorkOrderToolStripMenuItem_Click);
             // 
@@ -191,6 +192,21 @@
             this.presetsToolStripMenuItem.Text = "Presets";
             this.presetsToolStripMenuItem.Click += new System.EventHandler(this.presetsToolStripMenuItem_Click);
             // 
+            // uploadToolStripMenuItem
+            // 
+            this.uploadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.defineUploadPathToolStripMenuItem});
+            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
+            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.uploadToolStripMenuItem.Text = "Upload";
+            // 
+            // defineUploadPathToolStripMenuItem
+            // 
+            this.defineUploadPathToolStripMenuItem.Name = "defineUploadPathToolStripMenuItem";
+            this.defineUploadPathToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.defineUploadPathToolStripMenuItem.Text = "Upload to Kanban";
+            this.defineUploadPathToolStripMenuItem.Click += new System.EventHandler(this.defineUploadPathToolStripMenuItem_Click);
+            // 
             // pnlMain
             // 
             this.pnlMain.AutoScroll = true;
@@ -219,7 +235,7 @@
             this.grpClosure.Controls.Add(this.chkSignature);
             this.grpClosure.Location = new System.Drawing.Point(3, 735);
             this.grpClosure.Name = "grpClosure";
-            this.grpClosure.Size = new System.Drawing.Size(912, 165);
+            this.grpClosure.Size = new System.Drawing.Size(895, 165);
             this.grpClosure.TabIndex = 3;
             this.grpClosure.TabStop = false;
             this.grpClosure.Text = "Closure";
@@ -262,7 +278,7 @@
             // btnGenerateReport
             // 
             this.btnGenerateReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerateReport.Location = new System.Drawing.Point(696, 104);
+            this.btnGenerateReport.Location = new System.Drawing.Point(679, 104);
             this.btnGenerateReport.Name = "btnGenerateReport";
             this.btnGenerateReport.Size = new System.Drawing.Size(207, 30);
             this.btnGenerateReport.TabIndex = 15;
@@ -274,7 +290,7 @@
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(689, 22);
+            this.label16.Location = new System.Drawing.Point(672, 22);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(58, 13);
             this.label16.TabIndex = 14;
@@ -285,7 +301,7 @@
             this.dtpCheckOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpCheckOut.CustomFormat = "dd/MMM/yyyy HH:mm";
             this.dtpCheckOut.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCheckOut.Location = new System.Drawing.Point(753, 19);
+            this.dtpCheckOut.Location = new System.Drawing.Point(736, 19);
             this.dtpCheckOut.Name = "dtpCheckOut";
             this.dtpCheckOut.Size = new System.Drawing.Size(150, 20);
             this.dtpCheckOut.TabIndex = 13;
@@ -309,7 +325,7 @@
             this.grpReport.Controls.Add(this.dgvReport);
             this.grpReport.Location = new System.Drawing.Point(3, 202);
             this.grpReport.Name = "grpReport";
-            this.grpReport.Size = new System.Drawing.Size(912, 527);
+            this.grpReport.Size = new System.Drawing.Size(895, 527);
             this.grpReport.TabIndex = 2;
             this.grpReport.TabStop = false;
             this.grpReport.Text = "Report";
@@ -336,6 +352,7 @@
             this.dgvReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colSerialNumber,
+            this.colModel,
             this.colWorkType,
             this.colComplaint,
             this.colTechReport,
@@ -349,7 +366,7 @@
             this.dgvReport.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvReport.Location = new System.Drawing.Point(7, 60);
             this.dgvReport.Name = "dgvReport";
-            this.dgvReport.Size = new System.Drawing.Size(896, 461);
+            this.dgvReport.Size = new System.Drawing.Size(879, 461);
             this.dgvReport.TabIndex = 24;
             // 
             // grpWorkOrderInformation
@@ -361,7 +378,7 @@
             this.grpWorkOrderInformation.Controls.Add(this.lblWorkOrderNumber);
             this.grpWorkOrderInformation.Location = new System.Drawing.Point(3, 10);
             this.grpWorkOrderInformation.Name = "grpWorkOrderInformation";
-            this.grpWorkOrderInformation.Size = new System.Drawing.Size(912, 43);
+            this.grpWorkOrderInformation.Size = new System.Drawing.Size(895, 43);
             this.grpWorkOrderInformation.TabIndex = 1;
             this.grpWorkOrderInformation.TabStop = false;
             this.grpWorkOrderInformation.Text = "Work Order Information";
@@ -370,7 +387,7 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(693, 19);
+            this.label8.Location = new System.Drawing.Point(676, 19);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(50, 13);
             this.label8.TabIndex = 12;
@@ -381,7 +398,7 @@
             this.dtpCheckIn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpCheckIn.CustomFormat = "dd/MMM/yyyy HH:mm";
             this.dtpCheckIn.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCheckIn.Location = new System.Drawing.Point(749, 16);
+            this.dtpCheckIn.Location = new System.Drawing.Point(732, 16);
             this.dtpCheckIn.Name = "dtpCheckIn";
             this.dtpCheckIn.Size = new System.Drawing.Size(154, 20);
             this.dtpCheckIn.TabIndex = 1;
@@ -416,7 +433,7 @@
             this.grpCustomerInformation.Controls.Add(this.label2);
             this.grpCustomerInformation.Location = new System.Drawing.Point(3, 58);
             this.grpCustomerInformation.Name = "grpCustomerInformation";
-            this.grpCustomerInformation.Size = new System.Drawing.Size(912, 136);
+            this.grpCustomerInformation.Size = new System.Drawing.Size(895, 136);
             this.grpCustomerInformation.TabIndex = 0;
             this.grpCustomerInformation.TabStop = false;
             this.grpCustomerInformation.Text = "Customer Information";
@@ -543,27 +560,19 @@
             this.tmrCheckOut.Interval = 10000;
             this.tmrCheckOut.Tick += new System.EventHandler(this.tmrCheckOut_Tick);
             // 
-            // uploadToolStripMenuItem
-            // 
-            this.uploadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.defineUploadPathToolStripMenuItem});
-            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
-            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.uploadToolStripMenuItem.Text = "Upload";
-            // 
-            // defineUploadPathToolStripMenuItem
-            // 
-            this.defineUploadPathToolStripMenuItem.Name = "defineUploadPathToolStripMenuItem";
-            this.defineUploadPathToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.defineUploadPathToolStripMenuItem.Text = "Upload to Kanban";
-            this.defineUploadPathToolStripMenuItem.Click += new System.EventHandler(this.defineUploadPathToolStripMenuItem_Click);
-            // 
             // colSerialNumber
             // 
             this.colSerialNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colSerialNumber.HeaderText = "Serial Number";
             this.colSerialNumber.Name = "colSerialNumber";
             this.colSerialNumber.Width = 98;
+            // 
+            // colModel
+            // 
+            this.colModel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colModel.HeaderText = "Model";
+            this.colModel.Name = "colModel";
+            this.colModel.Width = 61;
             // 
             // colWorkType
             // 
@@ -713,6 +722,7 @@
         private System.Windows.Forms.ToolStripMenuItem uploadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defineUploadPathToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSerialNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colModel;
         private System.Windows.Forms.DataGridViewTextBoxColumn colWorkType;
         private System.Windows.Forms.DataGridViewTextBoxColumn colComplaint;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTechReport;

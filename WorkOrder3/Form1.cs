@@ -208,9 +208,9 @@ namespace WorkOrder3
         }
         
 
-        public void AddToReport(string serial, string shock_values,string tested_functions, string work_type,string complaint,string tech_report,string RFU, string failure_mode, string photo_path, string additional_qa)
+        public void AddToReport(string serial, string model, string shock_values,string tested_functions, string work_type,string complaint,string tech_report,string RFU, string failure_mode, string photo_path, string additional_qa)
         {
-            string[] line = { serial, work_type, complaint, tech_report, RFU, shock_values, tested_functions, failure_mode, additional_qa, photo_path, "Remove" };
+            string[] line = { serial, model, work_type, complaint, tech_report, RFU, shock_values, tested_functions, failure_mode, additional_qa, photo_path, "Remove" };
 
             dgvReport.Rows.Add(line);
         }

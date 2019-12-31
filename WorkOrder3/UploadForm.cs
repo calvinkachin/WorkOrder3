@@ -54,16 +54,69 @@ namespace WorkOrder3
         private void UploadForm_Load(object sender, EventArgs e)
         {
             dgvWorkOrders.Rows.Clear();
+            cmbDestinationColumn.Items.Clear();
 
-            Hey Calvin, you have to find all the columns that have the uploadable status.
+            string kanban_path = "";
 
+            //Check if the upload path is already entered
             if (File.Exists(UPLOAD_PATH))
             {
                 var r = new StreamReader(UPLOAD_PATH);
-                txtUploadPath.Text = r.ReadLine();
+                kanban_path = r.ReadLine();
+                txtUploadPath.Text = kanban_path;
                 r.Close();
+
+                //Gets a list of column names that allow for upload
+                List<string> column_names_list = new List<string>();
+
+                try
+                {
+                    //Find all the column names
+                    var env_reader = new StreamReader(kanban_path + "env_settings.txt");
+                    while (!env_reader.EndOfStream)
+                    {
+                        var values = env_reader.ReadLine().Split('|');
+
+                        if (values[0].ToUpper() == "COL")
+                        {
+                            column_names_list.Add(values[1] + "." + values[2]);
+                        }
+                    }
+                    env_reader.Close();
+
+                    //Go through each column file and find if it is uploadable
+                    foreach (string col in column_names_list)
+                    {
+                        bool uploadable = false;
+
+                        var col_reader = new StreamReader(kanban_path + "\\Office\\" + col + ".txt");
+                        while (!col_reader.EndOfStream)
+                        {
+                            var values = col_reader.ReadLine().Split('|');
+
+                            if (values[0].ToUpper() == "UPLOADABLE" && values[1].ToUpper() == "TRUE")
+                            {
+                                uploadable = true;
+                                break;
+                            }
+                        }
+                        col_reader.Close();
+
+                        //If uploadable, add their ID to the combo box
+                        if (uploadable)
+                        {
+                            cmbDestinationColumn.Items.Add(col);
+                        }
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Could not find column names!");
+                    return;
+                }
             }
 
+            //Add all saved Work Orders to the list to be uploaded
             foreach (string dir in Directory.GetDirectories(Directory.GetCurrentDirectory() + "\\Saved\\"))
             {
                 var values = dir.Split('\\');
@@ -71,7 +124,35 @@ namespace WorkOrder3
 
                 WO workorder = WO.WorkOrderFromFile(dir + "\\" + wo_string);
 
-                string[] line = new string[] { wo_string, workorder.report_data.Count.ToString(), workorder.report_data.Count.ToString() };
+                int failed_pms = 0;
+                int passed_pms = 0;
+                int others = 0;
+
+                foreach(string data in workorder.report_data)
+                {
+                    var report_values = data.Split('|');
+
+                    if (report_values[2].ToUpper() == "PM")
+                    {
+                        if (report_values[4].ToUpper().Contains("[FAILED PM]"))
+                        {
+                            failed_pms++;
+                        }
+                        else
+                        {
+                            if (passed_pms == 0)
+                            {
+                                passed_pms = 1;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        others++;
+                    }
+                }
+
+                string[] line = new string[] { wo_string, workorder.customer_site, workorder.check_out_time.ToString("dd/MMM/yyyy"), workorder.report_data.Count.ToString(), (passed_pms + failed_pms + others).ToString() };
 
                 dgvWorkOrders.Rows.Add(line);
             }
@@ -79,15 +160,114 @@ namespace WorkOrder3
 
         private void btnUpload_Click(object sender, EventArgs e)
         {
+            if(txtUploadPath.Text=="" && !Directory.Exists(txtUploadPath.Text))
+            {
+                MessageBox.Show("Invalid upload path! Please make sure a connection to the upload path exists.");
+                return;
+            }
+
+            if (cmbDestinationColumn.Text == "")
+            {
+                MessageBox.Show("Please select a Column ID to upload your work orders to!");
+                return;
+            }
+
+            string tab = cmbDestinationColumn.Text.Split('.')[0];
+            string col = cmbDestinationColumn.Text.Split('.')[1];
+            string kb_path = txtUploadPath.Text;
+            
+            int upload_count = 0;
+
             foreach(DataGridViewRow dgvr in dgvWorkOrders.Rows)
             {
                 DataGridViewCheckBoxCell chk = dgvr.Cells[dgvWorkOrders.Columns.IndexOf(colCheck)] as DataGridViewCheckBoxCell;
 
                 if (chk.Value == chk.TrueValue)
                 {
-                    MessageBox.Show(dgvr.Cells[0].Value.ToString());
+                    upload_count++;
+                    string wo = dgvr.Cells["colWorkOrder"].Value.ToString();
+                    string wo_directory = Form1.SAVED_DIRECTORY + wo + "\\";
+                    List<string> passed_PMs = new List<string>();
+
+                    WO order = WO.WorkOrderFromFile(wo_directory + wo);
+
+                    foreach(string line in order.report_data)
+                    {
+                        var values = line.Split('|');
+
+                        if (values[2].ToUpper() == "PM")
+                        {
+                            if(values[4].ToUpper().Contains("[FAILED PM]"))
+                            {
+                                string kanban_entry = GetKanbanEntry(wo, order.customer_site, line, tab, col);
+
+                                var w = new StreamWriter(kb_path + "\\Tabs\\" + tab + ".txt",true);
+                                w.WriteLine(kanban_entry);
+                                w.Close();
+                            }
+                            else
+                            {
+                                The passed PM lines need to be added to a single task.
+                                passed_PMs.Add(line);
+                            }
+                        }
+                        else
+                        {
+                            string kanban_entry = GetKanbanEntry(wo, order.customer_site, line, tab, col);
+
+                            var w = new StreamWriter(kb_path + "\\Tabs\\" + tab + ".txt", true);
+                            w.WriteLine(kanban_entry);
+                            w.Close();
+                        }
+                    }
+                    Each of these also need the Kanban folder to be created and files uploaded.
                 }
             }
+
+            if (upload_count == 0)
+            {
+                MessageBox.Show("Please select at least one Work Order to upload!");
+                return;
+            }
+            else
+            {
+                MessageBox.Show("Upload Successful! Work Orders uploaded: " + upload_count);
+            }
+        }
+
+        private string GetKanbanEntry(string work_order_number, string customer_site, string report_line,string tab_name, string column_name)
+        {
+            var values = report_line.Split('|');
+            DateTime DEFAULT_DATE = new DateTime(2000, 1, 1, 0, 0, 0);
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(work_order_number + "_" + values[0]);
+            sb.Append("|");
+            sb.Append(values[0]);
+            sb.Append("|");
+            sb.Append(values[1]);
+            sb.Append("|");
+            sb.Append(column_name);
+            sb.Append("|");
+            sb.Append("UNASSIGNED");
+            sb.Append("|");
+            sb.Append(customer_site);
+            sb.Append("|");
+            sb.Append("Work Order Upload");
+            sb.Append("|");
+            sb.Append(values[4]);
+            sb.Append("|");
+            sb.Append(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+            sb.Append("|");
+            sb.Append(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+            sb.Append("|");
+            sb.Append(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+            sb.Append("|");
+            sb.Append(DEFAULT_DATE.ToString("dd/MM/yyyy HH:mm"));
+            sb.Append("|");
+            sb.Append(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+
+            return sb.ToString();
         }
     }
 }

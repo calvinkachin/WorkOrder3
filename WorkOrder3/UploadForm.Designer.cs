@@ -35,12 +35,14 @@
             this.dgvWorkOrders = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.btnUpload = new System.Windows.Forms.Button();
+            this.cmbDestinationColumn = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.colWorkOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colItems = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTasks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.cmbDestinationColumn = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWorkOrders)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,9 +68,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Kanban Path";
+            this.label1.Text = "Kanban Path*";
             // 
             // dgvWorkOrders
             // 
@@ -80,12 +82,14 @@
             this.dgvWorkOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvWorkOrders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colWorkOrder,
+            this.colCustomer,
+            this.colDate,
             this.colItems,
             this.colTasks,
             this.colCheck});
             this.dgvWorkOrders.Location = new System.Drawing.Point(12, 152);
             this.dgvWorkOrders.Name = "dgvWorkOrders";
-            this.dgvWorkOrders.Size = new System.Drawing.Size(600, 237);
+            this.dgvWorkOrders.Size = new System.Drawing.Size(632, 218);
             this.dgvWorkOrders.TabIndex = 3;
             // 
             // label2
@@ -100,7 +104,7 @@
             // btnUpload
             // 
             this.btnUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnUpload.Location = new System.Drawing.Point(12, 409);
+            this.btnUpload.Location = new System.Drawing.Point(12, 390);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(165, 46);
             this.btnUpload.TabIndex = 5;
@@ -108,11 +112,42 @@
             this.btnUpload.UseVisualStyleBackColor = true;
             this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
+            // cmbDestinationColumn
+            // 
+            this.cmbDestinationColumn.FormattingEnabled = true;
+            this.cmbDestinationColumn.Location = new System.Drawing.Point(12, 88);
+            this.cmbDestinationColumn.Name = "cmbDestinationColumn";
+            this.cmbDestinationColumn.Size = new System.Drawing.Size(328, 21);
+            this.cmbDestinationColumn.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 72);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(101, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Upload Destination*";
+            // 
             // colWorkOrder
             // 
             this.colWorkOrder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colWorkOrder.HeaderText = "Work Order";
             this.colWorkOrder.Name = "colWorkOrder";
+            // 
+            // colCustomer
+            // 
+            this.colCustomer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colCustomer.HeaderText = "Customer";
+            this.colCustomer.Name = "colCustomer";
+            this.colCustomer.Width = 76;
+            // 
+            // colDate
+            // 
+            this.colDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colDate.HeaderText = "Date";
+            this.colDate.Name = "colDate";
+            this.colDate.Width = 55;
             // 
             // colItems
             // 
@@ -137,28 +172,11 @@
             this.colCheck.TrueValue = "True";
             this.colCheck.Width = 53;
             // 
-            // cmbDestinationColumn
-            // 
-            this.cmbDestinationColumn.FormattingEnabled = true;
-            this.cmbDestinationColumn.Location = new System.Drawing.Point(12, 88);
-            this.cmbDestinationColumn.Name = "cmbDestinationColumn";
-            this.cmbDestinationColumn.Size = new System.Drawing.Size(328, 21);
-            this.cmbDestinationColumn.TabIndex = 6;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 72);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(97, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Upload Destination";
-            // 
             // UploadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(625, 480);
+            this.ClientSize = new System.Drawing.Size(657, 461);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmbDestinationColumn);
             this.Controls.Add(this.btnUpload);
@@ -185,11 +203,13 @@
         private System.Windows.Forms.DataGridView dgvWorkOrders;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnUpload;
+        private System.Windows.Forms.ComboBox cmbDestinationColumn;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridViewTextBoxColumn colWorkOrder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCustomer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn colItems;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTasks;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colCheck;
-        private System.Windows.Forms.ComboBox cmbDestinationColumn;
-        private System.Windows.Forms.Label label3;
     }
 }
