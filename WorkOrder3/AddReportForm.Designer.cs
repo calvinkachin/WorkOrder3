@@ -64,10 +64,13 @@
             this.btnBrowsePicture = new System.Windows.Forms.Button();
             this.grpFinish = new System.Windows.Forms.GroupBox();
             this.grpInfo = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpOtherModel = new System.Windows.Forms.GroupBox();
             this.txtOtherModel = new System.Windows.Forms.TextBox();
             this.cmbModel = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnTakePicture = new System.Windows.Forms.Button();
+            this.btnCapture = new System.Windows.Forms.Button();
             this.grpOtherWorkType.SuspendLayout();
             this.grpFailureEvent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShockValues)).BeginInit();
@@ -77,7 +80,8 @@
             this.grpPicture.SuspendLayout();
             this.grpFinish.SuspendLayout();
             this.grpInfo.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.grpOtherModel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // chkFailedPM
@@ -102,7 +106,7 @@
             this.grpOtherWorkType.Controls.Add(this.txtOtherWorkType);
             this.grpOtherWorkType.Location = new System.Drawing.Point(284, 11);
             this.grpOtherWorkType.Name = "grpOtherWorkType";
-            this.grpOtherWorkType.Size = new System.Drawing.Size(276, 49);
+            this.grpOtherWorkType.Size = new System.Drawing.Size(313, 49);
             this.grpOtherWorkType.TabIndex = 44;
             this.grpOtherWorkType.TabStop = false;
             this.grpOtherWorkType.Text = "Other Work Type";
@@ -114,7 +118,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOtherWorkType.Location = new System.Drawing.Point(6, 19);
             this.txtOtherWorkType.Name = "txtOtherWorkType";
-            this.txtOtherWorkType.Size = new System.Drawing.Size(265, 20);
+            this.txtOtherWorkType.Size = new System.Drawing.Size(302, 20);
             this.txtOtherWorkType.TabIndex = 2;
             // 
             // grpFailureEvent
@@ -125,7 +129,7 @@
             this.grpFailureEvent.Controls.Add(this.cmbFailureEvent);
             this.grpFailureEvent.Location = new System.Drawing.Point(9, 557);
             this.grpFailureEvent.Name = "grpFailureEvent";
-            this.grpFailureEvent.Size = new System.Drawing.Size(565, 73);
+            this.grpFailureEvent.Size = new System.Drawing.Size(602, 73);
             this.grpFailureEvent.TabIndex = 39;
             this.grpFailureEvent.TabStop = false;
             this.grpFailureEvent.Text = "Failure Event";
@@ -138,7 +142,7 @@
             this.txtPatient.Location = new System.Drawing.Point(13, 44);
             this.txtPatient.Margin = new System.Windows.Forms.Padding(2);
             this.txtPatient.Name = "txtPatient";
-            this.txtPatient.Size = new System.Drawing.Size(547, 20);
+            this.txtPatient.Size = new System.Drawing.Size(584, 20);
             this.txtPatient.TabIndex = 17;
             this.txtPatient.TabStop = false;
             this.txtPatient.Visible = false;
@@ -160,7 +164,7 @@
             "Unknown"});
             this.cmbFailureEvent.Location = new System.Drawing.Point(13, 19);
             this.cmbFailureEvent.Name = "cmbFailureEvent";
-            this.cmbFailureEvent.Size = new System.Drawing.Size(547, 21);
+            this.cmbFailureEvent.Size = new System.Drawing.Size(584, 21);
             this.cmbFailureEvent.TabIndex = 10;
             // 
             // btnAddToReport
@@ -180,7 +184,7 @@
             this.txtTechReport.Location = new System.Drawing.Point(86, 197);
             this.txtTechReport.Multiline = true;
             this.txtTechReport.Name = "txtTechReport";
-            this.txtTechReport.Size = new System.Drawing.Size(468, 43);
+            this.txtTechReport.Size = new System.Drawing.Size(505, 43);
             this.txtTechReport.TabIndex = 8;
             // 
             // label14
@@ -221,7 +225,7 @@
             this.txtComplaint.Location = new System.Drawing.Point(86, 154);
             this.txtComplaint.Multiline = true;
             this.txtComplaint.Name = "txtComplaint";
-            this.txtComplaint.Size = new System.Drawing.Size(468, 38);
+            this.txtComplaint.Size = new System.Drawing.Size(505, 38);
             this.txtComplaint.TabIndex = 7;
             // 
             // label12
@@ -327,7 +331,7 @@
             this.grpShockValues.Margin = new System.Windows.Forms.Padding(2);
             this.grpShockValues.Name = "grpShockValues";
             this.grpShockValues.Padding = new System.Windows.Forms.Padding(2);
-            this.grpShockValues.Size = new System.Drawing.Size(565, 283);
+            this.grpShockValues.Size = new System.Drawing.Size(602, 283);
             this.grpShockValues.TabIndex = 47;
             this.grpShockValues.TabStop = false;
             this.grpShockValues.Text = "PM";
@@ -349,7 +353,7 @@
             this.dgvTestedFunctions.Margin = new System.Windows.Forms.Padding(2);
             this.dgvTestedFunctions.Name = "dgvTestedFunctions";
             this.dgvTestedFunctions.RowTemplate.Height = 24;
-            this.dgvTestedFunctions.Size = new System.Drawing.Size(297, 206);
+            this.dgvTestedFunctions.Size = new System.Drawing.Size(334, 206);
             this.dgvTestedFunctions.TabIndex = 9;
             // 
             // colFunction
@@ -409,20 +413,23 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(611, 542);
+            this.panel1.Size = new System.Drawing.Size(665, 542);
             this.panel1.TabIndex = 48;
             // 
             // grpPicture
             // 
             this.grpPicture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpPicture.Controls.Add(this.btnCapture);
+            this.grpPicture.Controls.Add(this.btnTakePicture);
+            this.grpPicture.Controls.Add(this.pictureBox1);
             this.grpPicture.Controls.Add(this.txtPicturePath);
             this.grpPicture.Controls.Add(this.btnBrowsePicture);
             this.grpPicture.Location = new System.Drawing.Point(9, 635);
             this.grpPicture.Margin = new System.Windows.Forms.Padding(2);
             this.grpPicture.Name = "grpPicture";
             this.grpPicture.Padding = new System.Windows.Forms.Padding(2);
-            this.grpPicture.Size = new System.Drawing.Size(565, 80);
+            this.grpPicture.Size = new System.Drawing.Size(602, 171);
             this.grpPicture.TabIndex = 52;
             this.grpPicture.TabStop = false;
             this.grpPicture.Text = "Add Picture (Optional)";
@@ -434,7 +441,7 @@
             this.txtPicturePath.Location = new System.Drawing.Point(13, 24);
             this.txtPicturePath.Margin = new System.Windows.Forms.Padding(2);
             this.txtPicturePath.Name = "txtPicturePath";
-            this.txtPicturePath.Size = new System.Drawing.Size(545, 20);
+            this.txtPicturePath.Size = new System.Drawing.Size(582, 20);
             this.txtPicturePath.TabIndex = 11;
             // 
             // btnBrowsePicture
@@ -453,11 +460,11 @@
             this.grpFinish.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpFinish.Controls.Add(this.btnAddToReport);
-            this.grpFinish.Location = new System.Drawing.Point(9, 719);
+            this.grpFinish.Location = new System.Drawing.Point(9, 810);
             this.grpFinish.Margin = new System.Windows.Forms.Padding(2);
             this.grpFinish.Name = "grpFinish";
             this.grpFinish.Padding = new System.Windows.Forms.Padding(2);
-            this.grpFinish.Size = new System.Drawing.Size(565, 63);
+            this.grpFinish.Size = new System.Drawing.Size(602, 63);
             this.grpFinish.TabIndex = 51;
             this.grpFinish.TabStop = false;
             // 
@@ -465,7 +472,7 @@
             // 
             this.grpInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpInfo.Controls.Add(this.groupBox1);
+            this.grpInfo.Controls.Add(this.grpOtherModel);
             this.grpInfo.Controls.Add(this.cmbModel);
             this.grpInfo.Controls.Add(this.label9);
             this.grpInfo.Controls.Add(this.label1);
@@ -483,23 +490,23 @@
             this.grpInfo.Margin = new System.Windows.Forms.Padding(2);
             this.grpInfo.Name = "grpInfo";
             this.grpInfo.Padding = new System.Windows.Forms.Padding(2);
-            this.grpInfo.Size = new System.Drawing.Size(565, 254);
+            this.grpInfo.Size = new System.Drawing.Size(602, 254);
             this.grpInfo.TabIndex = 50;
             this.grpInfo.TabStop = false;
             this.grpInfo.Text = "Work Information";
             // 
-            // groupBox1
+            // grpOtherModel
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpOtherModel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.txtOtherModel);
-            this.groupBox1.Location = new System.Drawing.Point(283, 85);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(276, 49);
-            this.groupBox1.TabIndex = 45;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Other Model Type";
-            this.groupBox1.Visible = false;
+            this.grpOtherModel.Controls.Add(this.txtOtherModel);
+            this.grpOtherModel.Location = new System.Drawing.Point(283, 85);
+            this.grpOtherModel.Name = "grpOtherModel";
+            this.grpOtherModel.Size = new System.Drawing.Size(313, 49);
+            this.grpOtherModel.TabIndex = 45;
+            this.grpOtherModel.TabStop = false;
+            this.grpOtherModel.Text = "Other Model";
+            this.grpOtherModel.Visible = false;
             // 
             // txtOtherModel
             // 
@@ -507,7 +514,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOtherModel.Location = new System.Drawing.Point(6, 19);
             this.txtOtherModel.Name = "txtOtherModel";
-            this.txtOtherModel.Size = new System.Drawing.Size(265, 20);
+            this.txtOtherModel.Size = new System.Drawing.Size(302, 20);
             this.txtOtherModel.TabIndex = 5;
             // 
             // cmbModel
@@ -538,11 +545,39 @@
             this.label1.Text = "Model";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(13, 77);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(156, 89);
+            this.pictureBox1.TabIndex = 42;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btnTakePicture
+            // 
+            this.btnTakePicture.Location = new System.Drawing.Point(117, 49);
+            this.btnTakePicture.Name = "btnTakePicture";
+            this.btnTakePicture.Size = new System.Drawing.Size(137, 23);
+            this.btnTakePicture.TabIndex = 43;
+            this.btnTakePicture.Text = "Start Camera";
+            this.btnTakePicture.UseVisualStyleBackColor = true;
+            this.btnTakePicture.Click += new System.EventHandler(this.btnTakePicture_Click);
+            // 
+            // btnCapture
+            // 
+            this.btnCapture.Location = new System.Drawing.Point(256, 49);
+            this.btnCapture.Name = "btnCapture";
+            this.btnCapture.Size = new System.Drawing.Size(113, 23);
+            this.btnCapture.TabIndex = 44;
+            this.btnCapture.Text = "Capture";
+            this.btnCapture.UseVisualStyleBackColor = true;
+            this.btnCapture.Click += new System.EventHandler(this.btnCapture_Click);
+            // 
             // AddReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(611, 542);
+            this.ClientSize = new System.Drawing.Size(665, 542);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -563,8 +598,9 @@
             this.grpFinish.ResumeLayout(false);
             this.grpInfo.ResumeLayout(false);
             this.grpInfo.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpOtherModel.ResumeLayout(false);
+            this.grpOtherModel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -599,7 +635,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbModel;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpOtherModel;
         private System.Windows.Forms.TextBox txtOtherModel;
         private System.Windows.Forms.DataGridView dgvTestedFunctions;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFunction;
@@ -608,5 +644,8 @@
         private System.Windows.Forms.GroupBox grpPicture;
         private System.Windows.Forms.TextBox txtPicturePath;
         private System.Windows.Forms.Button btnBrowsePicture;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnTakePicture;
+        private System.Windows.Forms.Button btnCapture;
     }
 }

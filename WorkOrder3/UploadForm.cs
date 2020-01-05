@@ -187,6 +187,7 @@ namespace WorkOrder3
                     upload_count++;
                     string wo = dgvr.Cells["colWorkOrder"].Value.ToString();
                     string wo_directory = Form1.SAVED_DIRECTORY + wo + "\\";
+                    
                     List<string> passed_PMs = new List<string>();
 
                     WO order = WO.WorkOrderFromFile(wo_directory + wo);
@@ -194,33 +195,74 @@ namespace WorkOrder3
                     foreach(string line in order.report_data)
                     {
                         var values = line.Split('|');
+                        string folder_directory = kb_path + "\\Folders\\" + wo + "_" + values[0] + "\\";
 
-                        if (values[2].ToUpper() == "PM")
+                        if (values[2].ToUpper() == "PM" && !values[4].ToUpper().Contains("[FAILED PM]"))
                         {
-                            if(values[4].ToUpper().Contains("[FAILED PM]"))
-                            {
-                                string kanban_entry = GetKanbanEntry(wo, order.customer_site, line, tab, col);
-
-                                var w = new StreamWriter(kb_path + "\\Tabs\\" + tab + ".txt",true);
-                                w.WriteLine(kanban_entry);
-                                w.Close();
-                            }
-                            else
-                            {
-                                The passed PM lines need to be added to a single task.
-                                passed_PMs.Add(line);
-                            }
+                            passed_PMs.Add(line);
                         }
                         else
                         {
                             string kanban_entry = GetKanbanEntry(wo, order.customer_site, line, tab, col);
 
-                            var w = new StreamWriter(kb_path + "\\Tabs\\" + tab + ".txt", true);
-                            w.WriteLine(kanban_entry);
-                            w.Close();
+                            try
+                            {
+                                var w = new StreamWriter(kb_path + "\\Tabs\\" + tab + ".txt", true);
+                                w.WriteLine(kanban_entry);
+                                w.Close();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Could not upload: " + order.work_order_string);
+                                return;
+                            }
+
+                            if (!Directory.Exists(folder_directory))
+                            {
+                                Directory.CreateDirectory(folder_directory);
+                            }
+
+                            try
+                            {
+                                var writer = new StreamWriter(folder_directory + "!data");
+                                writer.WriteLine("SR|" + wo + "_" + values[0]);
+                                writer.WriteLine("SERIAL|" + values[0]);
+                                writer.WriteLine("PARTNUM|");
+                                writer.WriteLine("MODEL|" + values[1]);
+                                writer.WriteLine("CUSTOMER|" + order.customer_site);
+                                writer.WriteLine("CONTACT NAME|" + order.contact_name);
+                                writer.WriteLine("EMAIL|" + order.contact_email);
+                                writer.WriteLine("SHIPPING ADDRESS|" + order.address);
+                                writer.WriteLine("CREATED|" + DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+                                writer.Close();
+                            }
+                            catch
+                            {
+                                //do nothing for now
+                            }
+
+                            try
+                            {
+                                var repair = new StreamWriter(folder_directory + "!repair");
+                                
+                                if(values[4].ToUpper().Contains("[FAILED PM]"))
+                                {
+                                    repair.WriteLine("Problem|1|" + values[4] + "|N/A|");
+                                }
+                                else
+                                {
+                                    repair.WriteLine("Problem|1|" + values[3] + "|N/A|");
+                                }
+
+                                repair.Close();
+                            }
+                            catch
+                            {
+                                //do nothing for now
+                            }
                         }
                     }
-                    Each of these also need the Kanban folder to be created and files uploaded.
+                    //Each of these also need the Kanban folder to be created and files uploaded.
                 }
             }
 
@@ -233,6 +275,11 @@ namespace WorkOrder3
             {
                 MessageBox.Show("Upload Successful! Work Orders uploaded: " + upload_count);
             }
+        }
+
+        private void CreateKanbanFolderAndFiles(WO workorder)
+        {
+
         }
 
         private string GetKanbanEntry(string work_order_number, string customer_site, string report_line,string tab_name, string column_name)

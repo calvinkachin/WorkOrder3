@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;    
+using System.IO;
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using System.Threading;
+
 
 namespace WorkOrder3
 {
@@ -16,6 +21,41 @@ namespace WorkOrder3
         WorkOrder3.Form1 myform = Application.OpenForms.OfType<WorkOrder3.Form1>().First();
 
         List<GroupBox> groupbox_list = new List<GroupBox>();
+        VideoCapture capture;
+        Mat frame;
+        Bitmap image;
+        private Thread camera;
+        bool isCameraRunning = false;
+
+        // Declare required methods
+        private void CaptureCamera()
+        {
+            camera = new Thread(new ThreadStart(CaptureCameraCallback));
+            camera.Start();
+        }
+
+        private void CaptureCameraCallback()
+        {
+
+            frame = new Mat();
+            capture = new VideoCapture(0);
+            capture.Open(0);
+
+            if (capture.IsOpened())
+            {
+                while (isCameraRunning)
+                {
+
+                    capture.Read(frame);
+                    image = BitmapConverter.ToBitmap(frame);
+                    if (pictureBox1.Image != null)
+                    {
+                        pictureBox1.Image.Dispose();
+                    }
+                    pictureBox1.Image = image;
+                }
+            }
+        }
 
         public AddReportForm()
         {
@@ -265,11 +305,11 @@ namespace WorkOrder3
         {
             if(cmbModel.Text== "Other...")
             {
-                grpOtherWorkType.Visible = true;
+                grpOtherModel.Visible = true;
             }
             else
             {
-                grpOtherWorkType.Visible = false;
+                grpOtherModel.Visible = false;
             }
 
             PopulateShockValues();
@@ -293,6 +333,10 @@ namespace WorkOrder3
 
                 dgvShockValues.Rows[0].DefaultCellStyle.BackColor = Color.Gray;
                 dgvShockValues.Rows[4].DefaultCellStyle.BackColor = Color.Gray;
+            }
+            else if (cmbModel.Text.ToUpper() == "OTHER")
+            {
+                dgvShockValues.Rows.Clear();
             }
             else
             {
@@ -334,6 +378,40 @@ namespace WorkOrder3
                     return;
                 }
                 
+            }
+        }
+
+        private void btnTakePicture_Click(object sender, EventArgs e)
+        {
+            if (btnTakePicture.Text.Equals("Start Camera"))
+            {
+                CaptureCamera();
+                btnTakePicture.Text = "Stop Camera";
+                isCameraRunning = true;
+            }
+            else
+            {
+                capture.Release();
+                btnTakePicture.Text = "Start Camera";
+                isCameraRunning = false;
+            }
+        }
+
+        private void btnCapture_Click(object sender, EventArgs e)
+        {
+            if (isCameraRunning)
+            {
+                // Take snapshot of the current image generate by OpenCV in the Picture Box
+                Bitmap snapshot = new Bitmap(pictureBox1.Image);
+
+                // Save in some directory
+                // in this example, we'll generate a random filename e.g 47059681-95ed-4e95-9b50-320092a3d652.png
+                // snapshot.Save(@"C:\Users\sdkca\Desktop\mysnapshot.png", ImageFormat.Png);
+                snapshot.Save(string.Format(@"C:\Users\sdkca\Desktop\{0}.png", Guid.NewGuid()), ImageFormat.Png);
+            }
+            else
+            {
+                Console.WriteLine("Cannot take picture if the camera isn't capturing image!");
             }
         }
     }
