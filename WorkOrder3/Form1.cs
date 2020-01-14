@@ -17,7 +17,7 @@ namespace WorkOrder3
     public partial class Form1 : Form
     {
         int WO = 0;
-        string WO_string = "0";
+        public string WO_string = "0";
         string tech_name = "";
         string username = "";
         List<Customer> customer_list = new List<Customer>();
@@ -129,6 +129,15 @@ namespace WorkOrder3
                 this.WO_string = this.username.ToUpper() + this.WO.ToString("00000#");
                 lblWorkOrderNumber.Text = "WO# " + this.WO_string;
             }
+
+            if (!Directory.Exists(SAVED_DIRECTORY + WO_string))
+            {
+                Directory.CreateDirectory(SAVED_DIRECTORY + WO_string);
+
+                var w = new StreamWriter(SAVED_DIRECTORY + WO_string + "\\" + WO_string);
+                w.WriteLine("WO|" + WO_string);
+                w.Close();
+            }
         }
 
         public void LoadCustomersList()
@@ -220,48 +229,7 @@ namespace WorkOrder3
         {
             AddReportForm ARF = new AddReportForm();
             ARF.Show();
-
-            /*
-            if (CheckIfReportFilled())
-            {
-                string worktype = cmbWorkType.Text;
-                
-                if (cmbWorkType.Text == "Other...")
-                {
-                    worktype = txtOtherWorkType.Text;
-                }
-
-                string failuremode = "N/A";
-                if (cmbWorkType.Text=="Defib Evaluation")
-                {
-                    failuremode = cmbFailureEvent.Text;
-                }
-
-                string additional_qa = "N/A";
-                if (txtPatient.Text != "" && cmbWorkType.Text == "Defib Evaluation" && cmbFailureEvent.Text.Contains("patient"))
-                {
-                    additional_qa = txtPatient.Text;
-                }
-
-                if (cmbWorkType.Text == "Defib Evaluation" && cmbFailureEvent.Text.Contains("patient") && txtPatient.Text=="")
-                {
-                    AdditionalQA AQ = new AdditionalQA();
-                    AQ.Show();
-                }
-                else
-                {
-                    if(cmbWorkType.Text=="PM" && chkFailedPM.Checked)
-                    {
-                        txtTechReport.Text = "[FAILED PM] " + txtTechReport.Text;
-                        chkFailedPM.Checked = false;
-                    }
-
-                    AddToReport(txtSerial.Text, txtPartNumber.Text, worktype, txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, additional_qa.Replace(Environment.NewLine,"`"));
-                    ClearReporting();
-
-                    txtSerial.Focus();
-                }
-            }*/
+            
         }
 
         private void btnGenerateReport_Click(object sender, EventArgs e)

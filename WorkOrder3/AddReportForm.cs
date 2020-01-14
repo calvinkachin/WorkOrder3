@@ -386,12 +386,14 @@ namespace WorkOrder3
             if (btnTakePicture.Text.Equals("Start Camera"))
             {
                 CaptureCamera();
+                btnCapture.Enabled = true;
                 btnTakePicture.Text = "Stop Camera";
                 isCameraRunning = true;
             }
             else
             {
                 capture.Release();
+                btnCapture.Enabled = false; 
                 btnTakePicture.Text = "Start Camera";
                 isCameraRunning = false;
             }
@@ -402,12 +404,12 @@ namespace WorkOrder3
             if (isCameraRunning)
             {
                 // Take snapshot of the current image generate by OpenCV in the Picture Box
-                Bitmap snapshot = new Bitmap(pictureBox1.Image);
 
-                // Save in some directory
-                // in this example, we'll generate a random filename e.g 47059681-95ed-4e95-9b50-320092a3d652.png
-                // snapshot.Save(@"C:\Users\sdkca\Desktop\mysnapshot.png", ImageFormat.Png);
-                snapshot.Save(string.Format(@"C:\Users\sdkca\Desktop\{0}.png", Guid.NewGuid()), ImageFormat.Png);
+                string path = Directory.GetCurrentDirectory() + Form1.SAVED_DIRECTORY + myform.WO_string + "\\" + txtSerial.Text + ".png";
+
+                pictureBox1.Image.Save(path);
+
+                txtPicturePath.Text = path;
             }
             else
             {

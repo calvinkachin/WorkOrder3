@@ -122,39 +122,42 @@ namespace WorkOrder3
                 var values = dir.Split('\\');
                 string wo_string = values[values.Length - 1];
 
-                WO workorder = WO.WorkOrderFromFile(dir + "\\" + wo_string);
-
-                int failed_pms = 0;
-                int passed_pms = 0;
-                int others = 0;
-
-                foreach(string data in workorder.report_data)
+                if (File.Exists(dir + "\\" + wo_string))
                 {
-                    var report_values = data.Split('|');
+                    WO workorder = WO.WorkOrderFromFile(dir + "\\" + wo_string);
 
-                    if (report_values[2].ToUpper() == "PM")
+                    int failed_pms = 0;
+                    int passed_pms = 0;
+                    int others = 0;
+
+                    foreach (string data in workorder.report_data)
                     {
-                        if (report_values[4].ToUpper().Contains("[FAILED PM]"))
+                        var report_values = data.Split('|');
+
+                        if (report_values[2].ToUpper() == "PM")
                         {
-                            failed_pms++;
+                            if (report_values[4].ToUpper().Contains("[FAILED PM]"))
+                            {
+                                failed_pms++;
+                            }
+                            else
+                            {
+                                if (passed_pms == 0)
+                                {
+                                    passed_pms = 1;
+                                }
+                            }
                         }
                         else
                         {
-                            if (passed_pms == 0)
-                            {
-                                passed_pms = 1;
-                            }
+                            others++;
                         }
                     }
-                    else
-                    {
-                        others++;
-                    }
+
+                    string[] line = new string[] { wo_string, workorder.customer_site, workorder.check_out_time.ToString("dd/MMM/yyyy"), workorder.report_data.Count.ToString(), (passed_pms + failed_pms + others).ToString() };
+
+                    dgvWorkOrders.Rows.Add(line);
                 }
-
-                string[] line = new string[] { wo_string, workorder.customer_site, workorder.check_out_time.ToString("dd/MMM/yyyy"), workorder.report_data.Count.ToString(), (passed_pms + failed_pms + others).ToString() };
-
-                dgvWorkOrders.Rows.Add(line);
             }
         }
 
@@ -315,6 +318,32 @@ namespace WorkOrder3
             sb.Append(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
 
             return sb.ToString();
+        }
+
+        private void cmbDestinationColumn_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (txtUploadPath.Text != "")
+            {
+                string path = txtUploadPath.Text + "Tabs\\" + cmbDestinationColumn.Text.Split('.')[0]+".txt";
+
+                try
+                {
+                    var r = new StreamReader(path);
+                    r.Close();
+
+                    lblStatus.ForeColor = Color.Green;
+                    lblStatus.Text = "Destination Status: READY";
+                }
+                catch
+                {
+                    lblStatus.ForeColor = Color.Red;
+                    lblStatus.Text = "Destination Status: NOT AVAILABLE";
+                }
+            }else
+            {
+                lblStatus.ForeColor = Color.Red;
+                lblStatus.Text = "Destination Status: KANBAN PATH NOT SPECIFIED";
+            }
         }
     }
 }
