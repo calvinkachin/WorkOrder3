@@ -220,11 +220,13 @@ namespace WorkOrder3
                                 return;
                             }
 
+                            //Create the new folder
                             if (!Directory.Exists(folder_directory))
                             {
                                 Directory.CreateDirectory(folder_directory);
                             }
 
+                            //Write the data of this work order line to the !data file
                             try
                             {
                                 var writer = new StreamWriter(folder_directory + "!data");
@@ -241,9 +243,10 @@ namespace WorkOrder3
                             }
                             catch
                             {
-                                //do nothing for now
+                                
                             }
 
+                            //Write any problems to the Kanban's Problem/Repair system
                             try
                             {
                                 var repair = new StreamWriter(folder_directory + "!repair");
@@ -261,11 +264,21 @@ namespace WorkOrder3
                             }
                             catch
                             {
-                                //do nothing for now
+                                
+                            }
+
+                            foreach(string filename in Directory.GetFiles(Form1.DOCUMENTS_DIRECTORY))
+                            {
+                                if (filename.ToUpper().Contains(values[0]))
+                                {
+                                    var f_values = filename.Split('\\');
+                                    string filename_nopath = f_values[f_values.Length - 1];
+
+                                    File.Copy(filename, folder_directory + "\\" + filename_nopath);
+                                }
                             }
                         }
                     }
-                    //Each of these also need the Kanban folder to be created and files uploaded.
                 }
             }
 

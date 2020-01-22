@@ -300,7 +300,7 @@ namespace WorkOrder3
                 p.Append(txtContactName.Text);
             }
 
-            doc.SaveAs(Form1.DOCUMENTS_DIRECTORY+this.WO_string+" - "+txtCustomerSite.Text+".docx");
+            doc.SaveAs(Form1.SAVED_DIRECTORY+"\\"+this.WO_string+"\\"+this.WO_string+" - "+txtCustomerSite.Text+".docx");
             #endregion
 
             #region Office Copy - QA information
@@ -327,7 +327,7 @@ namespace WorkOrder3
             QAT.AutoFit = AutoFit.Contents;
             doc.InsertTable(QAT);
 
-            doc.SaveAs(Form1.DOCUMENTS_DIRECTORY + "OFFICE-"+this.WO_string + " - " + txtCustomerSite.Text + ".docx");
+            doc.SaveAs(Form1.SAVED_DIRECTORY + "\\" + this.WO_string + "\\OFFICE - " +this.WO_string + " - " + txtCustomerSite.Text + ".docx");
             doc.Dispose();
             #endregion
 
@@ -348,7 +348,7 @@ namespace WorkOrder3
                     pm_letter.ReplaceText("#techname#", this.tech_name);
                     pm_letter.ReplaceText("#nextdate#", dtpCheckIn.Value.AddYears(1).ToString("dd/MMM/yyyy"));
 
-                    pm_letter.SaveAs(Form1.DOCUMENTS_DIRECTORY + this.WO_string + "- " + dgvr.Cells["colSerialNumber"].Value.ToString() + " - PM Letter.docx");
+                    pm_letter.SaveAs(Form1.SAVED_DIRECTORY + "\\" + this.WO_string + "\\"+this.WO_string + " - " + dgvr.Cells["colSerialNumber"].Value.ToString() + " - PM Letter.docx");
                     pm_letter.Dispose();
                 }
             }
