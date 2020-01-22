@@ -71,6 +71,11 @@
             this.txtOtherModel = new System.Windows.Forms.TextBox();
             this.cmbModel = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.colAdditionalTest = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colRange = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTestValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpOtherWorkType.SuspendLayout();
             this.grpFailureEvent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShockValues)).BeginInit();
@@ -82,6 +87,7 @@
             this.grpFinish.SuspendLayout();
             this.grpInfo.SuspendLayout();
             this.grpOtherModel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // chkFailedPM
@@ -89,10 +95,10 @@
             this.chkFailedPM.AutoSize = true;
             this.chkFailedPM.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkFailedPM.ForeColor = System.Drawing.Color.Red;
-            this.chkFailedPM.Location = new System.Drawing.Point(35, 249);
-            this.chkFailedPM.Margin = new System.Windows.Forms.Padding(2);
+            this.chkFailedPM.Location = new System.Drawing.Point(645, 19);
+            this.chkFailedPM.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkFailedPM.Name = "chkFailedPM";
-            this.chkFailedPM.Size = new System.Drawing.Size(93, 22);
+            this.chkFailedPM.Size = new System.Drawing.Size(117, 28);
             this.chkFailedPM.TabIndex = 45;
             this.chkFailedPM.TabStop = false;
             this.chkFailedPM.Text = "Failed PM";
@@ -104,9 +110,11 @@
             this.grpOtherWorkType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpOtherWorkType.Controls.Add(this.txtOtherWorkType);
-            this.grpOtherWorkType.Location = new System.Drawing.Point(284, 11);
+            this.grpOtherWorkType.Location = new System.Drawing.Point(379, 14);
+            this.grpOtherWorkType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpOtherWorkType.Name = "grpOtherWorkType";
-            this.grpOtherWorkType.Size = new System.Drawing.Size(296, 49);
+            this.grpOtherWorkType.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpOtherWorkType.Size = new System.Drawing.Size(393, 60);
             this.grpOtherWorkType.TabIndex = 44;
             this.grpOtherWorkType.TabStop = false;
             this.grpOtherWorkType.Text = "Other Work Type";
@@ -116,9 +124,10 @@
             // 
             this.txtOtherWorkType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOtherWorkType.Location = new System.Drawing.Point(6, 19);
+            this.txtOtherWorkType.Location = new System.Drawing.Point(8, 23);
+            this.txtOtherWorkType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtOtherWorkType.Name = "txtOtherWorkType";
-            this.txtOtherWorkType.Size = new System.Drawing.Size(285, 20);
+            this.txtOtherWorkType.Size = new System.Drawing.Size(377, 22);
             this.txtOtherWorkType.TabIndex = 2;
             // 
             // grpFailureEvent
@@ -127,9 +136,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpFailureEvent.Controls.Add(this.txtPatient);
             this.grpFailureEvent.Controls.Add(this.cmbFailureEvent);
-            this.grpFailureEvent.Location = new System.Drawing.Point(9, 557);
+            this.grpFailureEvent.Location = new System.Drawing.Point(12, 1184);
+            this.grpFailureEvent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpFailureEvent.Name = "grpFailureEvent";
-            this.grpFailureEvent.Size = new System.Drawing.Size(585, 73);
+            this.grpFailureEvent.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpFailureEvent.Size = new System.Drawing.Size(778, 90);
             this.grpFailureEvent.TabIndex = 39;
             this.grpFailureEvent.TabStop = false;
             this.grpFailureEvent.Text = "Failure Event";
@@ -139,10 +150,10 @@
             // 
             this.txtPatient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPatient.Location = new System.Drawing.Point(13, 44);
-            this.txtPatient.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPatient.Location = new System.Drawing.Point(17, 54);
+            this.txtPatient.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPatient.Name = "txtPatient";
-            this.txtPatient.Size = new System.Drawing.Size(567, 20);
+            this.txtPatient.Size = new System.Drawing.Size(753, 22);
             this.txtPatient.TabIndex = 17;
             this.txtPatient.TabStop = false;
             this.txtPatient.Visible = false;
@@ -162,16 +173,18 @@
             "During training by ZOLL",
             "Other (Explained in the Service Request)",
             "Unknown"});
-            this.cmbFailureEvent.Location = new System.Drawing.Point(13, 19);
+            this.cmbFailureEvent.Location = new System.Drawing.Point(17, 23);
+            this.cmbFailureEvent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbFailureEvent.Name = "cmbFailureEvent";
-            this.cmbFailureEvent.Size = new System.Drawing.Size(567, 21);
+            this.cmbFailureEvent.Size = new System.Drawing.Size(753, 24);
             this.cmbFailureEvent.TabIndex = 10;
             // 
             // btnAddToReport
             // 
-            this.btnAddToReport.Location = new System.Drawing.Point(13, 18);
+            this.btnAddToReport.Location = new System.Drawing.Point(17, 22);
+            this.btnAddToReport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAddToReport.Name = "btnAddToReport";
-            this.btnAddToReport.Size = new System.Drawing.Size(192, 35);
+            this.btnAddToReport.Size = new System.Drawing.Size(256, 43);
             this.btnAddToReport.TabIndex = 12;
             this.btnAddToReport.Text = "Add to Report";
             this.btnAddToReport.UseVisualStyleBackColor = true;
@@ -181,26 +194,29 @@
             // 
             this.txtTechReport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTechReport.Location = new System.Drawing.Point(86, 197);
+            this.txtTechReport.Location = new System.Drawing.Point(115, 242);
+            this.txtTechReport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtTechReport.Multiline = true;
             this.txtTechReport.Name = "txtTechReport";
-            this.txtTechReport.Size = new System.Drawing.Size(488, 43);
+            this.txtTechReport.Size = new System.Drawing.Size(647, 52);
             this.txtTechReport.TabIndex = 8;
             // 
             // label14
             // 
-            this.label14.Location = new System.Drawing.Point(16, 201);
+            this.label14.Location = new System.Drawing.Point(21, 247);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(65, 39);
+            this.label14.Size = new System.Drawing.Size(87, 48);
             this.label14.TabIndex = 43;
             this.label14.Text = "Tech Report";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label13
             // 
-            this.label13.Location = new System.Drawing.Point(13, 128);
+            this.label13.Location = new System.Drawing.Point(17, 158);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(69, 17);
+            this.label13.Size = new System.Drawing.Size(92, 21);
             this.label13.TabIndex = 42;
             this.label13.Text = "RFU Status";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -213,26 +229,29 @@
             "Not Ready",
             "None",
             "Unknown"});
-            this.cmbRFU.Location = new System.Drawing.Point(86, 128);
+            this.cmbRFU.Location = new System.Drawing.Point(115, 158);
+            this.cmbRFU.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbRFU.Name = "cmbRFU";
-            this.cmbRFU.Size = new System.Drawing.Size(192, 21);
+            this.cmbRFU.Size = new System.Drawing.Size(255, 24);
             this.cmbRFU.TabIndex = 6;
             // 
             // txtComplaint
             // 
             this.txtComplaint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtComplaint.Location = new System.Drawing.Point(86, 154);
+            this.txtComplaint.Location = new System.Drawing.Point(115, 190);
+            this.txtComplaint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtComplaint.Multiline = true;
             this.txtComplaint.Name = "txtComplaint";
-            this.txtComplaint.Size = new System.Drawing.Size(488, 38);
+            this.txtComplaint.Size = new System.Drawing.Size(647, 46);
             this.txtComplaint.TabIndex = 7;
             // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(16, 154);
+            this.label12.Location = new System.Drawing.Point(21, 190);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(68, 17);
+            this.label12.Size = new System.Drawing.Size(91, 21);
             this.label12.TabIndex = 40;
             this.label12.Text = "Complaint";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -242,26 +261,29 @@
             this.txtSerial.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtSerial.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtSerial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSerial.Location = new System.Drawing.Point(86, 79);
+            this.txtSerial.Location = new System.Drawing.Point(115, 97);
+            this.txtSerial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtSerial.Name = "txtSerial";
-            this.txtSerial.Size = new System.Drawing.Size(192, 20);
+            this.txtSerial.Size = new System.Drawing.Size(255, 22);
             this.txtSerial.TabIndex = 3;
             this.txtSerial.Leave += new System.EventHandler(this.txtSerial_Leave_1);
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(13, 79);
+            this.label10.Location = new System.Drawing.Point(17, 97);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(70, 16);
+            this.label10.Size = new System.Drawing.Size(93, 20);
             this.label10.TabIndex = 33;
             this.label10.Text = "Serial Num";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(13, 29);
+            this.label9.Location = new System.Drawing.Point(17, 36);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(68, 15);
+            this.label9.Size = new System.Drawing.Size(91, 18);
             this.label9.TabIndex = 34;
             this.label9.Text = "Work Type";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -277,9 +299,10 @@
             "Training",
             "PR Visit",
             "Other..."});
-            this.cmbWorkType.Location = new System.Drawing.Point(86, 28);
+            this.cmbWorkType.Location = new System.Drawing.Point(115, 34);
+            this.cmbWorkType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbWorkType.Name = "cmbWorkType";
-            this.cmbWorkType.Size = new System.Drawing.Size(192, 21);
+            this.cmbWorkType.Size = new System.Drawing.Size(255, 24);
             this.cmbWorkType.TabIndex = 1;
             this.cmbWorkType.SelectedIndexChanged += new System.EventHandler(this.cmbWorkType_SelectedIndexChanged);
             // 
@@ -287,17 +310,15 @@
             // 
             this.dgvShockValues.AllowUserToAddRows = false;
             this.dgvShockValues.AllowUserToDeleteRows = false;
-            this.dgvShockValues.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvShockValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvShockValues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colLevel,
             this.colValue});
-            this.dgvShockValues.Location = new System.Drawing.Point(14, 39);
-            this.dgvShockValues.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvShockValues.Location = new System.Drawing.Point(19, 54);
+            this.dgvShockValues.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvShockValues.Name = "dgvShockValues";
             this.dgvShockValues.RowTemplate.Height = 24;
-            this.dgvShockValues.Size = new System.Drawing.Size(236, 206);
+            this.dgvShockValues.Size = new System.Drawing.Size(613, 274);
             this.dgvShockValues.TabIndex = 8;
             // 
             // colLevel
@@ -316,22 +337,24 @@
             this.colValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colValue.HeaderText = "Value";
             this.colValue.Name = "colValue";
-            this.colValue.Width = 59;
+            this.colValue.Width = 73;
             // 
             // grpShockValues
             // 
             this.grpShockValues.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpShockValues.Controls.Add(this.label4);
+            this.grpShockValues.Controls.Add(this.dataGridView1);
             this.grpShockValues.Controls.Add(this.dgvTestedFunctions);
             this.grpShockValues.Controls.Add(this.label3);
             this.grpShockValues.Controls.Add(this.label2);
             this.grpShockValues.Controls.Add(this.dgvShockValues);
             this.grpShockValues.Controls.Add(this.chkFailedPM);
-            this.grpShockValues.Location = new System.Drawing.Point(9, 269);
-            this.grpShockValues.Margin = new System.Windows.Forms.Padding(2);
+            this.grpShockValues.Location = new System.Drawing.Point(12, 331);
+            this.grpShockValues.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpShockValues.Name = "grpShockValues";
-            this.grpShockValues.Padding = new System.Windows.Forms.Padding(2);
-            this.grpShockValues.Size = new System.Drawing.Size(585, 283);
+            this.grpShockValues.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpShockValues.Size = new System.Drawing.Size(778, 847);
             this.grpShockValues.TabIndex = 47;
             this.grpShockValues.TabStop = false;
             this.grpShockValues.Text = "PM";
@@ -341,19 +364,16 @@
             // 
             this.dgvTestedFunctions.AllowUserToAddRows = false;
             this.dgvTestedFunctions.AllowUserToDeleteRows = false;
-            this.dgvTestedFunctions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTestedFunctions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTestedFunctions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colFunction,
             this.colFunctionCheck,
             this.colFunctionValue});
-            this.dgvTestedFunctions.Location = new System.Drawing.Point(255, 39);
-            this.dgvTestedFunctions.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvTestedFunctions.Location = new System.Drawing.Point(19, 368);
+            this.dgvTestedFunctions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvTestedFunctions.Name = "dgvTestedFunctions";
             this.dgvTestedFunctions.RowTemplate.Height = 24;
-            this.dgvTestedFunctions.Size = new System.Drawing.Size(317, 206);
+            this.dgvTestedFunctions.Size = new System.Drawing.Size(613, 241);
             this.dgvTestedFunctions.TabIndex = 9;
             // 
             // colFunction
@@ -379,22 +399,24 @@
             this.colFunctionValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colFunctionValue.HeaderText = "Value";
             this.colFunctionValue.Name = "colFunctionValue";
-            this.colFunctionValue.Width = 59;
+            this.colFunctionValue.Width = 73;
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(253, 23);
+            this.label3.Location = new System.Drawing.Point(16, 348);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(184, 14);
+            this.label3.Size = new System.Drawing.Size(424, 17);
             this.label3.TabIndex = 51;
             this.label3.Text = "Tested Functions";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(15, 23);
+            this.label2.Location = new System.Drawing.Point(20, 34);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(232, 14);
+            this.label2.Size = new System.Drawing.Size(542, 17);
             this.label2.TabIndex = 50;
             this.label2.Text = "Shock/Pace Values";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -411,9 +433,9 @@
             this.panel1.Controls.Add(this.grpFailureEvent);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(665, 542);
+            this.panel1.Size = new System.Drawing.Size(906, 667);
             this.panel1.TabIndex = 48;
             // 
             // grpPicture
@@ -425,11 +447,11 @@
             this.grpPicture.Controls.Add(this.pictureBox1);
             this.grpPicture.Controls.Add(this.txtPicturePath);
             this.grpPicture.Controls.Add(this.btnBrowsePicture);
-            this.grpPicture.Location = new System.Drawing.Point(9, 635);
-            this.grpPicture.Margin = new System.Windows.Forms.Padding(2);
+            this.grpPicture.Location = new System.Drawing.Point(12, 1280);
+            this.grpPicture.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpPicture.Name = "grpPicture";
-            this.grpPicture.Padding = new System.Windows.Forms.Padding(2);
-            this.grpPicture.Size = new System.Drawing.Size(585, 284);
+            this.grpPicture.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpPicture.Size = new System.Drawing.Size(778, 96);
             this.grpPicture.TabIndex = 52;
             this.grpPicture.TabStop = false;
             this.grpPicture.Text = "Add Picture (Optional)";
@@ -437,9 +459,10 @@
             // btnCapture
             // 
             this.btnCapture.Enabled = false;
-            this.btnCapture.Location = new System.Drawing.Point(256, 49);
+            this.btnCapture.Location = new System.Drawing.Point(341, 60);
+            this.btnCapture.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCapture.Name = "btnCapture";
-            this.btnCapture.Size = new System.Drawing.Size(113, 23);
+            this.btnCapture.Size = new System.Drawing.Size(151, 28);
             this.btnCapture.TabIndex = 44;
             this.btnCapture.Text = "Capture";
             this.btnCapture.UseVisualStyleBackColor = true;
@@ -447,9 +470,10 @@
             // 
             // btnTakePicture
             // 
-            this.btnTakePicture.Location = new System.Drawing.Point(117, 49);
+            this.btnTakePicture.Location = new System.Drawing.Point(156, 60);
+            this.btnTakePicture.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnTakePicture.Name = "btnTakePicture";
-            this.btnTakePicture.Size = new System.Drawing.Size(137, 23);
+            this.btnTakePicture.Size = new System.Drawing.Size(183, 28);
             this.btnTakePicture.TabIndex = 43;
             this.btnTakePicture.Text = "Start Camera";
             this.btnTakePicture.UseVisualStyleBackColor = true;
@@ -457,9 +481,10 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(13, 77);
+            this.pictureBox1.Location = new System.Drawing.Point(17, 95);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(356, 202);
+            this.pictureBox1.Size = new System.Drawing.Size(747, 491);
             this.pictureBox1.TabIndex = 42;
             this.pictureBox1.TabStop = false;
             // 
@@ -467,17 +492,18 @@
             // 
             this.txtPicturePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPicturePath.Location = new System.Drawing.Point(13, 24);
-            this.txtPicturePath.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPicturePath.Location = new System.Drawing.Point(17, 30);
+            this.txtPicturePath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPicturePath.Name = "txtPicturePath";
-            this.txtPicturePath.Size = new System.Drawing.Size(565, 20);
+            this.txtPicturePath.Size = new System.Drawing.Size(750, 22);
             this.txtPicturePath.TabIndex = 11;
             // 
             // btnBrowsePicture
             // 
-            this.btnBrowsePicture.Location = new System.Drawing.Point(13, 49);
+            this.btnBrowsePicture.Location = new System.Drawing.Point(17, 60);
+            this.btnBrowsePicture.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnBrowsePicture.Name = "btnBrowsePicture";
-            this.btnBrowsePicture.Size = new System.Drawing.Size(98, 22);
+            this.btnBrowsePicture.Size = new System.Drawing.Size(131, 27);
             this.btnBrowsePicture.TabIndex = 41;
             this.btnBrowsePicture.TabStop = false;
             this.btnBrowsePicture.Text = "Browse";
@@ -489,11 +515,11 @@
             this.grpFinish.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpFinish.Controls.Add(this.btnAddToReport);
-            this.grpFinish.Location = new System.Drawing.Point(9, 923);
-            this.grpFinish.Margin = new System.Windows.Forms.Padding(2);
+            this.grpFinish.Location = new System.Drawing.Point(12, 1392);
+            this.grpFinish.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpFinish.Name = "grpFinish";
-            this.grpFinish.Padding = new System.Windows.Forms.Padding(2);
-            this.grpFinish.Size = new System.Drawing.Size(585, 63);
+            this.grpFinish.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpFinish.Size = new System.Drawing.Size(778, 78);
             this.grpFinish.TabIndex = 51;
             this.grpFinish.TabStop = false;
             // 
@@ -515,11 +541,11 @@
             this.grpInfo.Controls.Add(this.grpOtherWorkType);
             this.grpInfo.Controls.Add(this.cmbWorkType);
             this.grpInfo.Controls.Add(this.label14);
-            this.grpInfo.Location = new System.Drawing.Point(9, 10);
-            this.grpInfo.Margin = new System.Windows.Forms.Padding(2);
+            this.grpInfo.Location = new System.Drawing.Point(12, 12);
+            this.grpInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpInfo.Name = "grpInfo";
-            this.grpInfo.Padding = new System.Windows.Forms.Padding(2);
-            this.grpInfo.Size = new System.Drawing.Size(585, 254);
+            this.grpInfo.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpInfo.Size = new System.Drawing.Size(778, 313);
             this.grpInfo.TabIndex = 50;
             this.grpInfo.TabStop = false;
             this.grpInfo.Text = "Work Information";
@@ -529,9 +555,11 @@
             this.grpOtherModel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpOtherModel.Controls.Add(this.txtOtherModel);
-            this.grpOtherModel.Location = new System.Drawing.Point(283, 85);
+            this.grpOtherModel.Location = new System.Drawing.Point(377, 105);
+            this.grpOtherModel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpOtherModel.Name = "grpOtherModel";
-            this.grpOtherModel.Size = new System.Drawing.Size(296, 49);
+            this.grpOtherModel.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpOtherModel.Size = new System.Drawing.Size(393, 60);
             this.grpOtherModel.TabIndex = 45;
             this.grpOtherModel.TabStop = false;
             this.grpOtherModel.Text = "Other Model";
@@ -541,9 +569,10 @@
             // 
             this.txtOtherModel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOtherModel.Location = new System.Drawing.Point(6, 19);
+            this.txtOtherModel.Location = new System.Drawing.Point(8, 23);
+            this.txtOtherModel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtOtherModel.Name = "txtOtherModel";
-            this.txtOtherModel.Size = new System.Drawing.Size(285, 20);
+            this.txtOtherModel.Size = new System.Drawing.Size(377, 22);
             this.txtOtherModel.TabIndex = 5;
             // 
             // cmbModel
@@ -559,31 +588,79 @@
             "R-SERIES",
             "X-SERIES",
             "Other..."});
-            this.cmbModel.Location = new System.Drawing.Point(86, 102);
+            this.cmbModel.Location = new System.Drawing.Point(115, 126);
+            this.cmbModel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbModel.Name = "cmbModel";
-            this.cmbModel.Size = new System.Drawing.Size(192, 21);
+            this.cmbModel.Size = new System.Drawing.Size(255, 24);
             this.cmbModel.TabIndex = 4;
             this.cmbModel.SelectedIndexChanged += new System.EventHandler(this.cmbModel_SelectedIndexChanged);
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(13, 103);
+            this.label1.Location = new System.Drawing.Point(17, 127);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 16);
+            this.label1.Size = new System.Drawing.Size(89, 20);
             this.label1.TabIndex = 49;
             this.label1.Text = "Model";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colAdditionalTest,
+            this.colRange,
+            this.colTestValue});
+            this.dataGridView1.Location = new System.Drawing.Point(17, 653);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(615, 159);
+            this.dataGridView1.TabIndex = 52;
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(14, 633);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(435, 17);
+            this.label4.TabIndex = 53;
+            this.label4.Text = "Additional Testing";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // colAdditionalTest
+            // 
+            this.colAdditionalTest.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colAdditionalTest.HeaderText = "Test Name";
+            this.colAdditionalTest.Name = "colAdditionalTest";
+            // 
+            // colRange
+            // 
+            this.colRange.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colRange.HeaderText = "Acceptable Range";
+            this.colRange.Name = "colRange";
+            this.colRange.Width = 140;
+            // 
+            // colTestValue
+            // 
+            this.colTestValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colTestValue.HeaderText = "Value";
+            this.colTestValue.Name = "colTestValue";
+            this.colTestValue.Width = 73;
+            // 
             // AddReportForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(665, 542);
+            this.ClientSize = new System.Drawing.Size(906, 667);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "AddReportForm";
             this.Text = "Add Report";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddReportForm_FormClosing);
             this.Load += new System.EventHandler(this.AddReportForm_Load);
             this.grpOtherWorkType.ResumeLayout(false);
             this.grpOtherWorkType.PerformLayout();
@@ -602,6 +679,7 @@
             this.grpInfo.PerformLayout();
             this.grpOtherModel.ResumeLayout(false);
             this.grpOtherModel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -648,5 +726,10 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnTakePicture;
         private System.Windows.Forms.Button btnCapture;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAdditionalTest;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colRange;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTestValue;
     }
 }

@@ -60,7 +60,6 @@ namespace WorkOrder3
         public AddReportForm()
         {
             InitializeComponent();
-
             
             groupbox_list.Add(grpInfo);
             groupbox_list.Add(grpShockValues);
@@ -389,6 +388,7 @@ namespace WorkOrder3
                 btnCapture.Enabled = true;
                 btnTakePicture.Text = "Stop Camera";
                 isCameraRunning = true;
+                grpPicture.Height = 592;
             }
             else
             {
@@ -396,7 +396,10 @@ namespace WorkOrder3
                 btnCapture.Enabled = false; 
                 btnTakePicture.Text = "Start Camera";
                 isCameraRunning = false;
+                grpPicture.Height = 94;
             }
+
+            ArrangeBoxes();
         }
 
         private void btnCapture_Click(object sender, EventArgs e)
@@ -405,7 +408,7 @@ namespace WorkOrder3
             {
                 // Take snapshot of the current image generate by OpenCV in the Picture Box
 
-                string path = Directory.GetCurrentDirectory() + Form1.SAVED_DIRECTORY + myform.WO_string + "\\" + txtSerial.Text + ".png";
+                string path = Directory.GetCurrentDirectory() +"\\"+ Form1.SAVED_DIRECTORY + myform.WO_string + "\\" + txtSerial.Text + ".jpg";
 
                 pictureBox1.Image.Save(path);
 
@@ -415,6 +418,12 @@ namespace WorkOrder3
             {
                 Console.WriteLine("Cannot take picture if the camera isn't capturing image!");
             }
+        }
+
+        private void AddReportForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            capture.Release();
+            isCameraRunning = false;
         }
     }
 }
