@@ -252,7 +252,9 @@ namespace WorkOrder3
 
                     string tested_functions = "";
                     StringBuilder sb = new StringBuilder();
+                    StringBuilder sb_additonal = new StringBuilder();
                     string shock_values = "";
+                    string additional_testing = "";
 
                     if (cmbWorkType.Text == "PM")
                     {
@@ -262,11 +264,20 @@ namespace WorkOrder3
                         }
                         sb = sb.Remove(sb.Length - 1, 1);
                         shock_values = sb.ToString();
+
+                        foreach(DataGridViewRow dgvr in dgvAdditionalTesting.Rows)
+                        {
+                            sb_additonal.Append(dgvr.Cells[0].Value.ToString() + ":" + dgvr.Cells[1].Value.ToString() + "`");
+                        }
+                        sb_additonal = sb_additonal.Remove(sb_additonal.Length - 1, 1);
+                        additional_testing = sb_additonal.ToString();
+
                     }
                     else
                     {
                         shock_values = "N/A";
                         tested_functions = "N/A";
+                        additional_testing = "N/A";
                     }
 
                     string photo_path = "N/A";
@@ -275,7 +286,7 @@ namespace WorkOrder3
                         photo_path = txtPicturePath.Text;
                     }
 
-                    myform.AddToReport(txtSerial.Text,cmbModel.Text, shock_values, tested_functions, worktype,  txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, photo_path, additional_qa.Replace(Environment.NewLine, "`"));
+                    myform.AddToReport(txtSerial.Text,cmbModel.Text, shock_values, tested_functions, additional_testing, worktype,  txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, photo_path, additional_qa.Replace(Environment.NewLine, "`"));
                     ClearReporting();
 
                     txtSerial.Focus();
@@ -298,6 +309,7 @@ namespace WorkOrder3
         private void txtSerial_Leave_1(object sender, EventArgs e)
         {
             cmbModel.Text = Unit.ModelFromSerial(txtSerial.Text);
+            txtComplaint.Select();
         }
 
         private void cmbModel_SelectedIndexChanged(object sender, EventArgs e)

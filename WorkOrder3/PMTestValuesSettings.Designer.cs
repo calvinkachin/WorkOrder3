@@ -33,8 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgvTestedFunctions = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtNewFunction = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.colAdditionalTest = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestedFunctions)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,6 +57,8 @@
             // dgvTestedFunctions
             // 
             this.dgvTestedFunctions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTestedFunctions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colAdditionalTest});
             this.dgvTestedFunctions.Location = new System.Drawing.Point(30, 114);
             this.dgvTestedFunctions.Name = "dgvTestedFunctions";
             this.dgvTestedFunctions.RowTemplate.Height = 24;
@@ -73,37 +74,24 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Tested Functions";
             // 
-            // txtNewFunction
+            // colAdditionalTest
             // 
-            this.txtNewFunction.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNewFunction.Location = new System.Drawing.Point(260, 47);
-            this.txtNewFunction.Name = "txtNewFunction";
-            this.txtNewFunction.Size = new System.Drawing.Size(196, 22);
-            this.txtNewFunction.TabIndex = 4;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(257, 27);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 17);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "New Function";
+            this.colAdditionalTest.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colAdditionalTest.HeaderText = "Test Name (Acceptable Value Range)";
+            this.colAdditionalTest.Name = "colAdditionalTest";
             // 
             // PMTestValuesSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(762, 573);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtNewFunction);
+            this.ClientSize = new System.Drawing.Size(762, 458);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dgvTestedFunctions);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbModel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PMTestValuesSettings";
-            this.Text = "PM Test Values Settings";
+            this.Text = "Additional Test Values";
             this.Load += new System.EventHandler(this.PMTestValuesSettings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestedFunctions)).EndInit();
             this.ResumeLayout(false);
@@ -117,7 +105,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvTestedFunctions;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtNewFunction;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAdditionalTest;
     }
 }
