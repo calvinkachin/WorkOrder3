@@ -18,7 +18,7 @@ namespace WorkOrder3
     {
         int WO = 0;
         public string WO_string = "0";
-        string tech_name = "";
+        public string tech_name = "";
         string username = "";
         List<Customer> customer_list = new List<Customer>();
         public List<Unit> units_list = new List<Unit>();
@@ -237,7 +237,7 @@ namespace WorkOrder3
             if (!chkTechSignature.Checked)
             {
                 MessageBox.Show("Please include a tech signature!");
-                return;
+                //return;
             }
 
             #region Customer copy
@@ -385,7 +385,7 @@ namespace WorkOrder3
             }
         }
 
-        private void SaveWorkOrder()
+        public void SaveWorkOrder()
         {
             WO W = new WorkOrder3.WO(this.WO_string);
             W.customer_site = txtCustomerSite.Text;

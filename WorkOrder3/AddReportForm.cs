@@ -12,6 +12,8 @@ using System.IO;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System.Threading;
+using Xceed.Document.NET;
+using Xceed.Words.NET;
 
 
 namespace WorkOrder3
@@ -258,20 +260,91 @@ namespace WorkOrder3
 
                     if (cmbWorkType.Text == "PM")
                     {
-                        foreach (DataGridViewRow dgvr in dgvShockValues.Rows)
+                        if (dgvShockValues.Rows.Count > 0)
                         {
-                            sb.Append(dgvr.Cells[0].Value.ToString() + ":" + dgvr.Cells[1].Value.ToString() + "`");
+                            foreach (DataGridViewRow dgvr in dgvShockValues.Rows)
+                            {
+                                sb.Append(dgvr.Cells[0].Value.ToString() + ":" + dgvr.Cells[1].Value.ToString() + "`");
+                            }
+                            sb = sb.Remove(sb.Length - 1, 1);
+                            shock_values = sb.ToString();
                         }
-                        sb = sb.Remove(sb.Length - 1, 1);
-                        shock_values = sb.ToString();
 
-                        foreach(DataGridViewRow dgvr in dgvAdditionalTesting.Rows)
+                        if (dgvAdditionalTesting.Rows.Count > 0)
                         {
-                            sb_additonal.Append(dgvr.Cells[0].Value.ToString() + ":" + dgvr.Cells[1].Value.ToString() + "`");
+                            foreach (DataGridViewRow dgvr in dgvAdditionalTesting.Rows)
+                            {
+                                sb_additonal.Append(dgvr.Cells[0].Value.ToString() + ":" + dgvr.Cells[1].Value.ToString() + "`");
+                            }
+                            sb_additonal = sb_additonal.Remove(sb_additonal.Length - 1, 1);
+                            additional_testing = sb_additonal.ToString();
                         }
-                        sb_additonal = sb_additonal.Remove(sb_additonal.Length - 1, 1);
-                        additional_testing = sb_additonal.ToString();
 
+                        //Create the PM sheet
+                        try
+                        {
+                            DocX doc = DocX.Load(Directory.GetCurrentDirectory() + "\\" + Form1.TEMPLATES_DIRECTORY + cmbModel.Text + "_maintenance_template.docx");
+
+                            doc.ReplaceText("#SERIAL#", txtSerial.Text);
+                            doc.ReplaceText("#USERNAME#", Environment.UserName);
+                            doc.ReplaceText("#NAME#", myform.tech_name);
+                            doc.ReplaceText("DATE", DateTime.Now.ToString());
+
+                            //Replace placeholders with shock values
+                            foreach (DataGridViewRow dgvr in dgvShockValues.Rows)
+                            {
+                                if (dgvr.Cells[1].Value != null)
+                                {
+                                    doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString() + "#", dgvr.Cells[1].Value.ToString());
+                                }
+                            }
+
+                            //Replace placeholders with tested functions
+                            foreach(DataGridViewRow dgvr in dgvTestedFunctions.Rows)
+                            {
+                                DataGridViewCheckBoxCell c = dgvr.Cells[1] as DataGridViewCheckBoxCell;
+
+                                if (c.Value == colTested.TrueValue)
+                                {
+                                    doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "_PASS#", "X");
+                                    doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "_N/A#", "");
+                                }
+                                else
+                                {
+                                    doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "_PASS#", "");
+                                    doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "_N/A#", "X");
+                                }
+                            }
+
+                            //Add a table for additional testing, if there are any
+                            if (dgvAdditionalTesting.Rows.Count > 0)
+                            {
+                                Xceed.Document.NET.Table T = doc.AddTable(dgvAdditionalTesting.Rows.Count + 1, 2);
+
+                                T.Rows[0].Cells[0].Paragraphs.First().Append("     Test Value     ");
+                                T.Rows[0].Cells[1].Paragraphs.First().Append("     Measured Value     ");
+                                T.Rows[0].Cells[0].Shading = Color.Gray;
+                                T.Rows[0].Cells[1].Shading = Color.Gray;
+
+                                for(int i = 0; i < dgvAdditionalTesting.Rows.Count; i++)
+                                {
+                                    T.Rows[i + 1].Cells[0].Paragraphs.First().Append(dgvAdditionalTesting.Rows[i].Cells[0].Value.ToString());
+                                    T.Rows[i + 1].Cells[1].Paragraphs.First().Append(dgvAdditionalTesting.Rows[i].Cells[1].Value.ToString());
+                                }
+                            }
+
+                            if(!Directory.Exists(Directory.GetCurrentDirectory() + "//" + Form1.SAVED_DIRECTORY + myform.WO_string + "//"))
+                            {
+                                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "//" + Form1.SAVED_DIRECTORY + myform.WO_string + "//");
+                            }
+
+                            doc.SaveAs(Directory.GetCurrentDirectory() + "//" + Form1.SAVED_DIRECTORY + myform.WO_string + "//" + txtSerial.Text + ".docx");
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Could not find the template for " + cmbModel.Text);
+                            return;
+                        }
                     }
                     else
                     {
@@ -304,6 +377,7 @@ namespace WorkOrder3
             }
 
             cmbWorkType.SelectedIndex = 0;
+            grpInfo.Select();
         }
 
         private void txtSerial_Leave_1(object sender, EventArgs e)
@@ -434,8 +508,13 @@ namespace WorkOrder3
 
         private void AddReportForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            capture.Release();
-            isCameraRunning = false;
+            if (capture != null)
+            {
+                capture.Release();
+                isCameraRunning = false;
+            }
+
+            myform.SaveWorkOrder();
         }
     }
 }
