@@ -190,7 +190,12 @@ namespace WorkOrder3
                 {
                     cmbRFU.Text = "None";
                 }
+                else
+                {
+                    cmbRFU.Select();
+                }
             }
+
 
             foreach (Unit U in myform.units_list)
             {
@@ -227,12 +232,7 @@ namespace WorkOrder3
 
                         chkFailedPM.Checked = false;
                     }
-
-                    if (cmbWorkType.Text == "PM")
-                    {
-
-                    }
-
+                    
                     string worktype = cmbWorkType.Text;
 
                     if (cmbWorkType.Text == "Other...")
@@ -270,80 +270,122 @@ namespace WorkOrder3
                             shock_values = sb.ToString();
                         }
 
+                        StringBuilder func_sb = new StringBuilder();
+                        foreach (DataGridViewRow dgvr in dgvTestedFunctions.Rows)
+                        {
+                            DataGridViewCheckBoxCell C = dgvr.Cells[1] as DataGridViewCheckBoxCell;
+
+                            if (C.Value == colTested.TrueValue)
+                            {
+                                func_sb.Append(dgvr.Cells[0].Value.ToString()+",");   
+                            }
+                        }
+                        if (func_sb.Length > 1)
+                        {
+                            func_sb = func_sb.Remove(func_sb.Length - 1, 1);
+                            tested_functions = func_sb.ToString();
+                        }
+                        else
+                        {
+                            tested_functions = "N/A";
+                        }
+
                         if (dgvAdditionalTesting.Rows.Count > 0)
                         {
                             foreach (DataGridViewRow dgvr in dgvAdditionalTesting.Rows)
                             {
-                                sb_additonal.Append(dgvr.Cells[0].Value.ToString() + ":" + dgvr.Cells[1].Value.ToString() + "`");
+                                if (dgvr.Cells[1].Value != null)
+                                {
+                                    sb_additonal.Append(dgvr.Cells[0].Value.ToString() + ":" + dgvr.Cells[1].Value.ToString() + "`");
+                                }
                             }
-                            sb_additonal = sb_additonal.Remove(sb_additonal.Length - 1, 1);
+                            if (sb_additonal.Length > 1)
+                            {
+                                sb_additonal = sb_additonal.Remove(sb_additonal.Length - 1, 1);
+                            }
                             additional_testing = sb_additonal.ToString();
                         }
 
                         //Create the PM sheet
-                        try
+                        #region Create the PM Sheet
+                        if (chkFailedPM.Checked == false)
                         {
-                            DocX doc = DocX.Load(Directory.GetCurrentDirectory() + "\\" + Form1.TEMPLATES_DIRECTORY + cmbModel.Text + "_maintenance_template.docx");
-
-                            doc.ReplaceText("#SERIAL#", txtSerial.Text);
-                            doc.ReplaceText("#USERNAME#", Environment.UserName);
-                            doc.ReplaceText("#NAME#", myform.tech_name);
-                            doc.ReplaceText("DATE", DateTime.Now.ToString());
-
-                            //Replace placeholders with shock values
-                            foreach (DataGridViewRow dgvr in dgvShockValues.Rows)
+                            try
                             {
-                                if (dgvr.Cells[1].Value != null)
-                                {
-                                    doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString() + "#", dgvr.Cells[1].Value.ToString());
-                                }
-                            }
+                                DocX doc = DocX.Load(Directory.GetCurrentDirectory() + "\\" + Form1.TEMPLATES_DIRECTORY + cmbModel.Text + "_maintenance_template.docx");
 
-                            //Replace placeholders with tested functions
-                            foreach(DataGridViewRow dgvr in dgvTestedFunctions.Rows)
+                                doc.ReplaceText("#SERIAL#", txtSerial.Text);
+                                doc.ReplaceText("#USERNAME#", Environment.UserName);
+                                doc.ReplaceText("#NAME#", myform.tech_name);
+                                doc.ReplaceText("#DATE#", DateTime.Now.ToString());
+
+                                //Replace placeholders with shock values
+                                foreach (DataGridViewRow dgvr in dgvShockValues.Rows)
+                                {
+                                    if (dgvr.Cells[1].Value != null)
+                                    {
+                                        doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "#", dgvr.Cells[1].Value.ToString());
+                                    }
+                                }
+
+                                //Replace placeholders with tested functions
+                                foreach (DataGridViewRow dgvr in dgvTestedFunctions.Rows)
+                                {
+                                    DataGridViewCheckBoxCell c = dgvr.Cells[1] as DataGridViewCheckBoxCell;
+
+                                    if (c.Value == colTested.TrueValue)
+                                    {
+                                        doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "_PASS#", "X");
+                                        doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "_N/A#", "");
+                                    }
+                                    else
+                                    {
+                                        doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "_PASS#", "");
+                                        doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "_N/A#", "X");
+                                    }
+                                }
+
+                                //Add a table for additional testing, if there are any
+                                if (dgvAdditionalTesting.Rows.Count > 0)
+                                {
+                                    Xceed.Document.NET.Table T = doc.AddTable(dgvAdditionalTesting.Rows.Count + 1, 2);
+
+                                    T.Rows[0].Cells[0].Paragraphs.First().Append("     Test Value     ");
+                                    T.Rows[0].Cells[1].Paragraphs.First().Append("     Measured Value     ");
+                                    T.Rows[0].Cells[0].Shading = Color.Gray;
+                                    T.Rows[0].Cells[1].Shading = Color.Gray;
+
+                                    //Adding info to the table
+                                    for (int i = 0; i < dgvAdditionalTesting.Rows.Count; i++)
+                                    {
+                                        if (dgvAdditionalTesting.Rows[i].Cells[1].Value != null)
+                                        {
+                                            if (dgvAdditionalTesting.Rows[i].Cells[1].Value.ToString() != "")
+                                            {
+                                                T.Rows[i + 1].Cells[0].Paragraphs.First().Append(dgvAdditionalTesting.Rows[i].Cells[0].Value.ToString());
+                                                T.Rows[i + 1].Cells[1].Paragraphs.First().Append(dgvAdditionalTesting.Rows[i].Cells[1].Value.ToString());
+                                            }
+                                        }
+
+                                    }
+
+                                    T.AutoFit = AutoFit.Contents;
+                                    doc.InsertTable(T);
+                                }
+
+                                if (!Directory.Exists(Directory.GetCurrentDirectory() + "//" + Form1.SAVED_DIRECTORY + myform.WO_string + "//"))
+                                {
+                                    Directory.CreateDirectory(Directory.GetCurrentDirectory() + "//" + Form1.SAVED_DIRECTORY + myform.WO_string + "//");
+                                }
+
+                                doc.SaveAs(Directory.GetCurrentDirectory() + "//" + Form1.SAVED_DIRECTORY + myform.WO_string + "//" + txtSerial.Text + ".docx");
+                                #endregion
+                            }
+                            catch
                             {
-                                DataGridViewCheckBoxCell c = dgvr.Cells[1] as DataGridViewCheckBoxCell;
-
-                                if (c.Value == colTested.TrueValue)
-                                {
-                                    doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "_PASS#", "X");
-                                    doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "_N/A#", "");
-                                }
-                                else
-                                {
-                                    doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "_PASS#", "");
-                                    doc.ReplaceText("#" + dgvr.Cells[0].Value.ToString().ToUpper() + "_N/A#", "X");
-                                }
+                                MessageBox.Show("Could not find the template for " + cmbModel.Text);
+                                return;
                             }
-
-                            //Add a table for additional testing, if there are any
-                            if (dgvAdditionalTesting.Rows.Count > 0)
-                            {
-                                Xceed.Document.NET.Table T = doc.AddTable(dgvAdditionalTesting.Rows.Count + 1, 2);
-
-                                T.Rows[0].Cells[0].Paragraphs.First().Append("     Test Value     ");
-                                T.Rows[0].Cells[1].Paragraphs.First().Append("     Measured Value     ");
-                                T.Rows[0].Cells[0].Shading = Color.Gray;
-                                T.Rows[0].Cells[1].Shading = Color.Gray;
-
-                                for(int i = 0; i < dgvAdditionalTesting.Rows.Count; i++)
-                                {
-                                    T.Rows[i + 1].Cells[0].Paragraphs.First().Append(dgvAdditionalTesting.Rows[i].Cells[0].Value.ToString());
-                                    T.Rows[i + 1].Cells[1].Paragraphs.First().Append(dgvAdditionalTesting.Rows[i].Cells[1].Value.ToString());
-                                }
-                            }
-
-                            if(!Directory.Exists(Directory.GetCurrentDirectory() + "//" + Form1.SAVED_DIRECTORY + myform.WO_string + "//"))
-                            {
-                                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "//" + Form1.SAVED_DIRECTORY + myform.WO_string + "//");
-                            }
-
-                            doc.SaveAs(Directory.GetCurrentDirectory() + "//" + Form1.SAVED_DIRECTORY + myform.WO_string + "//" + txtSerial.Text + ".docx");
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Could not find the template for " + cmbModel.Text);
-                            return;
                         }
                     }
                     else
@@ -404,7 +446,9 @@ namespace WorkOrder3
         {
             dgvShockValues.Rows.Clear();
             dgvTestedFunctions.Rows.Clear();
+            dgvAdditionalTesting.Rows.Clear();
 
+            #region Populate all the Shock Values
             if (cmbModel.Text.ToUpper().Contains("AED"))
             {
                 dgvShockValues.Rows.Add(new string[] { "Pedi Shock Levels", "" });
@@ -439,11 +483,86 @@ namespace WorkOrder3
 
                 dgvShockValues.Rows[0].DefaultCellStyle.BackColor = Color.Gray;
                 dgvShockValues.Rows[5].DefaultCellStyle.BackColor = Color.Gray;
+            }
+            #endregion
 
-                if (cmbModel.Text.ToUpper().Contains("X-SERIES"))
+            //Enters in all functions of each unit
+            if (cmbModel.Text.ToUpper().Contains("X-SERIES"))
+            {
+                dgvTestedFunctions.Rows.Add(new string[] { "SpO2" });
+                dgvTestedFunctions.Rows.Add(new string[] { "SpCO" });
+                dgvTestedFunctions.Rows.Add(new string[] { "SpMet" });
+                dgvTestedFunctions.Rows.Add(new string[] { "ETCO2" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Pacing" });
+
+                dgvTestedFunctions.Rows.Add(new string[] { "IBP" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Temperature" });
+
+                dgvTestedFunctions.Rows.Add(new string[] { "Wifi" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Audio Recording" });
+            }
+            else if (cmbModel.Text.ToUpper().Contains("E-SERIES"))
+            {
+                dgvTestedFunctions.Rows.Add(new string[] { "SpO2" });
+                dgvTestedFunctions.Rows.Add(new string[] { "ETCO2" });
+                dgvTestedFunctions.Rows.Add(new string[] { "NIBP" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Pacing" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Bluetooth" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Audio Recording" });
+            }
+            else if (cmbModel.Text.ToUpper().Contains("AED-3"))
+            {
+                dgvTestedFunctions.Rows.Add(new string[] { "Wifi" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Audio Recording" });
+            }
+            else if (cmbModel.Text.ToUpper().Contains("AED-PRO"))
+            {
+                dgvTestedFunctions.Rows.Add(new string[] { "Audio Recording" });
+            }
+            else if (cmbModel.Text.ToUpper().Contains("M-SERIES"))
+            {
+                dgvTestedFunctions.Rows.Add(new string[] { "SpO2" });
+                dgvTestedFunctions.Rows.Add(new string[] { "ETCO2" });
+                dgvTestedFunctions.Rows.Add(new string[] { "NIBP" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Pacing" });
+                dgvTestedFunctions.Rows.Add(new string[] { "IBP" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Temperature" });
+            }
+            else if (cmbModel.Text.ToUpper().Contains("PROPAQ"))
+            {
+                dgvTestedFunctions.Rows.Add(new string[] { "SpO2" });
+                dgvTestedFunctions.Rows.Add(new string[] { "SpCO" });
+                dgvTestedFunctions.Rows.Add(new string[] { "ETCO2" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Pacing" });
+
+                dgvTestedFunctions.Rows.Add(new string[] { "IBP" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Temperature" });
+
+                dgvTestedFunctions.Rows.Add(new string[] { "Wifi" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Audio Recording" });
+            }
+            else if (cmbModel.Text.ToUpper().Contains("R-SERIES"))
+            {
+                dgvTestedFunctions.Rows.Add(new string[] { "SpO2" });
+                dgvTestedFunctions.Rows.Add(new string[] { "ETCO2" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Pacing" });
+                dgvTestedFunctions.Rows.Add(new string[] { "NIBP" });
+                dgvTestedFunctions.Rows.Add(new string[] { "BAROMETRIC" });
+            }
+
+            //Add lines for additional testing
+            try
+            {
+                var r = new StreamReader(Form1.TEMPLATES_DIRECTORY + cmbModel.Text + "_additional_testing.txt");
+                while (!r.EndOfStream)
                 {
-                    dgvTestedFunctions.Rows.Add(new string[] { "SpO2" });
+                    dgvAdditionalTesting.Rows.Add(r.ReadLine());
                 }
+                r.Close();
+            }
+            catch
+            {
+                //do nothing
             }
         }
 

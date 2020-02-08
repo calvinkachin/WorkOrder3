@@ -32,18 +32,30 @@
             this.cmbModel = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvTestedFunctions = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
             this.colAdditionalTest = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestedFunctions)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbModel
             // 
             this.cmbModel.FormattingEnabled = true;
+            this.cmbModel.Items.AddRange(new object[] {
+            "AED-3",
+            "AED-PLUS",
+            "AED-PRO",
+            "E-SERIES",
+            "M-SERIES",
+            "PROPAQ",
+            "R-SERIES",
+            "X-SERIES",
+            "Other..."});
             this.cmbModel.Location = new System.Drawing.Point(30, 47);
             this.cmbModel.Name = "cmbModel";
             this.cmbModel.Size = new System.Drawing.Size(208, 24);
             this.cmbModel.TabIndex = 0;
+            this.cmbModel.SelectedIndexChanged += new System.EventHandler(this.cmbModel_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -65,6 +77,12 @@
             this.dgvTestedFunctions.Size = new System.Drawing.Size(698, 322);
             this.dgvTestedFunctions.TabIndex = 2;
             // 
+            // colAdditionalTest
+            // 
+            this.colAdditionalTest.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colAdditionalTest.HeaderText = "Test Name (Acceptable Value Range)";
+            this.colAdditionalTest.Name = "colAdditionalTest";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -74,17 +92,22 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Tested Functions";
             // 
-            // colAdditionalTest
+            // btnSave
             // 
-            this.colAdditionalTest.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colAdditionalTest.HeaderText = "Test Name (Acceptable Value Range)";
-            this.colAdditionalTest.Name = "colAdditionalTest";
+            this.btnSave.Location = new System.Drawing.Point(30, 451);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(137, 43);
+            this.btnSave.TabIndex = 4;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // PMTestValuesSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(762, 458);
+            this.ClientSize = new System.Drawing.Size(762, 515);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dgvTestedFunctions);
             this.Controls.Add(this.label1);
@@ -106,5 +129,6 @@
         private System.Windows.Forms.DataGridView dgvTestedFunctions;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn colAdditionalTest;
+        private System.Windows.Forms.Button btnSave;
     }
 }

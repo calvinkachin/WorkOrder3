@@ -154,7 +154,13 @@ namespace WorkOrder3
                         }
                     }
 
-                    string[] line = new string[] { wo_string, workorder.customer_site, workorder.check_out_time.ToString("dd/MMM/yyyy"), workorder.report_data.Count.ToString(), (passed_pms + failed_pms + others).ToString() };
+                    string sum = (passed_pms + failed_pms + others).ToString();
+                    if (passed_pms > 0)
+                    {
+                        sum = "Approx. " + sum;
+                    }
+
+                    string[] line = new string[] { wo_string, workorder.customer_site, workorder.check_out_time.ToString("dd/MMM/yyyy"), workorder.report_data.Count.ToString(), sum };
 
                     dgvWorkOrders.Rows.Add(line);
                 }
@@ -190,8 +196,8 @@ namespace WorkOrder3
                     upload_count++;
                     string wo = dgvr.Cells["colWorkOrder"].Value.ToString();
                     string wo_directory = Form1.SAVED_DIRECTORY + wo + "\\";
-                    
-                    List<string> passed_PMs = new List<string>();
+
+                    List<PassedPMBatch> passed_PMs = new List<PassedPMBatch>();
 
                     WO order = WO.WorkOrderFromFile(wo_directory + wo);
 
@@ -202,86 +208,53 @@ namespace WorkOrder3
 
                         if (values[2].ToUpper() == "PM" && !values[4].ToUpper().Contains("[FAILED PM]"))
                         {
-                            passed_PMs.Add(line);
+                            bool found = false;
+                            foreach(PassedPMBatch PPMB in passed_PMs)
+                            {
+                                if (PPMB.model == values[1])
+                                {
+                                    found = true;
+                                    PPMB.report_lines.Add(line);
+                                }
+                            }
+
+                            if (found == false)
+                            {
+                                PassedPMBatch PPMB = new PassedPMBatch(values[1]);
+                                PPMB.report_lines.Add(line);
+                                passed_PMs.Add(PPMB);
+                            }
                         }
                         else
                         {
-                            string kanban_entry = GetKanbanEntry(wo, order.customer_site, line, tab, col);
-
-                            try
-                            {
-                                var w = new StreamWriter(kb_path + "\\Tabs\\" + tab + ".txt", true);
-                                w.WriteLine(kanban_entry);
-                                w.Close();
-                            }
-                            catch
-                            {
-                                MessageBox.Show("Could not upload: " + order.work_order_string);
-                                return;
-                            }
-
-                            //Create the new folder
-                            if (!Directory.Exists(folder_directory))
-                            {
-                                Directory.CreateDirectory(folder_directory);
-                            }
-
-                            //Write the data of this work order line to the !data file
-                            try
-                            {
-                                var writer = new StreamWriter(folder_directory + "!data");
-                                writer.WriteLine("SR|" + wo + "_" + values[0]);
-                                writer.WriteLine("SERIAL|" + values[0]);
-                                writer.WriteLine("PARTNUM|");
-                                writer.WriteLine("MODEL|" + values[1]);
-                                writer.WriteLine("CUSTOMER|" + order.customer_site);
-                                writer.WriteLine("CONTACT NAME|" + order.contact_name);
-                                writer.WriteLine("EMAIL|" + order.contact_email);
-                                writer.WriteLine("SHIPPING ADDRESS|" + order.address);
-                                writer.WriteLine("CREATED|" + DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
-                                writer.Close();
-                            }
-                            catch
-                            {
-                                
-                            }
-
-                            //Write any problems to the Kanban's Problem/Repair system
-                            try
-                            {
-                                var repair = new StreamWriter(folder_directory + "!repair");
-                                
-                                if(values[4].ToUpper().Contains("[FAILED PM]"))
-                                {
-                                    repair.WriteLine("Problem|1|" + values[4] + "|N/A|");
-                                }
-                                else
-                                {
-                                    repair.WriteLine("Problem|1|" + values[3] + "|N/A|");
-                                }
-
-                                repair.Close();
-                            }
-                            catch
-                            {
-                                
-                            }
-
-                            foreach(string filename in Directory.GetFiles(Form1.DOCUMENTS_DIRECTORY))
-                            {
-                                if (filename.ToUpper().Contains(values[0]))
-                                {
-                                    var f_values = filename.Split('\\');
-                                    string filename_nopath = f_values[f_values.Length - 1];
-
-                                    File.Copy(filename, folder_directory + "\\" + filename_nopath);
-                                }
-                            }
+                            DoTheUpload(wo, order, line, tab, col);
                         }
                     }
+                    
+                    foreach (PassedPMBatch PPMB in passed_PMs)
+                    {
+                        string line = PPMB.report_lines[0];
+                        var values = line.Split('|');
+                        string first_serial = values[0];
+
+                        values[0] = "";
+
+                        foreach(string entry in PPMB.report_lines)
+                        {
+                            values[0] = values[0] + "," + entry.Split('|')[0];
+                        }
+                        values[0]=values[0].Remove(0, 1);
+
+                        string out_line = String.Join("|", values);
+                        DoTheUpload(wo, order, out_line, tab, col);
+                    }
+
+                    order.uploaded = true;
+                    order.ExportToFile();
+                    
                 }
             }
-
+            
             if (upload_count == 0)
             {
                 MessageBox.Show("Please select at least one Work Order to upload!");
@@ -290,6 +263,86 @@ namespace WorkOrder3
             else
             {
                 MessageBox.Show("Upload Successful! Work Orders uploaded: " + upload_count);
+            }
+        }
+
+        private void DoTheUpload(string wo, WO order, string line, string tab, string col)
+        {
+            var values = line.Split('|');
+            string kb_path = txtUploadPath.Text;
+            string wo_directory = Form1.SAVED_DIRECTORY + wo + "\\";
+            string folder_directory = kb_path + "\\Folders\\" + wo + "_" + values[0] + "\\";
+
+            string kanban_entry = GetKanbanEntry(wo, order.customer_site, line, tab, col);
+
+            try
+            {
+                var w = new StreamWriter(kb_path + "\\Tabs\\" + tab + ".txt", true);
+                w.WriteLine(kanban_entry);
+                w.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Could not upload: " + order.work_order_string);
+                return;
+            }
+
+            //Create the new folder
+            if (!Directory.Exists(folder_directory))
+            {
+                Directory.CreateDirectory(folder_directory);
+            }
+
+            //Write the data of this work order line to the !data file
+            try
+            {
+                var writer = new StreamWriter(folder_directory + "!data");
+                writer.WriteLine("SR|" + wo + "_" + values[0].Split(',')[0]);
+                writer.WriteLine("SERIAL|" + values[0]);
+                writer.WriteLine("PARTNUM|");
+                writer.WriteLine("MODEL|" + values[1]);
+                writer.WriteLine("CUSTOMER|" + order.customer_site);
+                writer.WriteLine("CONTACT NAME|" + order.contact_name);
+                writer.WriteLine("EMAIL|" + order.contact_email);
+                writer.WriteLine("SHIPPING ADDRESS|" + order.address);
+                writer.WriteLine("CREATED|" + DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+                writer.Close();
+            }
+            catch
+            {
+
+            }
+
+            //Write any problems to the Kanban's Problem/Repair system
+            try
+            {
+                var repair = new StreamWriter(folder_directory + "!repair");
+
+                if (values[4].ToUpper().Contains("[FAILED PM]"))
+                {
+                    repair.WriteLine("Problem|1|" + values[4] + "|N/A|");
+                }
+                else
+                {
+                    repair.WriteLine("Problem|1|" + values[3] + "|N/A|");
+                }
+
+                repair.Close();
+            }
+            catch
+            {
+
+            }
+
+            foreach (string filename in Directory.GetFiles(Form1.DOCUMENTS_DIRECTORY))
+            {
+                if (filename.ToUpper().Contains(values[0]))
+                {
+                    var f_values = filename.Split('\\');
+                    string filename_nopath = f_values[f_values.Length - 1];
+
+                    File.Copy(filename, folder_directory + "\\" + filename_nopath);
+                }
             }
         }
 
@@ -304,6 +357,20 @@ namespace WorkOrder3
             DateTime DEFAULT_DATE = new DateTime(2000, 1, 1, 0, 0, 0);
             StringBuilder sb = new StringBuilder();
 
+            string status = "";
+
+            if (report_line.Contains("PM"))
+            {
+                if(report_line.Contains("[FAILED PM]"))
+                {
+                    status = "/FAILED_PM";
+                }
+                else
+                {
+                    status = "/PASSED_PM";
+                }
+            }
+
             sb.Append(work_order_number + "_" + values[0]);
             sb.Append("|");
             sb.Append(values[0]);
@@ -316,7 +383,7 @@ namespace WorkOrder3
             sb.Append("|");
             sb.Append(customer_site);
             sb.Append("|");
-            sb.Append("Work Order Upload");
+            sb.Append("Work_Order_Upload"+status);
             sb.Append("|");
             sb.Append(values[4]);
             sb.Append("|");
