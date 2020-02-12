@@ -548,6 +548,7 @@ namespace WorkOrder3
                 dgvTestedFunctions.Rows.Add(new string[] { "Pacing" });
                 dgvTestedFunctions.Rows.Add(new string[] { "IBP" });
                 dgvTestedFunctions.Rows.Add(new string[] { "Temperature" });
+                dgvTestedFunctions.Rows.Add(new string[] { "Bluetooth" });
             }
             else if (cmbModel.Text.ToUpper().Contains("PROPAQ"))
             {
