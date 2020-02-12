@@ -30,7 +30,6 @@ namespace WorkOrder3
         public static string CUSTOMERS_FILENAME = "customers";
         public static string ARCHIVE_DIRECTORY = "Archive\\";
         public static string TEMPLATES_DIRECTORY = "Templates\\";
-        public static string DOCUMENTS_DIRECTORY = "Documents\\";
         public static string SAVED_DIRECTORY = "Saved\\";
         public static string UNITS_DIRECTORY = "Units\\";
 
@@ -120,13 +119,13 @@ namespace WorkOrder3
 
             if (this.username.Length > 5)
             {
-                this.WO_string= this.username.ToUpper().Substring(0, 6) + this.WO.ToString("00000#");
+                this.WO_string= this.username.ToUpper().Substring(0, 6) + this.WO.ToString("0000#");
                 lblWorkOrderNumber.Text = "WO# " + this.WO_string;
             }
             else
             {
                 
-                this.WO_string = this.username.ToUpper() + this.WO.ToString("00000#");
+                this.WO_string = this.username.ToUpper() + this.WO.ToString("0000#");
                 lblWorkOrderNumber.Text = "WO# " + this.WO_string;
             }
 
@@ -300,7 +299,7 @@ namespace WorkOrder3
                 p.Append(txtContactName.Text);
             }
 
-            doc.SaveAs(Form1.SAVED_DIRECTORY+"\\"+this.WO_string+"\\"+this.WO_string+" - "+txtCustomerSite.Text+".docx");
+            doc.SaveAs(Form1.SAVED_DIRECTORY+"\\"+this.WO_string+"\\!WO -"+this.WO_string+" - "+txtCustomerSite.Text+".docx");
             #endregion
 
             #region Office Copy - QA information
@@ -327,7 +326,7 @@ namespace WorkOrder3
             QAT.AutoFit = AutoFit.Contents;
             doc.InsertTable(QAT);
 
-            doc.SaveAs(Form1.SAVED_DIRECTORY + "\\" + this.WO_string + "\\OFFICE - " +this.WO_string + " - " + txtCustomerSite.Text + ".docx");
+            doc.SaveAs(Form1.SAVED_DIRECTORY + "\\" + this.WO_string + "\\!WO - " + this.WO_string + " - OFFICE - " + txtCustomerSite.Text + ".docx");
             doc.Dispose();
             #endregion
 

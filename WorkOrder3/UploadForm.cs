@@ -117,6 +117,13 @@ namespace WorkOrder3
             }
 
             //Add all saved Work Orders to the list to be uploaded
+            LoadSavedWorkOrders();
+        }
+
+        private void LoadSavedWorkOrders()
+        {
+            dgvWorkOrders.Rows.Clear();
+
             foreach (string dir in Directory.GetDirectories(Directory.GetCurrentDirectory() + "\\Saved\\"))
             {
                 var values = dir.Split('\\');
@@ -169,24 +176,28 @@ namespace WorkOrder3
 
         private void btnUpload_Click(object sender, EventArgs e)
         {
+            //Check if the upload path is good
             if(txtUploadPath.Text=="" && !Directory.Exists(txtUploadPath.Text))
             {
                 MessageBox.Show("Invalid upload path! Please make sure a connection to the upload path exists.");
                 return;
             }
 
+            //Make sure there is an upload column
             if (cmbDestinationColumn.Text == "")
             {
                 MessageBox.Show("Please select a Column ID to upload your work orders to!");
                 return;
             }
 
+            //Initialize
             string tab = cmbDestinationColumn.Text.Split('.')[0];
             string col = cmbDestinationColumn.Text.Split('.')[1];
             string kb_path = txtUploadPath.Text;
             
             int upload_count = 0;
 
+            //For every Work Order that is checked off...
             foreach(DataGridViewRow dgvr in dgvWorkOrders.Rows)
             {
                 DataGridViewCheckBoxCell chk = dgvr.Cells[dgvWorkOrders.Columns.IndexOf(colCheck)] as DataGridViewCheckBoxCell;
@@ -201,6 +212,7 @@ namespace WorkOrder3
 
                     WO order = WO.WorkOrderFromFile(wo_directory + wo);
 
+                    //For each report line from the work order..
                     foreach(string line in order.report_data)
                     {
                         var values = line.Split('|');
@@ -231,6 +243,7 @@ namespace WorkOrder3
                         }
                     }
                     
+                    //For all the passed PM's, add them to one single Task based on model
                     foreach (PassedPMBatch PPMB in passed_PMs)
                     {
                         string line = PPMB.report_lines[0];
@@ -248,7 +261,11 @@ namespace WorkOrder3
                         string out_line = String.Join("|", values);
                         DoTheUpload(wo, order, out_line, tab, col);
                     }
-
+                    
+                    if (!order.TransferToArchive())
+                    {
+                        MessageBox.Show("Transfer unsuccessful.");
+                    }
                     order.uploaded = true;
                     order.ExportToFile();
                     
@@ -264,14 +281,27 @@ namespace WorkOrder3
             {
                 MessageBox.Show("Upload Successful! Work Orders uploaded: " + upload_count);
             }
+
+            LoadSavedWorkOrders();
         }
 
         private void DoTheUpload(string wo, WO order, string line, string tab, string col)
         {
             var values = line.Split('|');
+
+            string first_serial = "";
+            if (values[0].Contains(','))
+            {
+                first_serial = values[0].Split(',')[0];
+            }
+            else
+            {
+                first_serial = values[0];
+            }
+            
             string kb_path = txtUploadPath.Text;
             string wo_directory = Form1.SAVED_DIRECTORY + wo + "\\";
-            string folder_directory = kb_path + "\\Folders\\" + wo + "_" + values[0] + "\\";
+            string folder_directory = kb_path + "\\Folders\\" + wo + "_" + first_serial + "\\";
 
             string kanban_entry = GetKanbanEntry(wo, order.customer_site, line, tab, col);
 
@@ -334,23 +364,45 @@ namespace WorkOrder3
 
             }
 
-            foreach (string filename in Directory.GetFiles(Form1.DOCUMENTS_DIRECTORY))
+            //Upload any files related to the folder
+            foreach (string filename in Directory.GetFiles(Form1.SAVED_DIRECTORY+wo+"\\"))
             {
-                if (filename.ToUpper().Contains(values[0]))
+                if (!values[0].Contains(","))
                 {
-                    var f_values = filename.Split('\\');
-                    string filename_nopath = f_values[f_values.Length - 1];
+                    if (filename.ToUpper().Contains(values[0].ToUpper()) || filename.ToUpper().Contains("!WO"))
+                    {
+                        var f_values = filename.Split('\\');
+                        string filename_nopath = f_values[f_values.Length - 1];
 
-                    File.Copy(filename, folder_directory + "\\" + filename_nopath);
+                        if (!File.Exists(folder_directory + "\\" + filename_nopath))
+                        {
+                            File.Copy(filename, folder_directory + "\\" + filename_nopath);
+                        }
+                    }
                 }
+                else
+                {
+                    var serials = values[0].Split(',');
+
+                    foreach(string s in serials)
+                    {
+                        if (filename.ToUpper().Contains(s.ToUpper()) || filename.ToUpper().Contains("!WO"))
+                        {
+                            var f_values = filename.Split('\\');
+                            string filename_nopath = f_values[f_values.Length - 1];
+
+                            if (!File.Exists(folder_directory + "\\" + filename_nopath))
+                            {
+                                File.Copy(filename, folder_directory + "\\" + filename_nopath);
+                            }
+                        }
+                    }
+                }
+
+
             }
         }
-
-        private void CreateKanbanFolderAndFiles(WO workorder)
-        {
-
-        }
-
+        
         private string GetKanbanEntry(string work_order_number, string customer_site, string report_line,string tab_name, string column_name)
         {
             var values = report_line.Split('|');
@@ -358,6 +410,16 @@ namespace WorkOrder3
             StringBuilder sb = new StringBuilder();
 
             string status = "";
+
+            string first_serial = "";
+            if (values[0].Contains(","))
+            {
+                first_serial = values[0].Split(',')[0];
+            }
+            else
+            {
+                first_serial = values[0];
+            }
 
             if (report_line.Contains("PM"))
             {
@@ -371,7 +433,7 @@ namespace WorkOrder3
                 }
             }
 
-            sb.Append(work_order_number + "_" + values[0]);
+            sb.Append(work_order_number + "_" + first_serial);
             sb.Append("|");
             sb.Append(values[0]);
             sb.Append("|");
@@ -424,6 +486,34 @@ namespace WorkOrder3
                 lblStatus.ForeColor = Color.Red;
                 lblStatus.Text = "Destination Status: KANBAN PATH NOT SPECIFIED";
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow dgvr in dgvWorkOrders.Rows)
+            {
+                DataGridViewCheckBoxCell chk = dgvr.Cells[dgvWorkOrders.Columns.IndexOf(colCheck)] as DataGridViewCheckBoxCell;
+
+                if (chk.Value == chk.TrueValue)
+                {
+                    string wo = dgvr.Cells["colWorkOrder"].Value.ToString();
+                    string wo_directory = Form1.SAVED_DIRECTORY + wo + "\\";
+                    
+                    WO order = WO.WorkOrderFromFile(wo_directory + wo);
+
+                    if (!order.TransferToArchive())
+                    {
+                        MessageBox.Show("Archiving unsuccessful for WO " + wo);
+                    }
+                    order.uploaded = true;
+                    order.ExportToFile();
+                }
+            }
+
+            MessageBox.Show("Archiving finished.");
+
+            LoadSavedWorkOrders();
+
         }
     }
 }

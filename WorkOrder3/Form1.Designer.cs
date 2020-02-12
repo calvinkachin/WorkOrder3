@@ -110,7 +110,8 @@
             this.uploadToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
-            this.menuStripMain.Size = new System.Drawing.Size(959, 24);
+            this.menuStripMain.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStripMain.Size = new System.Drawing.Size(1279, 28);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -121,27 +122,27 @@
             this.saveWorkOrderToolStripMenuItem,
             this.loadWorkOrderToolStripMenuItem});
             this.workOrdersToolStripMenuItem.Name = "workOrdersToolStripMenuItem";
-            this.workOrdersToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.workOrdersToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.workOrdersToolStripMenuItem.Text = "File";
             // 
             // newWorkOrderToolStripMenuItem
             // 
             this.newWorkOrderToolStripMenuItem.Name = "newWorkOrderToolStripMenuItem";
-            this.newWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(117, 26);
             this.newWorkOrderToolStripMenuItem.Text = "New";
             this.newWorkOrderToolStripMenuItem.Click += new System.EventHandler(this.newWorkOrderToolStripMenuItem_Click);
             // 
             // saveWorkOrderToolStripMenuItem
             // 
             this.saveWorkOrderToolStripMenuItem.Name = "saveWorkOrderToolStripMenuItem";
-            this.saveWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(117, 26);
             this.saveWorkOrderToolStripMenuItem.Text = "Save";
             this.saveWorkOrderToolStripMenuItem.Click += new System.EventHandler(this.saveWorkOrderToolStripMenuItem_Click);
             // 
             // loadWorkOrderToolStripMenuItem
             // 
             this.loadWorkOrderToolStripMenuItem.Name = "loadWorkOrderToolStripMenuItem";
-            this.loadWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(117, 26);
             this.loadWorkOrderToolStripMenuItem.Text = "Load";
             this.loadWorkOrderToolStripMenuItem.Click += new System.EventHandler(this.loadWorkOrderToolStripMenuItem_Click);
             // 
@@ -152,13 +153,13 @@
             this.autoCheckOutTimeToolStripMenuItem,
             this.pMTestValuesToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // changeTechNameToolStripMenuItem
             // 
             this.changeTechNameToolStripMenuItem.Name = "changeTechNameToolStripMenuItem";
-            this.changeTechNameToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.changeTechNameToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.changeTechNameToolStripMenuItem.Text = "Change Tech Name";
             this.changeTechNameToolStripMenuItem.Click += new System.EventHandler(this.changeTechNameToolStripMenuItem_Click);
             // 
@@ -167,14 +168,14 @@
             this.autoCheckOutTimeToolStripMenuItem.Checked = true;
             this.autoCheckOutTimeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autoCheckOutTimeToolStripMenuItem.Name = "autoCheckOutTimeToolStripMenuItem";
-            this.autoCheckOutTimeToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.autoCheckOutTimeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.autoCheckOutTimeToolStripMenuItem.Text = "Auto Check Out Time";
             this.autoCheckOutTimeToolStripMenuItem.Click += new System.EventHandler(this.autoCheckOutTimeToolStripMenuItem_Click);
             // 
             // pMTestValuesToolStripMenuItem
             // 
             this.pMTestValuesToolStripMenuItem.Name = "pMTestValuesToolStripMenuItem";
-            this.pMTestValuesToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.pMTestValuesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.pMTestValuesToolStripMenuItem.Text = "PM Test Values";
             this.pMTestValuesToolStripMenuItem.Click += new System.EventHandler(this.pMTestValuesToolStripMenuItem_Click);
             // 
@@ -183,13 +184,13 @@
             this.customersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.presetsToolStripMenuItem});
             this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
-            this.customersToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.customersToolStripMenuItem.Size = new System.Drawing.Size(90, 24);
             this.customersToolStripMenuItem.Text = "Customers";
             // 
             // presetsToolStripMenuItem
             // 
             this.presetsToolStripMenuItem.Name = "presetsToolStripMenuItem";
-            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(130, 26);
             this.presetsToolStripMenuItem.Text = "Presets";
             this.presetsToolStripMenuItem.Click += new System.EventHandler(this.presetsToolStripMenuItem_Click);
             // 
@@ -198,29 +199,31 @@
             this.uploadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.defineUploadPathToolStripMenuItem});
             this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
-            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
             this.uploadToolStripMenuItem.Text = "Upload";
             // 
             // defineUploadPathToolStripMenuItem
             // 
             this.defineUploadPathToolStripMenuItem.Name = "defineUploadPathToolStripMenuItem";
-            this.defineUploadPathToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.defineUploadPathToolStripMenuItem.Size = new System.Drawing.Size(205, 26);
             this.defineUploadPathToolStripMenuItem.Text = "Upload to Kanban";
             this.defineUploadPathToolStripMenuItem.Click += new System.EventHandler(this.defineUploadPathToolStripMenuItem_Click);
             // 
             // pnlMain
             // 
+            this.pnlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlMain.AutoScroll = true;
             this.pnlMain.AutoScrollMargin = new System.Drawing.Size(0, 50);
             this.pnlMain.AutoScrollMinSize = new System.Drawing.Size(0, 100);
             this.pnlMain.Controls.Add(this.grpClosure);
             this.pnlMain.Controls.Add(this.grpReport);
-            this.pnlMain.Controls.Add(this.grpWorkOrderInformation);
             this.pnlMain.Controls.Add(this.grpCustomerInformation);
-            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(0, 24);
+            this.pnlMain.Location = new System.Drawing.Point(0, 90);
+            this.pnlMain.Margin = new System.Windows.Forms.Padding(4);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(959, 736);
+            this.pnlMain.Size = new System.Drawing.Size(1279, 845);
             this.pnlMain.TabIndex = 1;
             // 
             // grpClosure
@@ -234,9 +237,11 @@
             this.grpClosure.Controls.Add(this.label16);
             this.grpClosure.Controls.Add(this.dtpCheckOut);
             this.grpClosure.Controls.Add(this.chkSignature);
-            this.grpClosure.Location = new System.Drawing.Point(3, 735);
+            this.grpClosure.Location = new System.Drawing.Point(4, 832);
+            this.grpClosure.Margin = new System.Windows.Forms.Padding(4);
             this.grpClosure.Name = "grpClosure";
-            this.grpClosure.Size = new System.Drawing.Size(862, 165);
+            this.grpClosure.Padding = new System.Windows.Forms.Padding(4);
+            this.grpClosure.Size = new System.Drawing.Size(1187, 203);
             this.grpClosure.TabIndex = 3;
             this.grpClosure.TabStop = false;
             this.grpClosure.Text = "Closure";
@@ -246,9 +251,10 @@
             this.picTechSignature.BackColor = System.Drawing.Color.White;
             this.picTechSignature.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picTechSignature.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picTechSignature.Location = new System.Drawing.Point(9, 22);
+            this.picTechSignature.Location = new System.Drawing.Point(12, 27);
+            this.picTechSignature.Margin = new System.Windows.Forms.Padding(4);
             this.picTechSignature.Name = "picTechSignature";
-            this.picTechSignature.Size = new System.Drawing.Size(288, 61);
+            this.picTechSignature.Size = new System.Drawing.Size(383, 75);
             this.picTechSignature.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picTechSignature.TabIndex = 18;
             this.picTechSignature.TabStop = false;
@@ -257,9 +263,10 @@
             // 
             this.chkTechSignature.AutoSize = true;
             this.chkTechSignature.ForeColor = System.Drawing.Color.Red;
-            this.chkTechSignature.Location = new System.Drawing.Point(302, 43);
+            this.chkTechSignature.Location = new System.Drawing.Point(403, 53);
+            this.chkTechSignature.Margin = new System.Windows.Forms.Padding(4);
             this.chkTechSignature.Name = "chkTechSignature";
-            this.chkTechSignature.Size = new System.Drawing.Size(127, 17);
+            this.chkTechSignature.Size = new System.Drawing.Size(164, 21);
             this.chkTechSignature.TabIndex = 17;
             this.chkTechSignature.Text = "Technician Signature";
             this.chkTechSignature.UseVisualStyleBackColor = true;
@@ -269,9 +276,10 @@
             // 
             this.picSignature.BackColor = System.Drawing.Color.White;
             this.picSignature.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picSignature.Location = new System.Drawing.Point(9, 89);
+            this.picSignature.Location = new System.Drawing.Point(12, 110);
+            this.picSignature.Margin = new System.Windows.Forms.Padding(4);
             this.picSignature.Name = "picSignature";
-            this.picSignature.Size = new System.Drawing.Size(288, 61);
+            this.picSignature.Size = new System.Drawing.Size(383, 75);
             this.picSignature.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picSignature.TabIndex = 16;
             this.picSignature.TabStop = false;
@@ -279,9 +287,10 @@
             // btnGenerateReport
             // 
             this.btnGenerateReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerateReport.Location = new System.Drawing.Point(646, 104);
+            this.btnGenerateReport.Location = new System.Drawing.Point(899, 128);
+            this.btnGenerateReport.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateReport.Name = "btnGenerateReport";
-            this.btnGenerateReport.Size = new System.Drawing.Size(207, 30);
+            this.btnGenerateReport.Size = new System.Drawing.Size(276, 37);
             this.btnGenerateReport.TabIndex = 15;
             this.btnGenerateReport.Text = "Generate Report";
             this.btnGenerateReport.UseVisualStyleBackColor = true;
@@ -291,9 +300,10 @@
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(639, 22);
+            this.label16.Location = new System.Drawing.Point(890, 27);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(58, 13);
+            this.label16.Size = new System.Drawing.Size(74, 17);
             this.label16.TabIndex = 14;
             this.label16.Text = "Check Out";
             // 
@@ -302,17 +312,19 @@
             this.dtpCheckOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpCheckOut.CustomFormat = "dd/MMM/yyyy HH:mm";
             this.dtpCheckOut.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCheckOut.Location = new System.Drawing.Point(703, 19);
+            this.dtpCheckOut.Location = new System.Drawing.Point(975, 23);
+            this.dtpCheckOut.Margin = new System.Windows.Forms.Padding(4);
             this.dtpCheckOut.Name = "dtpCheckOut";
-            this.dtpCheckOut.Size = new System.Drawing.Size(150, 20);
+            this.dtpCheckOut.Size = new System.Drawing.Size(199, 22);
             this.dtpCheckOut.TabIndex = 13;
             // 
             // chkSignature
             // 
             this.chkSignature.AutoSize = true;
-            this.chkSignature.Location = new System.Drawing.Point(302, 111);
+            this.chkSignature.Location = new System.Drawing.Point(403, 137);
+            this.chkSignature.Margin = new System.Windows.Forms.Padding(4);
             this.chkSignature.Name = "chkSignature";
-            this.chkSignature.Size = new System.Drawing.Size(202, 17);
+            this.chkSignature.Size = new System.Drawing.Size(268, 21);
             this.chkSignature.TabIndex = 0;
             this.chkSignature.Text = "Include Customer Signature (optional)";
             this.chkSignature.UseVisualStyleBackColor = true;
@@ -324,18 +336,21 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpReport.Controls.Add(this.btnAddToReport);
             this.grpReport.Controls.Add(this.dgvReport);
-            this.grpReport.Location = new System.Drawing.Point(3, 202);
+            this.grpReport.Location = new System.Drawing.Point(4, 183);
+            this.grpReport.Margin = new System.Windows.Forms.Padding(4);
             this.grpReport.Name = "grpReport";
-            this.grpReport.Size = new System.Drawing.Size(862, 527);
+            this.grpReport.Padding = new System.Windows.Forms.Padding(4);
+            this.grpReport.Size = new System.Drawing.Size(1187, 649);
             this.grpReport.TabIndex = 2;
             this.grpReport.TabStop = false;
             this.grpReport.Text = "Report";
             // 
             // btnAddToReport
             // 
-            this.btnAddToReport.Location = new System.Drawing.Point(9, 19);
+            this.btnAddToReport.Location = new System.Drawing.Point(12, 23);
+            this.btnAddToReport.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddToReport.Name = "btnAddToReport";
-            this.btnAddToReport.Size = new System.Drawing.Size(156, 35);
+            this.btnAddToReport.Size = new System.Drawing.Size(208, 43);
             this.btnAddToReport.TabIndex = 18;
             this.btnAddToReport.Text = "Add Report Entries";
             this.btnAddToReport.UseVisualStyleBackColor = true;
@@ -366,9 +381,10 @@
             this.colPhoto,
             this.colRemove});
             this.dgvReport.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dgvReport.Location = new System.Drawing.Point(7, 60);
+            this.dgvReport.Location = new System.Drawing.Point(9, 74);
+            this.dgvReport.Margin = new System.Windows.Forms.Padding(4);
             this.dgvReport.Name = "dgvReport";
-            this.dgvReport.Size = new System.Drawing.Size(846, 461);
+            this.dgvReport.Size = new System.Drawing.Size(1166, 567);
             this.dgvReport.TabIndex = 24;
             // 
             // colSerialNumber
@@ -376,90 +392,90 @@
             this.colSerialNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colSerialNumber.HeaderText = "Serial Number";
             this.colSerialNumber.Name = "colSerialNumber";
-            this.colSerialNumber.Width = 90;
+            this.colSerialNumber.Width = 117;
             // 
             // colModel
             // 
             this.colModel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colModel.HeaderText = "Model";
             this.colModel.Name = "colModel";
-            this.colModel.Width = 61;
+            this.colModel.Width = 75;
             // 
             // colWorkType
             // 
             this.colWorkType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colWorkType.HeaderText = "Work Type";
             this.colWorkType.Name = "colWorkType";
-            this.colWorkType.Width = 78;
+            this.colWorkType.Width = 98;
             // 
             // colComplaint
             // 
             this.colComplaint.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colComplaint.HeaderText = "Complaint";
             this.colComplaint.Name = "colComplaint";
-            this.colComplaint.Width = 78;
+            this.colComplaint.Width = 99;
             // 
             // colTechReport
             // 
             this.colTechReport.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colTechReport.HeaderText = "Tech Report";
             this.colTechReport.Name = "colTechReport";
-            this.colTechReport.Width = 85;
+            this.colTechReport.Width = 107;
             // 
             // colRFU
             // 
             this.colRFU.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colRFU.HeaderText = "RFU";
             this.colRFU.Name = "colRFU";
-            this.colRFU.Width = 54;
+            this.colRFU.Width = 65;
             // 
             // colShock
             // 
             this.colShock.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.colShock.HeaderText = "Shock Values";
             this.colShock.Name = "colShock";
-            this.colShock.Width = 90;
+            this.colShock.Width = 113;
             // 
             // colTestedFunctions
             // 
             this.colTestedFunctions.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.colTestedFunctions.HeaderText = "Tested Functions";
             this.colTestedFunctions.Name = "colTestedFunctions";
-            this.colTestedFunctions.Width = 105;
+            this.colTestedFunctions.Width = 134;
             // 
             // colAdditionalTests
             // 
             this.colAdditionalTests.HeaderText = "Additional Tests";
             this.colAdditionalTests.Name = "colAdditionalTests";
-            this.colAdditionalTests.Width = 98;
+            this.colAdditionalTests.Width = 127;
             // 
             // colFailureMode
             // 
             this.colFailureMode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colFailureMode.HeaderText = "Failure Mode";
             this.colFailureMode.Name = "colFailureMode";
-            this.colFailureMode.Width = 86;
+            this.colFailureMode.Width = 109;
             // 
             // colQAInformation
             // 
             this.colQAInformation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.colQAInformation.HeaderText = "Additional QA Information";
             this.colQAInformation.Name = "colQAInformation";
-            this.colQAInformation.Width = 138;
+            this.colQAInformation.Width = 180;
             // 
             // colPhoto
             // 
             this.colPhoto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.colPhoto.HeaderText = "Photo Path";
             this.colPhoto.Name = "colPhoto";
-            this.colPhoto.Width = 78;
+            this.colPhoto.Width = 99;
             // 
             // colRemove
             // 
             this.colRemove.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colRemove.HeaderText = "Remove";
             this.colRemove.Name = "colRemove";
-            this.colRemove.Width = 53;
+            this.colRemove.Width = 66;
             // 
             // grpWorkOrderInformation
             // 
@@ -468,9 +484,11 @@
             this.grpWorkOrderInformation.Controls.Add(this.label8);
             this.grpWorkOrderInformation.Controls.Add(this.dtpCheckIn);
             this.grpWorkOrderInformation.Controls.Add(this.lblWorkOrderNumber);
-            this.grpWorkOrderInformation.Location = new System.Drawing.Point(3, 10);
+            this.grpWorkOrderInformation.Location = new System.Drawing.Point(4, 29);
+            this.grpWorkOrderInformation.Margin = new System.Windows.Forms.Padding(4);
             this.grpWorkOrderInformation.Name = "grpWorkOrderInformation";
-            this.grpWorkOrderInformation.Size = new System.Drawing.Size(862, 43);
+            this.grpWorkOrderInformation.Padding = new System.Windows.Forms.Padding(4);
+            this.grpWorkOrderInformation.Size = new System.Drawing.Size(1175, 53);
             this.grpWorkOrderInformation.TabIndex = 1;
             this.grpWorkOrderInformation.TabStop = false;
             this.grpWorkOrderInformation.Text = "Work Order Information";
@@ -479,9 +497,10 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(643, 19);
+            this.label8.Location = new System.Drawing.Point(854, 22);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(50, 13);
+            this.label8.Size = new System.Drawing.Size(62, 17);
             this.label8.TabIndex = 12;
             this.label8.Text = "Check In";
             // 
@@ -490,18 +509,21 @@
             this.dtpCheckIn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpCheckIn.CustomFormat = "dd/MMM/yyyy HH:mm";
             this.dtpCheckIn.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCheckIn.Location = new System.Drawing.Point(699, 16);
+            this.dtpCheckIn.Location = new System.Drawing.Point(934, 22);
+            this.dtpCheckIn.Margin = new System.Windows.Forms.Padding(4);
             this.dtpCheckIn.Name = "dtpCheckIn";
-            this.dtpCheckIn.Size = new System.Drawing.Size(154, 20);
+            this.dtpCheckIn.Size = new System.Drawing.Size(204, 22);
             this.dtpCheckIn.TabIndex = 1;
             // 
             // lblWorkOrderNumber
             // 
             this.lblWorkOrderNumber.AutoSize = true;
             this.lblWorkOrderNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWorkOrderNumber.Location = new System.Drawing.Point(12, 16);
+            this.lblWorkOrderNumber.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblWorkOrderNumber.Location = new System.Drawing.Point(16, 20);
+            this.lblWorkOrderNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWorkOrderNumber.Name = "lblWorkOrderNumber";
-            this.lblWorkOrderNumber.Size = new System.Drawing.Size(53, 20);
+            this.lblWorkOrderNumber.Size = new System.Drawing.Size(68, 25);
             this.lblWorkOrderNumber.TabIndex = 0;
             this.lblWorkOrderNumber.Text = "WO# ";
             // 
@@ -523,9 +545,11 @@
             this.grpCustomerInformation.Controls.Add(this.label3);
             this.grpCustomerInformation.Controls.Add(this.txtCustomerSite);
             this.grpCustomerInformation.Controls.Add(this.label2);
-            this.grpCustomerInformation.Location = new System.Drawing.Point(3, 58);
+            this.grpCustomerInformation.Location = new System.Drawing.Point(4, 13);
+            this.grpCustomerInformation.Margin = new System.Windows.Forms.Padding(4);
             this.grpCustomerInformation.Name = "grpCustomerInformation";
-            this.grpCustomerInformation.Size = new System.Drawing.Size(862, 136);
+            this.grpCustomerInformation.Padding = new System.Windows.Forms.Padding(4);
+            this.grpCustomerInformation.Size = new System.Drawing.Size(1187, 167);
             this.grpCustomerInformation.TabIndex = 0;
             this.grpCustomerInformation.TabStop = false;
             this.grpCustomerInformation.Text = "Customer Information";
@@ -533,116 +557,129 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(44, 18);
+            this.label1.Location = new System.Drawing.Point(59, 22);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.Size = new System.Drawing.Size(49, 17);
             this.label1.TabIndex = 13;
             this.label1.Text = "Preset";
             // 
             // cmbPreset
             // 
             this.cmbPreset.FormattingEnabled = true;
-            this.cmbPreset.Location = new System.Drawing.Point(88, 18);
-            this.cmbPreset.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbPreset.Location = new System.Drawing.Point(117, 22);
+            this.cmbPreset.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbPreset.Name = "cmbPreset";
-            this.cmbPreset.Size = new System.Drawing.Size(127, 21);
+            this.cmbPreset.Size = new System.Drawing.Size(168, 24);
             this.cmbPreset.TabIndex = 2;
             this.cmbPreset.SelectedIndexChanged += new System.EventHandler(this.cmbPreset_SelectedIndexChanged);
             // 
             // txtPO
             // 
-            this.txtPO.Location = new System.Drawing.Point(88, 106);
+            this.txtPO.Location = new System.Drawing.Point(117, 130);
+            this.txtPO.Margin = new System.Windows.Forms.Padding(4);
             this.txtPO.Name = "txtPO";
-            this.txtPO.Size = new System.Drawing.Size(310, 20);
+            this.txtPO.Size = new System.Drawing.Size(412, 22);
             this.txtPO.TabIndex = 5;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(53, 110);
+            this.label7.Location = new System.Drawing.Point(71, 135);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.Size = new System.Drawing.Size(36, 17);
             this.label7.TabIndex = 10;
             this.label7.Text = "PO#";
             // 
             // txtContactEmail
             // 
-            this.txtContactEmail.Location = new System.Drawing.Point(522, 106);
+            this.txtContactEmail.Location = new System.Drawing.Point(696, 130);
+            this.txtContactEmail.Margin = new System.Windows.Forms.Padding(4);
             this.txtContactEmail.Name = "txtContactEmail";
-            this.txtContactEmail.Size = new System.Drawing.Size(266, 20);
+            this.txtContactEmail.Size = new System.Drawing.Size(353, 22);
             this.txtContactEmail.TabIndex = 8;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(447, 110);
+            this.label5.Location = new System.Drawing.Point(596, 135);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 13);
+            this.label5.Size = new System.Drawing.Size(94, 17);
             this.label5.TabIndex = 8;
             this.label5.Text = "Contact Email";
             // 
             // txtContactPhone
             // 
-            this.txtContactPhone.Location = new System.Drawing.Point(522, 80);
+            this.txtContactPhone.Location = new System.Drawing.Point(696, 98);
+            this.txtContactPhone.Margin = new System.Windows.Forms.Padding(4);
             this.txtContactPhone.Name = "txtContactPhone";
-            this.txtContactPhone.Size = new System.Drawing.Size(266, 20);
+            this.txtContactPhone.Size = new System.Drawing.Size(353, 22);
             this.txtContactPhone.TabIndex = 7;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(444, 84);
+            this.label6.Location = new System.Drawing.Point(592, 103);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(78, 13);
+            this.label6.Size = new System.Drawing.Size(101, 17);
             this.label6.TabIndex = 6;
             this.label6.Text = "Contact Phone";
             // 
             // txtContactName
             // 
-            this.txtContactName.Location = new System.Drawing.Point(522, 54);
+            this.txtContactName.Location = new System.Drawing.Point(696, 66);
+            this.txtContactName.Margin = new System.Windows.Forms.Padding(4);
             this.txtContactName.Name = "txtContactName";
-            this.txtContactName.Size = new System.Drawing.Size(266, 20);
+            this.txtContactName.Size = new System.Drawing.Size(353, 22);
             this.txtContactName.TabIndex = 6;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(444, 58);
+            this.label4.Location = new System.Drawing.Point(592, 71);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(75, 13);
+            this.label4.Size = new System.Drawing.Size(97, 17);
             this.label4.TabIndex = 4;
             this.label4.Text = "Contact Name";
             // 
             // txtAddress
             // 
-            this.txtAddress.Location = new System.Drawing.Point(88, 80);
+            this.txtAddress.Location = new System.Drawing.Point(117, 98);
+            this.txtAddress.Margin = new System.Windows.Forms.Padding(4);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(310, 20);
+            this.txtAddress.Size = new System.Drawing.Size(412, 22);
             this.txtAddress.TabIndex = 4;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 84);
+            this.label3.Location = new System.Drawing.Point(49, 103);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 13);
+            this.label3.Size = new System.Drawing.Size(60, 17);
             this.label3.TabIndex = 2;
             this.label3.Text = "Address";
             // 
             // txtCustomerSite
             // 
             this.txtCustomerSite.ForeColor = System.Drawing.Color.Black;
-            this.txtCustomerSite.Location = new System.Drawing.Point(88, 54);
+            this.txtCustomerSite.Location = new System.Drawing.Point(117, 66);
+            this.txtCustomerSite.Margin = new System.Windows.Forms.Padding(4);
             this.txtCustomerSite.Name = "txtCustomerSite";
-            this.txtCustomerSite.Size = new System.Drawing.Size(310, 20);
+            this.txtCustomerSite.Size = new System.Drawing.Size(412, 22);
             this.txtCustomerSite.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 58);
+            this.label2.Location = new System.Drawing.Point(13, 71);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 13);
+            this.label2.Size = new System.Drawing.Size(96, 17);
             this.label2.TabIndex = 0;
             this.label2.Text = "Customer Site";
             // 
@@ -654,13 +691,15 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(959, 760);
+            this.ClientSize = new System.Drawing.Size(1279, 935);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.menuStripMain);
+            this.Controls.Add(this.grpWorkOrderInformation);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Work Order 3";
             this.Load += new System.EventHandler(this.Form1_Load);

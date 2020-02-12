@@ -33,24 +33,25 @@
             this.btnBrowse = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvWorkOrders = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnUpload = new System.Windows.Forms.Button();
+            this.cmbDestinationColumn = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.btnArchive = new System.Windows.Forms.Button();
             this.colWorkOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colItems = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTasks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnUpload = new System.Windows.Forms.Button();
-            this.cmbDestinationColumn = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWorkOrders)).BeginInit();
             this.SuspendLayout();
             // 
             // txtUploadPath
             // 
             this.txtUploadPath.Location = new System.Drawing.Point(16, 47);
-            this.txtUploadPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUploadPath.Margin = new System.Windows.Forms.Padding(4);
             this.txtUploadPath.Name = "txtUploadPath";
             this.txtUploadPath.Size = new System.Drawing.Size(436, 22);
             this.txtUploadPath.TabIndex = 0;
@@ -58,7 +59,7 @@
             // btnBrowse
             // 
             this.btnBrowse.Location = new System.Drawing.Point(461, 44);
-            this.btnBrowse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBrowse.Margin = new System.Windows.Forms.Padding(4);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(100, 28);
             this.btnBrowse.TabIndex = 1;
@@ -91,10 +92,73 @@
             this.colTasks,
             this.colCheck});
             this.dgvWorkOrders.Location = new System.Drawing.Point(15, 179);
-            this.dgvWorkOrders.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvWorkOrders.Margin = new System.Windows.Forms.Padding(4);
             this.dgvWorkOrders.Name = "dgvWorkOrders";
             this.dgvWorkOrders.Size = new System.Drawing.Size(843, 226);
             this.dgvWorkOrders.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(11, 160);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(220, 17);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Work Orders Available for Upload";
+            // 
+            // btnUpload
+            // 
+            this.btnUpload.Location = new System.Drawing.Point(16, 448);
+            this.btnUpload.Margin = new System.Windows.Forms.Padding(4);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(220, 57);
+            this.btnUpload.TabIndex = 5;
+            this.btnUpload.Text = "Upload and Archive";
+            this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            // 
+            // cmbDestinationColumn
+            // 
+            this.cmbDestinationColumn.FormattingEnabled = true;
+            this.cmbDestinationColumn.Location = new System.Drawing.Point(15, 102);
+            this.cmbDestinationColumn.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbDestinationColumn.Name = "cmbDestinationColumn";
+            this.cmbDestinationColumn.Size = new System.Drawing.Size(436, 24);
+            this.cmbDestinationColumn.TabIndex = 6;
+            this.cmbDestinationColumn.SelectedIndexChanged += new System.EventHandler(this.cmbDestinationColumn_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 82);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(133, 17);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Upload Destination*";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.ForeColor = System.Drawing.Color.Red;
+            this.lblStatus.Location = new System.Drawing.Point(459, 105);
+            this.lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(236, 17);
+            this.lblStatus.TabIndex = 8;
+            this.lblStatus.Text = "Please select an Upload Destination";
+            // 
+            // btnArchive
+            // 
+            this.btnArchive.Location = new System.Drawing.Point(266, 448);
+            this.btnArchive.Margin = new System.Windows.Forms.Padding(4);
+            this.btnArchive.Name = "btnArchive";
+            this.btnArchive.Size = new System.Drawing.Size(220, 57);
+            this.btnArchive.TabIndex = 9;
+            this.btnArchive.Text = "Archive Only";
+            this.btnArchive.UseVisualStyleBackColor = true;
+            this.btnArchive.Click += new System.EventHandler(this.button1_Click);
             // 
             // colWorkOrder
             // 
@@ -134,68 +198,17 @@
             // 
             this.colCheck.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colCheck.FalseValue = "False";
-            this.colCheck.HeaderText = "Upload?";
+            this.colCheck.HeaderText = "Select";
             this.colCheck.Name = "colCheck";
             this.colCheck.TrueValue = "True";
-            this.colCheck.Width = 67;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 160);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(220, 17);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Work Orders Available for Upload";
-            // 
-            // btnUpload
-            // 
-            this.btnUpload.Location = new System.Drawing.Point(16, 448);
-            this.btnUpload.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(220, 57);
-            this.btnUpload.TabIndex = 5;
-            this.btnUpload.Text = "Upload and Archive";
-            this.btnUpload.UseVisualStyleBackColor = true;
-            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
-            // 
-            // cmbDestinationColumn
-            // 
-            this.cmbDestinationColumn.FormattingEnabled = true;
-            this.cmbDestinationColumn.Location = new System.Drawing.Point(15, 102);
-            this.cmbDestinationColumn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.cmbDestinationColumn.Name = "cmbDestinationColumn";
-            this.cmbDestinationColumn.Size = new System.Drawing.Size(436, 24);
-            this.cmbDestinationColumn.TabIndex = 6;
-            this.cmbDestinationColumn.SelectedIndexChanged += new System.EventHandler(this.cmbDestinationColumn_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 82);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(133, 17);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Upload Destination*";
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.ForeColor = System.Drawing.Color.Red;
-            this.lblStatus.Location = new System.Drawing.Point(459, 105);
-            this.lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(236, 17);
-            this.lblStatus.TabIndex = 8;
-            this.lblStatus.Text = "Please select an Upload Destination";
+            this.colCheck.Width = 53;
             // 
             // UploadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(876, 530);
+            this.Controls.Add(this.btnArchive);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmbDestinationColumn);
@@ -206,7 +219,7 @@
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtUploadPath);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UploadForm";
             this.Text = "UploadForm";
             this.Load += new System.EventHandler(this.UploadForm_Load);
@@ -226,12 +239,13 @@
         private System.Windows.Forms.Button btnUpload;
         private System.Windows.Forms.ComboBox cmbDestinationColumn;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Button btnArchive;
         private System.Windows.Forms.DataGridViewTextBoxColumn colWorkOrder;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCustomer;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn colItems;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTasks;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colCheck;
-        private System.Windows.Forms.Label lblStatus;
     }
 }

@@ -9,8 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using OpenCvSharp;
-using OpenCvSharp.Extensions;
 using System.Threading;
 using Xceed.Document.NET;
 using Xceed.Words.NET;
@@ -23,8 +21,8 @@ namespace WorkOrder3
         WorkOrder3.Form1 myform = Application.OpenForms.OfType<WorkOrder3.Form1>().First();
 
         List<GroupBox> groupbox_list = new List<GroupBox>();
-        VideoCapture capture;
-        Mat frame;
+        //VideoCapture capture;
+        //Mat frame;
         Bitmap image;
         private Thread camera;
         bool isCameraRunning = false;
@@ -38,7 +36,7 @@ namespace WorkOrder3
 
         private void CaptureCameraCallback()
         {
-
+            /*
             frame = new Mat();
             capture = new VideoCapture(0);
             capture.Open(0);
@@ -56,7 +54,7 @@ namespace WorkOrder3
                     }
                     pictureBox1.Image = image;
                 }
-            }
+            }*/
         }
 
         public AddReportForm()
@@ -230,7 +228,7 @@ namespace WorkOrder3
                     {
                         txtTechReport.Text = "[FAILED PM] " + txtTechReport.Text;
 
-                        chkFailedPM.Checked = false;
+                        
                     }
                     
                     string worktype = cmbWorkType.Text;
@@ -378,7 +376,7 @@ namespace WorkOrder3
                                     Directory.CreateDirectory(Directory.GetCurrentDirectory() + "//" + Form1.SAVED_DIRECTORY + myform.WO_string + "//");
                                 }
 
-                                doc.SaveAs(Directory.GetCurrentDirectory() + "//" + Form1.SAVED_DIRECTORY + myform.WO_string + "//" + txtSerial.Text + ".docx");
+                                doc.SaveAs(Directory.GetCurrentDirectory() + "//" + Form1.SAVED_DIRECTORY + myform.WO_string + "//Maintenance - " + txtSerial.Text + ".docx");
                                 #endregion
                             }
                             catch
@@ -394,17 +392,25 @@ namespace WorkOrder3
                         tested_functions = "N/A";
                         additional_testing = "N/A";
                     }
-
+                    
                     string photo_path = "N/A";
                     if (txtPicturePath.Text.Trim() != "" && File.Exists(txtPicturePath.Text))
                     {
                         photo_path = txtPicturePath.Text;
+                        var val = photo_path.Split('.');
+                        string ext = val[val.Length - 1];
+
+                        string folder_directory = Form1.SAVED_DIRECTORY + myform.WO_string;
+                        
+                        File.Copy(photo_path, folder_directory + "\\" + txtSerial.Text+"."+ext);
                     }
 
                     myform.AddToReport(txtSerial.Text,cmbModel.Text, shock_values, tested_functions, additional_testing, worktype,  txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, photo_path, additional_qa.Replace(Environment.NewLine, "`"));
                     ClearReporting();
 
-                    txtSerial.Focus();
+                    cmbWorkType.Select();
+                    
+                    chkFailedPM.Checked = false;
                 }
             }
         }
@@ -587,6 +593,7 @@ namespace WorkOrder3
 
         private void btnTakePicture_Click(object sender, EventArgs e)
         {
+            /*
             if (btnTakePicture.Text.Equals("Start Camera"))
             {
                 CaptureCamera();
@@ -605,10 +612,12 @@ namespace WorkOrder3
             }
 
             ArrangeBoxes();
+            */
         }
 
         private void btnCapture_Click(object sender, EventArgs e)
         {
+            /*
             if (isCameraRunning)
             {
                 // Take snapshot of the current image generate by OpenCV in the Picture Box
@@ -623,16 +632,18 @@ namespace WorkOrder3
             {
                 Console.WriteLine("Cannot take picture if the camera isn't capturing image!");
             }
+            */
         }
 
         private void AddReportForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            /*
             if (capture != null)
             {
                 capture.Release();
                 isCameraRunning = false;
             }
-
+            */
             myform.SaveWorkOrder();
         }
     }

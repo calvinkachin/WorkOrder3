@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
+
 namespace WorkOrder3
 {
     class WO
@@ -28,6 +29,25 @@ namespace WorkOrder3
         public WO(string input_work_order_string)
         {
             this.work_order_string = input_work_order_string;
+        }
+
+        public bool TransferToArchive()
+        {
+            try
+            {
+                string source_path = Form1.SAVED_DIRECTORY + this.work_order_string + "\\";
+                string dest_path = Form1.ARCHIVE_DIRECTORY + this.work_order_string + "\\";
+
+                Directory.Move(source_path, dest_path);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+            return false;
         }
 
         public void ExportToFile()
@@ -61,6 +81,7 @@ namespace WorkOrder3
                 writer.WriteLine("REPORT|" + S.Replace(Environment.NewLine,"`"));
             }
             writer.Close();
+            
         }
 
         public static WO WorkOrderFromFile(string filename)
