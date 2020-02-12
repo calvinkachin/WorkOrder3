@@ -431,7 +431,22 @@ namespace WorkOrder3
         private void txtSerial_Leave_1(object sender, EventArgs e)
         {
             cmbModel.Text = Unit.ModelFromSerial(txtSerial.Text);
-            txtComplaint.Select();
+
+            if (cmbWorkType.Text == "PM")
+            {
+                txtComplaint.Text = "PM Requested.";
+            }
+
+            if (cmbModel.Text == "E-SERIES" || cmbModel.Text == "M-SERIES")
+            {
+                cmbRFU.Text = "None";
+                txtComplaint.Select();
+            }
+            else
+            {
+                cmbRFU.Select();
+            }
+            
         }
 
         private void cmbModel_SelectedIndexChanged(object sender, EventArgs e)
