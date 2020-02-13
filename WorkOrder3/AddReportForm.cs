@@ -533,7 +533,7 @@ namespace WorkOrder3
             }
             else if (cmbModel.Text.ToUpper().Contains("AED-3"))
             {
-                dgvTestedFunctions.Rows.Add(new string[] { "Wifi" });
+                //dgvTestedFunctions.Rows.Add(new string[] { "Wifi" });
                 dgvTestedFunctions.Rows.Add(new string[] { "Audio Recording" });
             }
             else if (cmbModel.Text.ToUpper().Contains("AED-PRO"))

@@ -278,11 +278,11 @@ namespace WorkOrder3
                 var logo = doc.AddImage("TechSignature.png");
                 Picture Image = logo.CreatePicture(100, 250);
                 Paragraph p = doc.InsertParagraph("");
-                p.AppendLine("Technician:");
+                p.AppendLine("Signed off by ZOLL Technician:");
+                p.Append(this.tech_name);
                 p.AppendLine();
                 p.AppendPicture(Image);
                 p.AppendLine();
-                p.Append(this.tech_name);
             }
 
             if (chkSignature.Checked)
@@ -292,11 +292,11 @@ namespace WorkOrder3
                 var logo = doc.AddImage("Signature.png");
                 Picture Image = logo.CreatePicture(100, 250);
                 Paragraph p = doc.InsertParagraph("");
-                p.AppendLine("Signed by:");
+                p.AppendLine("Witnessed By:");
+                p.Append(txtContactName.Text);
                 p.AppendLine();
                 p.AppendPicture(Image);
                 p.AppendLine();
-                p.Append(txtContactName.Text);
             }
 
             doc.SaveAs(Form1.SAVED_DIRECTORY+"\\"+this.WO_string+"\\!WO -"+this.WO_string+" - "+txtCustomerSite.Text+".docx");
