@@ -9,7 +9,7 @@ namespace WorkOrder3
     public class PassedPMBatch
     {
         public string model = "";
-        public List<string> report_lines = new List<string>();
+        public List<ReportEntry> report_lines = new List<ReportEntry>();
 
         public PassedPMBatch(string in_model)
         {

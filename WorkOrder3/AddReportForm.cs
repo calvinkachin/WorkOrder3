@@ -26,6 +26,9 @@ namespace WorkOrder3
         Bitmap image;
         private Thread camera;
         bool isCameraRunning = false;
+        string DEFAULT_PM_COMPLAINT = "PM Required.";
+        string DEFAULT_PM_TECH_REPORT = "The device passed all Final Tests (PM) and was recertified for clinical use.";
+        string DEFAULT_PM_FAILED_PM = "The device failed the PM.";
 
         // Declare required methods
         private void CaptureCamera()
@@ -62,6 +65,7 @@ namespace WorkOrder3
             InitializeComponent();
             
             groupbox_list.Add(grpInfo);
+            groupbox_list.Add(grpRepair);
             groupbox_list.Add(grpShockValues);
             groupbox_list.Add(grpFailureEvent);
             groupbox_list.Add(grpPicture);
@@ -95,6 +99,84 @@ namespace WorkOrder3
             cmbModel.SelectedIndex = -1;
             txtPicturePath.Clear();
             txtPatient.Visible = false;
+            dgvRepair.Rows.Clear();
+            dgvShockValues.Rows.Clear();
+            dgvAdditionalTesting.Rows.Clear();
+            dgvTestedFunctions.Rows.Clear();
+        }
+
+        public void AddResolution(int row_number,string resolution_line)
+        {
+            dgvRepair.Rows[row_number].Cells["colResolution"].Value = resolution_line;
+
+            StringBuilder sb = new StringBuilder();
+
+            StringBuilder prob_sb = new StringBuilder();
+
+
+            foreach (DataGridViewRow dgvr in dgvRepair.Rows) 
+            {
+                prob_sb.Append(" "+dgvr.Cells["colProblem"].Value.ToString());
+                prob_sb.Append(",");
+
+                sb.Append("The problem of ");
+                sb.Append(dgvr.Cells["colProblem"].Value.ToString());
+                sb.Append(" was ");
+                sb.Append(dgvr.Cells["colStatus"].Value.ToString());
+                sb.Append(". The following parts were replaced ");
+
+                if (dgvr.Cells["colStatus"].Value.ToString().ToUpper() == "VERIFIED")
+                {
+                    sb.Append("to remedy the problem: ");
+                }
+                else
+                {
+                    sb.Append("to reduce the probability of reoccurrence: ");
+                }
+
+                var values = dgvr.Cells["colResolution"].Value.ToString().Split('|');
+                for(int i=0;i<values.Length;i++)
+                {
+                    sb.Append(values[i]);
+
+                    if (i != values.Length - 1)
+                    {
+                        sb.Append(", ");
+                    }
+                    else
+                    {
+                        sb.Append(". ");
+                    }
+                }
+            }
+
+            if (cmbWorkType.Text.ToUpper() == "REPAIR AND PM")
+            {
+                txtTechReport.Text = sb.ToString() + " " + DEFAULT_PM_TECH_REPORT;
+            }
+            else
+            {
+                txtTechReport.Text = sb.ToString();
+            }
+
+            try
+            {
+                prob_sb.Remove(prob_sb.Length - 1, 1);
+
+                if (cmbWorkType.Text.ToUpper() == "REPAIR AND PM")
+                {
+                    txtComplaint.Text = prob_sb.ToString() + ". " + DEFAULT_PM_COMPLAINT;
+                }
+                else
+                {
+                    txtComplaint.Text = prob_sb.ToString();
+                }
+            }
+            catch
+            {
+                //do nothing
+            }
+
         }
 
         private void cmbWorkType_SelectedIndexChanged(object sender, EventArgs e)
@@ -120,18 +202,35 @@ namespace WorkOrder3
             if (cmbWorkType.Text == "PM")
             {
                 chkFailedPM.Visible = true;
-                txtComplaint.Text = "PM Requested.";
+                txtComplaint.Text = DEFAULT_PM_COMPLAINT;
+                txtTechReport.Text = DEFAULT_PM_TECH_REPORT;
                 grpShockValues.Visible = true;
+                grpRepair.Visible = false;
+            }
+            else if (cmbWorkType.Text == "Repair")
+            {
+                grpShockValues.Visible = false;
+                grpRepair.Visible = true;
+
+                txtComplaint.Clear();
+                txtTechReport.Clear();
+            }
+            else if (cmbWorkType.Text == "Repair and PM")
+            {
+                grpShockValues.Visible = true;
+                grpRepair.Visible = true;
+                chkFailedPM.Visible = true;
+                txtComplaint.Clear();
+                txtTechReport.Clear();
             }
             else
             {
                 chkFailedPM.Visible = false;
                 grpShockValues.Visible = false;
+                grpRepair.Visible = false;
 
-                if(txtComplaint.Text=="PM Requested.")
-                {
-                    txtComplaint.Text = "";
-                }
+                txtComplaint.Clear();
+                txtTechReport.Clear();
             }
 
             ArrangeBoxes();
@@ -173,6 +272,42 @@ namespace WorkOrder3
             {
                 MessageBox.Show("Please select a failure event for this unit.");
                 return false;
+            }
+            else if (cmbWorkType.Text.Contains("PM"))
+            {
+                if (chkFailedPM.Checked == false)
+                {
+                    bool shocks_filled = true;
+
+                    foreach (DataGridViewRow dgvr in dgvShockValues.Rows)
+                    {
+                        if (dgvr.Cells[0].Value.ToString() == "Shock Levels" || dgvr.Cells[0].Value.ToString() == "Pacing Amps")
+                        {
+
+                        }
+                        else
+                        {
+                            if (dgvr.Cells[1].Value == null || dgvr.Cells[1].Value.ToString() == "")
+                            {
+                                shocks_filled = false;
+                            }
+                        }
+                    }
+
+                    if (shocks_filled == false)
+                    {
+                        MessageBox.Show("Not all shock values were filled! Please fill out the shock values and try again.");
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {
@@ -223,51 +358,74 @@ namespace WorkOrder3
                 }
                 else
                 {
+                    ReportEntry RE = new ReportEntry();
+
+                    RE.serial = txtSerial.Text;
+                    RE.complaint = txtComplaint.Text;
+                    RE.tech_report = txtTechReport.Text;
+                    RE.rfu_indicator = cmbRFU.Text;
+
+                    if (cmbModel.Text.ToUpper() != "OTHER...")
+                    {
+                        RE.model = cmbModel.Text;
+                    }
+                    else
+                    {
+                        RE.model = txtOtherModel.Text;
+                    }
 
                     if (cmbWorkType.Text == "PM" && chkFailedPM.Checked)
                     {
                         txtTechReport.Text = "[FAILED PM] " + txtTechReport.Text;
-
-                        
                     }
-                    
-                    string worktype = cmbWorkType.Text;
 
-                    if (cmbWorkType.Text == "Other...")
+                    if (cmbWorkType.Text != "Other...")
                     {
-                        worktype = txtOtherWorkType.Text;
+                        RE.work_type = cmbWorkType.Text;
+                    }
+                    else
+                    {
+                        RE.work_type = txtOtherWorkType.Text;
                     }
 
-                    string failuremode = "N/A";
                     if (cmbWorkType.Text == "Defib Evaluation")
                     {
-                        failuremode = cmbFailureEvent.Text;
+                        RE.failure_mode=cmbFailureEvent.Text;
+                    }
+                    else
+                    {
+                        RE.failure_mode = "N/A";
                     }
 
-                    string additional_qa = "N/A";
+
                     if (txtPatient.Text != "" && cmbWorkType.Text == "Defib Evaluation" && cmbFailureEvent.Text.Contains("patient"))
                     {
-                        additional_qa = txtPatient.Text;
+                        RE.additional_information = txtPatient.Text;
+                    }
+                    else
+                    {
+                        RE.additional_information = "N/A";
                     }
 
                     string tested_functions = "";
                     StringBuilder sb = new StringBuilder();
                     StringBuilder sb_additonal = new StringBuilder();
-                    string shock_values = "";
                     string additional_testing = "";
 
-                    if (cmbWorkType.Text == "PM")
+                    if (cmbWorkType.Text == "PM" || cmbWorkType.Text=="Repair and PM")
                     {
+                        //Shock Values
                         if (dgvShockValues.Rows.Count > 0)
                         {
                             foreach (DataGridViewRow dgvr in dgvShockValues.Rows)
                             {
-                                sb.Append(dgvr.Cells[0].Value.ToString() + ":" + dgvr.Cells[1].Value.ToString() + "`");
+                                sb.Append(dgvr.Cells[0].Value.ToString() + ":" + dgvr.Cells[1].Value.ToString() + ";");
                             }
                             sb = sb.Remove(sb.Length - 1, 1);
-                            shock_values = sb.ToString();
+                            RE.shock_values = sb.ToString();
                         }
 
+                        //Tested Functions
                         StringBuilder func_sb = new StringBuilder();
                         foreach (DataGridViewRow dgvr in dgvTestedFunctions.Rows)
                         {
@@ -281,13 +439,14 @@ namespace WorkOrder3
                         if (func_sb.Length > 1)
                         {
                             func_sb = func_sb.Remove(func_sb.Length - 1, 1);
-                            tested_functions = func_sb.ToString();
+                            RE.tested_functions= func_sb.ToString();
                         }
                         else
                         {
-                            tested_functions = "N/A";
+                            RE.tested_functions = "N/A";
                         }
 
+                        //Additional Testing
                         if (dgvAdditionalTesting.Rows.Count > 0)
                         {
                             foreach (DataGridViewRow dgvr in dgvAdditionalTesting.Rows)
@@ -301,7 +460,12 @@ namespace WorkOrder3
                             {
                                 sb_additonal = sb_additonal.Remove(sb_additonal.Length - 1, 1);
                             }
-                            additional_testing = sb_additonal.ToString();
+
+                            RE.additional_testing = sb_additonal.ToString();
+                        }
+                        else
+                        {
+                            RE.additional_testing = "N/A";
                         }
 
                         //Create the PM sheet
@@ -388,24 +552,29 @@ namespace WorkOrder3
                     }
                     else
                     {
-                        shock_values = "N/A";
-                        tested_functions = "N/A";
-                        additional_testing = "N/A";
+                        RE.shock_values = "N/A";
+                        RE.tested_functions = "N/A";
+                        RE.additional_testing = "N/A";
                     }
                     
                     string photo_path = "N/A";
                     if (txtPicturePath.Text.Trim() != "" && File.Exists(txtPicturePath.Text))
                     {
+                        RE.photo_path = txtPicturePath.Text;
                         photo_path = txtPicturePath.Text;
                         var val = photo_path.Split('.');
                         string ext = val[val.Length - 1];
 
                         string folder_directory = Form1.SAVED_DIRECTORY + myform.WO_string;
                         
-                        File.Copy(photo_path, folder_directory + "\\" + txtSerial.Text+"."+ext);
+                        File.Copy(photo_path, folder_directory + "\\" + txtSerial.Text+" - Picture."+ext);
+                    }
+                    else
+                    {
+                        RE.photo_path = "N/A";
                     }
 
-                    myform.AddToReport(txtSerial.Text,cmbModel.Text, shock_values, tested_functions, additional_testing, worktype,  txtComplaint.Text, txtTechReport.Text, cmbRFU.Text, failuremode, photo_path, additional_qa.Replace(Environment.NewLine, "`"));
+                    myform.AddToReport(RE);
                     ClearReporting();
 
                     cmbWorkType.Select();
@@ -661,6 +830,58 @@ namespace WorkOrder3
             }
             */
             myform.SaveWorkOrder();
+        }
+
+        private void dgvRepair_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgvRepair.Columns.IndexOf(colEditResolution))
+            {
+                string problem = "";
+                string resolution = "";
+
+                try
+                {
+                    problem = dgvRepair.Rows[e.RowIndex].Cells[dgvRepair.Columns.IndexOf(colProblem)].Value.ToString();
+                }
+                catch
+                {
+                    problem = "";
+                }
+
+                try
+                {
+                    resolution = dgvRepair.Rows[e.RowIndex].Cells[dgvRepair.Columns.IndexOf(colResolution)].Value.ToString();
+                }
+                catch
+                {
+                    resolution = "";
+                }
+
+                RepairPartsForm RPF = new RepairPartsForm(problem, resolution, e.RowIndex);
+                RPF.Show();
+            }
+        }
+
+        private void btnAddProblemLine_Click(object sender, EventArgs e)
+        {
+            string[] line = new string[] {"", "verified", "Edit Resolution", "", "Remove" };
+            dgvRepair.Rows.Add(line);
+
+        }
+
+        private void chkFailedPM_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cmbWorkType.Text == "PM")
+            {
+                if (chkFailedPM.Checked)
+                {
+                    txtTechReport.Text = DEFAULT_PM_FAILED_PM;
+                }
+                else
+                {
+                    txtTechReport.Text = DEFAULT_PM_TECH_REPORT;
+                }
+            }
         }
     }
 }

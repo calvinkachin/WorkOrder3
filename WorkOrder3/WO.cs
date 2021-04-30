@@ -8,18 +8,33 @@ using System.IO;
 
 namespace WorkOrder3
 {
-    class WO
+    public class WO
     {
         public static DateTime DEFAULT_DATETIME = new DateTime(2000, 1, 1);
 
         public string work_order_string = "";
         public string customer_site = "";
         public string address = "";
+        public string city = "";
+        public string province = "";
+        public string country = "";
+        public string zip_code = "";
+
         public string PO = "";
         public string contact_name="";
         public string contact_phone = "";
         public string contact_email = "";
-        public List<string> report_data = new List<string>();
+
+        public string labour_hours = "";
+        public string labour_cost = "";
+        public string travel_hours = "";
+        public string travel_cost = "";
+        public string repair_cost = "";
+        public string misc_cost = "";
+
+        public string total_cost = "";
+
+        public List<ReportEntry> report_data = new List<ReportEntry>();
         public bool uploaded = false;
        
         public DateTime check_in_time = new DateTime();
@@ -67,6 +82,10 @@ namespace WorkOrder3
             writer.WriteLine("WO|"+this.work_order_string);
             writer.WriteLine("CUSTOMER_SITE|"+this.customer_site);
             writer.WriteLine("ADDRESS|"+this.address);
+            writer.WriteLine("CITY|" + this.city);
+            writer.WriteLine("PROVINCE|" + this.province);
+            writer.WriteLine("COUNTRY|" + this.country);
+            writer.WriteLine("ZIPCODE|" + this.zip_code);
             writer.WriteLine("PO|"+this.PO);
             writer.WriteLine("CONTACT_NAME|"+this.contact_name);
             writer.WriteLine("CONTACT_PHONE|"+this.contact_phone);
@@ -75,10 +94,17 @@ namespace WorkOrder3
             writer.WriteLine("CHECK_OUT_TIME|"+this.check_out_time.ToString("yyyy/MM/dd HH:mm"));
             writer.WriteLine("UPLOAD_TIME|" + this.upload_time.ToString("yyyy/MM/dd HH:mm"));
             writer.WriteLine("UPLOADED|" + this.uploaded);
+            writer.WriteLine("LABOUR COST|" + this.labour_cost);
+            writer.WriteLine("LABOUR HOURS|" + this.labour_hours);
+            writer.WriteLine("TRAVEL COST|" + this.travel_cost);
+            writer.WriteLine("TRAVEL HOURS|" + this.travel_hours);
+            writer.WriteLine("REPAIR COST|" + this.repair_cost);
+            writer.WriteLine("MISC COSTS|" + this.misc_cost);
+            writer.WriteLine("TOTAL COSTS|" + this.total_cost);
 
-            foreach(string S in this.report_data)
+            foreach(ReportEntry RE in this.report_data)
             {
-                writer.WriteLine("REPORT|" + S.Replace(Environment.NewLine,"`"));
+                writer.WriteLine(RE.ExportToString());
             }
             writer.Close();
             
@@ -96,8 +122,9 @@ namespace WorkOrder3
                 
                 if (values[0] == "REPORT")
                 {
-                    values.RemoveAt(0);
-                    W.report_data.Add(String.Join("|", values));
+                    ReportEntry RE = ReportEntry.ReportEntryFromLine(line);
+
+                    W.report_data.Add(RE);
                 }
                 else if (values[0] == "UPLOADED")
                 {
@@ -139,7 +166,50 @@ namespace WorkOrder3
                 {
                     W.upload_time = DateTime.Parse(values[1]);
                 }
-                
+                else if (values[0] == "CITY")
+                {
+                    W.city = values[1];
+                }
+                else if (values[0] == "PROVINCE")
+                {
+                    W.province = values[1];
+                }
+                else if (values[0] == "COUNTRY")
+                {
+                    W.country = values[1];
+                }
+                else if (values[0] == "ZIPCODE")
+                {
+                    W.zip_code = values[1];
+                }
+                else if (values[0] == "LABOUR COST")
+                {
+                    W.labour_cost = values[1];
+                }
+                else if (values[0] == "LABOUR HOURS")
+                {
+                    W.labour_hours = values[1];
+                }
+                else if (values[0] == "TRAVEL COST")
+                {
+                    W.travel_cost = values[1];
+                }
+                else if (values[0] == "TRAVEL HOURS")
+                {
+                    W.travel_hours = values[1];
+                }
+                else if (values[0] == "REPAIR COST")
+                {
+                    W.repair_cost = values[1];
+                }
+                else if (values[0] == "MISC COSTS")
+                {
+                    W.misc_cost = values[1];
+                }
+                else if (values[0] == "TOTAL COSTS")
+                {
+                    W.total_cost = values[1];
+                }
             }
 
             reader.Close();

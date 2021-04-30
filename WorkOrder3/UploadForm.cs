@@ -137,13 +137,12 @@ namespace WorkOrder3
                     int passed_pms = 0;
                     int others = 0;
 
-                    foreach (string data in workorder.report_data)
+                    foreach (ReportEntry RE in workorder.report_data)
                     {
-                        var report_values = data.Split('|');
-
-                        if (report_values[2].ToUpper() == "PM")
+                        
+                        if (RE.work_type == "PM")
                         {
-                            if (report_values[4].ToUpper().Contains("[FAILED PM]"))
+                            if (RE.tech_report.ToUpper().Contains("[FAILED PM]"))
                             {
                                 failed_pms++;
                             }
@@ -176,6 +175,7 @@ namespace WorkOrder3
 
         private void btnUpload_Click(object sender, EventArgs e)
         {
+            /*
             //Check if the upload path is good
             if(txtUploadPath.Text=="" && !Directory.Exists(txtUploadPath.Text))
             {
@@ -213,26 +213,26 @@ namespace WorkOrder3
                     WO order = WO.WorkOrderFromFile(wo_directory + wo);
 
                     //For each report line from the work order..
-                    foreach(string line in order.report_data)
+                    foreach(ReportEntry RE in order.report_data)
                     {
-                        var values = line.Split('|');
-                        string folder_directory = kb_path + "\\Folders\\" + wo + "_" + values[0] + "\\";
+                        string folder_directory = kb_path + "\\Folders\\" + wo + "_" + RE.serial + "\\";
 
-                        if (values[2].ToUpper() == "PM" && !values[4].ToUpper().Contains("[FAILED PM]"))
+                        if (RE.work_type.ToUpper() == "PM" && !RE.tech_report.ToUpper().Contains("[FAILED PM]"))
                         {
                             bool found = false;
                             foreach(PassedPMBatch PPMB in passed_PMs)
                             {
-                                if (PPMB.model == values[1])
+                                if (PPMB.model == RE.model)
                                 {
                                     found = true;
+                                    
                                     PPMB.report_lines.Add(line);
                                 }
                             }
 
                             if (found == false)
                             {
-                                PassedPMBatch PPMB = new PassedPMBatch(values[1]);
+                                PassedPMBatch PPMB = new PassedPMBatch(RE.model);
                                 PPMB.report_lines.Add(line);
                                 passed_PMs.Add(PPMB);
                             }
@@ -283,6 +283,7 @@ namespace WorkOrder3
             }
 
             LoadSavedWorkOrders();
+            */
         }
 
         private void DoTheUpload(string wo, WO order, string line, string tab, string col)

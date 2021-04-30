@@ -84,18 +84,19 @@
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(837, 693);
+            this.pnlMain.Size = new System.Drawing.Size(945, 693);
             this.pnlMain.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Yellow;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(17, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(321, 32);
+            this.label1.Size = new System.Drawing.Size(604, 32);
             this.label1.TabIndex = 34;
-            this.label1.Text = "Patient Event Questions";
+            this.label1.Text = "Please complete these patient event questions";
             // 
             // btnSubmit
             // 
@@ -129,7 +130,7 @@
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(798, 326);
+            this.groupBox5.Size = new System.Drawing.Size(906, 326);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "2. Error Description";
@@ -344,7 +345,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(798, 477);
+            this.groupBox4.Size = new System.Drawing.Size(906, 477);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "1. Event Description";
@@ -557,7 +558,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 693);
+            this.ClientSize = new System.Drawing.Size(945, 693);
             this.Controls.Add(this.pnlMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AdditionalQA";

@@ -46,7 +46,11 @@ namespace WorkOrder3
 
                 txtPresetName.Text = current_customer.preset_name;
                 txtCustomerSite.Text = current_customer.customer_site;
-                txtAddress.Text = current_customer.address;
+                txtStreetAddress.Text = current_customer.street_address;
+                txtCity.Text = current_customer.city;
+                txtProvince.Text = current_customer.province;
+                txtCountry.Text = current_customer.country;
+                txtZipCode.Text = current_customer.zip_code;
                 txtContactName.Text = current_customer.contact_name;
                 txtContactPhone.Text = current_customer.phone;
                 txtContactEmail.Text = current_customer.email;
@@ -81,7 +85,7 @@ namespace WorkOrder3
                 MessageBox.Show("Please enter a customer site.");
                 return;
             }
-            else if (txtAddress.Text == "")
+            else if (txtStreetAddress.Text == "")
             {
                 MessageBox.Show("Please enter an address.");
                 return;
@@ -91,7 +95,11 @@ namespace WorkOrder3
             {
                 current_customer.preset_name = txtPresetName.Text;
                 current_customer.customer_site = txtCustomerSite.Text;
-                current_customer.address = txtAddress.Text;
+                current_customer.street_address = txtStreetAddress.Text;
+                current_customer.city = txtCity.Text;
+                current_customer.province = txtProvince.Text;
+                current_customer.country = txtCountry.Text;
+                current_customer.zip_code = txtZipCode.Text;
                 current_customer.contact_name = txtContactName.Text;
                 current_customer.phone = txtContactPhone.Text;
                 current_customer.email = txtContactEmail.Text;

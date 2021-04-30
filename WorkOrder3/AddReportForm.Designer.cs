@@ -62,6 +62,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.grpRepair = new System.Windows.Forms.GroupBox();
+            this.btnAddProblemLine = new System.Windows.Forms.Button();
+            this.dgvRepair = new System.Windows.Forms.DataGridView();
+            this.colProblem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.colEditResolution = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.colResolution = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colRemoveProblem = new System.Windows.Forms.DataGridViewButtonColumn();
             this.grpPicture = new System.Windows.Forms.GroupBox();
             this.btnCapture = new System.Windows.Forms.Button();
             this.btnTakePicture = new System.Windows.Forms.Button();
@@ -81,6 +89,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdditionalTesting)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestedFunctions)).BeginInit();
             this.panel1.SuspendLayout();
+            this.grpRepair.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRepair)).BeginInit();
             this.grpPicture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.grpFinish.SuspendLayout();
@@ -93,7 +103,7 @@
             this.chkFailedPM.AutoSize = true;
             this.chkFailedPM.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkFailedPM.ForeColor = System.Drawing.Color.Red;
-            this.chkFailedPM.Location = new System.Drawing.Point(444, 23);
+            this.chkFailedPM.Location = new System.Drawing.Point(398, 19);
             this.chkFailedPM.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkFailedPM.Name = "chkFailedPM";
             this.chkFailedPM.Size = new System.Drawing.Size(117, 28);
@@ -102,6 +112,7 @@
             this.chkFailedPM.Text = "Failed PM";
             this.chkFailedPM.UseVisualStyleBackColor = true;
             this.chkFailedPM.Visible = false;
+            this.chkFailedPM.CheckedChanged += new System.EventHandler(this.chkFailedPM_CheckedChanged);
             // 
             // grpOtherWorkType
             // 
@@ -112,7 +123,7 @@
             this.grpOtherWorkType.Margin = new System.Windows.Forms.Padding(4);
             this.grpOtherWorkType.Name = "grpOtherWorkType";
             this.grpOtherWorkType.Padding = new System.Windows.Forms.Padding(4);
-            this.grpOtherWorkType.Size = new System.Drawing.Size(393, 60);
+            this.grpOtherWorkType.Size = new System.Drawing.Size(655, 60);
             this.grpOtherWorkType.TabIndex = 44;
             this.grpOtherWorkType.TabStop = false;
             this.grpOtherWorkType.Text = "Other Work Type";
@@ -125,7 +136,7 @@
             this.txtOtherWorkType.Location = new System.Drawing.Point(8, 23);
             this.txtOtherWorkType.Margin = new System.Windows.Forms.Padding(4);
             this.txtOtherWorkType.Name = "txtOtherWorkType";
-            this.txtOtherWorkType.Size = new System.Drawing.Size(377, 22);
+            this.txtOtherWorkType.Size = new System.Drawing.Size(639, 22);
             this.txtOtherWorkType.TabIndex = 2;
             // 
             // grpFailureEvent
@@ -134,11 +145,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpFailureEvent.Controls.Add(this.txtPatient);
             this.grpFailureEvent.Controls.Add(this.cmbFailureEvent);
-            this.grpFailureEvent.Location = new System.Drawing.Point(12, 1184);
+            this.grpFailureEvent.Location = new System.Drawing.Point(12, 1470);
             this.grpFailureEvent.Margin = new System.Windows.Forms.Padding(4);
             this.grpFailureEvent.Name = "grpFailureEvent";
             this.grpFailureEvent.Padding = new System.Windows.Forms.Padding(4);
-            this.grpFailureEvent.Size = new System.Drawing.Size(778, 90);
+            this.grpFailureEvent.Size = new System.Drawing.Size(1040, 90);
             this.grpFailureEvent.TabIndex = 3;
             this.grpFailureEvent.TabStop = false;
             this.grpFailureEvent.Text = "Failure Event";
@@ -151,7 +162,7 @@
             this.txtPatient.Location = new System.Drawing.Point(17, 54);
             this.txtPatient.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPatient.Name = "txtPatient";
-            this.txtPatient.Size = new System.Drawing.Size(753, 22);
+            this.txtPatient.Size = new System.Drawing.Size(1015, 22);
             this.txtPatient.TabIndex = 17;
             this.txtPatient.TabStop = false;
             this.txtPatient.Visible = false;
@@ -174,7 +185,7 @@
             this.cmbFailureEvent.Location = new System.Drawing.Point(17, 23);
             this.cmbFailureEvent.Margin = new System.Windows.Forms.Padding(4);
             this.cmbFailureEvent.Name = "cmbFailureEvent";
-            this.cmbFailureEvent.Size = new System.Drawing.Size(753, 24);
+            this.cmbFailureEvent.Size = new System.Drawing.Size(1015, 24);
             this.cmbFailureEvent.TabIndex = 12;
             // 
             // btnAddToReport
@@ -182,7 +193,7 @@
             this.btnAddToReport.Location = new System.Drawing.Point(17, 22);
             this.btnAddToReport.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddToReport.Name = "btnAddToReport";
-            this.btnAddToReport.Size = new System.Drawing.Size(256, 43);
+            this.btnAddToReport.Size = new System.Drawing.Size(322, 76);
             this.btnAddToReport.TabIndex = 14;
             this.btnAddToReport.Text = "Add to Report";
             this.btnAddToReport.UseVisualStyleBackColor = true;
@@ -196,7 +207,7 @@
             this.txtTechReport.Margin = new System.Windows.Forms.Padding(4);
             this.txtTechReport.Multiline = true;
             this.txtTechReport.Name = "txtTechReport";
-            this.txtTechReport.Size = new System.Drawing.Size(646, 52);
+            this.txtTechReport.Size = new System.Drawing.Size(908, 65);
             this.txtTechReport.TabIndex = 8;
             // 
             // label14
@@ -241,7 +252,7 @@
             this.txtComplaint.Margin = new System.Windows.Forms.Padding(4);
             this.txtComplaint.Multiline = true;
             this.txtComplaint.Name = "txtComplaint";
-            this.txtComplaint.Size = new System.Drawing.Size(646, 46);
+            this.txtComplaint.Size = new System.Drawing.Size(908, 46);
             this.txtComplaint.TabIndex = 7;
             // 
             // label12
@@ -291,6 +302,8 @@
             this.cmbWorkType.FormattingEnabled = true;
             this.cmbWorkType.Items.AddRange(new object[] {
             "PM",
+            "Repair",
+            "Repair and PM",
             "Defib Evaluation",
             "Software Upgrade",
             "Config Change",
@@ -315,8 +328,9 @@
             this.dgvShockValues.Location = new System.Drawing.Point(19, 54);
             this.dgvShockValues.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvShockValues.Name = "dgvShockValues";
+            this.dgvShockValues.RowHeadersWidth = 51;
             this.dgvShockValues.RowTemplate.Height = 24;
-            this.dgvShockValues.Size = new System.Drawing.Size(396, 274);
+            this.dgvShockValues.Size = new System.Drawing.Size(496, 274);
             this.dgvShockValues.TabIndex = 9;
             // 
             // colLevel
@@ -327,6 +341,7 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
             this.colLevel.DefaultCellStyle = dataGridViewCellStyle1;
             this.colLevel.HeaderText = "Level";
+            this.colLevel.MinimumWidth = 6;
             this.colLevel.Name = "colLevel";
             this.colLevel.ReadOnly = true;
             // 
@@ -334,6 +349,7 @@
             // 
             this.colValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colValue.HeaderText = "Value";
+            this.colValue.MinimumWidth = 6;
             this.colValue.Name = "colValue";
             this.colValue.Width = 73;
             // 
@@ -348,11 +364,11 @@
             this.grpShockValues.Controls.Add(this.label2);
             this.grpShockValues.Controls.Add(this.dgvShockValues);
             this.grpShockValues.Controls.Add(this.chkFailedPM);
-            this.grpShockValues.Location = new System.Drawing.Point(12, 331);
+            this.grpShockValues.Location = new System.Drawing.Point(12, 617);
             this.grpShockValues.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpShockValues.Name = "grpShockValues";
             this.grpShockValues.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grpShockValues.Size = new System.Drawing.Size(778, 847);
+            this.grpShockValues.Size = new System.Drawing.Size(1040, 847);
             this.grpShockValues.TabIndex = 2;
             this.grpShockValues.TabStop = false;
             this.grpShockValues.Text = "PM";
@@ -365,7 +381,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(435, 17);
             this.label4.TabIndex = 53;
-            this.label4.Text = "Additional Testing";
+            this.label4.Text = "Additional Testing (If applicable)";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dgvAdditionalTesting
@@ -378,6 +394,7 @@
             this.dgvAdditionalTesting.Location = new System.Drawing.Point(17, 654);
             this.dgvAdditionalTesting.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvAdditionalTesting.Name = "dgvAdditionalTesting";
+            this.dgvAdditionalTesting.RowHeadersWidth = 51;
             this.dgvAdditionalTesting.RowTemplate.Height = 24;
             this.dgvAdditionalTesting.Size = new System.Drawing.Size(583, 159);
             this.dgvAdditionalTesting.TabIndex = 11;
@@ -386,12 +403,14 @@
             // 
             this.colAdditionalTest.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colAdditionalTest.HeaderText = "Test Name and Range";
+            this.colAdditionalTest.MinimumWidth = 6;
             this.colAdditionalTest.Name = "colAdditionalTest";
             // 
             // colTestValue
             // 
             this.colTestValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colTestValue.HeaderText = "Value";
+            this.colTestValue.MinimumWidth = 6;
             this.colTestValue.Name = "colTestValue";
             this.colTestValue.Width = 73;
             // 
@@ -406,8 +425,9 @@
             this.dgvTestedFunctions.Location = new System.Drawing.Point(19, 368);
             this.dgvTestedFunctions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvTestedFunctions.Name = "dgvTestedFunctions";
+            this.dgvTestedFunctions.RowHeadersWidth = 51;
             this.dgvTestedFunctions.RowTemplate.Height = 24;
-            this.dgvTestedFunctions.Size = new System.Drawing.Size(396, 241);
+            this.dgvTestedFunctions.Size = new System.Drawing.Size(496, 241);
             this.dgvTestedFunctions.TabIndex = 10;
             // 
             // colFunction
@@ -418,6 +438,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             this.colFunction.DefaultCellStyle = dataGridViewCellStyle2;
             this.colFunction.HeaderText = "Function";
+            this.colFunction.MinimumWidth = 6;
             this.colFunction.Name = "colFunction";
             this.colFunction.ReadOnly = true;
             // 
@@ -425,8 +446,10 @@
             // 
             this.colTested.FalseValue = "False";
             this.colTested.HeaderText = "Tested?";
+            this.colTested.MinimumWidth = 6;
             this.colTested.Name = "colTested";
             this.colTested.TrueValue = "True";
+            this.colTested.Width = 125;
             // 
             // label3
             // 
@@ -443,7 +466,7 @@
             this.label2.Location = new System.Drawing.Point(20, 34);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(395, 17);
+            this.label2.Size = new System.Drawing.Size(319, 18);
             this.label2.TabIndex = 50;
             this.label2.Text = "Shock/Pace Values";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -453,6 +476,7 @@
             this.panel1.AutoScroll = true;
             this.panel1.AutoScrollMargin = new System.Drawing.Size(0, 50);
             this.panel1.AutoScrollMinSize = new System.Drawing.Size(0, 75);
+            this.panel1.Controls.Add(this.grpRepair);
             this.panel1.Controls.Add(this.grpPicture);
             this.panel1.Controls.Add(this.grpFinish);
             this.panel1.Controls.Add(this.grpInfo);
@@ -462,8 +486,105 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(907, 667);
+            this.panel1.Size = new System.Drawing.Size(1161, 667);
             this.panel1.TabIndex = 48;
+            // 
+            // grpRepair
+            // 
+            this.grpRepair.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpRepair.Controls.Add(this.btnAddProblemLine);
+            this.grpRepair.Controls.Add(this.dgvRepair);
+            this.grpRepair.Location = new System.Drawing.Point(12, 330);
+            this.grpRepair.Name = "grpRepair";
+            this.grpRepair.Size = new System.Drawing.Size(1040, 282);
+            this.grpRepair.TabIndex = 6;
+            this.grpRepair.TabStop = false;
+            this.grpRepair.Text = "Repair";
+            // 
+            // btnAddProblemLine
+            // 
+            this.btnAddProblemLine.Location = new System.Drawing.Point(20, 204);
+            this.btnAddProblemLine.Name = "btnAddProblemLine";
+            this.btnAddProblemLine.Size = new System.Drawing.Size(182, 46);
+            this.btnAddProblemLine.TabIndex = 1;
+            this.btnAddProblemLine.Text = "Add Line";
+            this.btnAddProblemLine.UseVisualStyleBackColor = true;
+            this.btnAddProblemLine.Click += new System.EventHandler(this.btnAddProblemLine_Click);
+            // 
+            // dgvRepair
+            // 
+            this.dgvRepair.AllowUserToAddRows = false;
+            this.dgvRepair.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvRepair.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRepair.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colProblem,
+            this.colStatus,
+            this.colEditResolution,
+            this.colResolution,
+            this.colRemoveProblem});
+            this.dgvRepair.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvRepair.Location = new System.Drawing.Point(19, 33);
+            this.dgvRepair.Name = "dgvRepair";
+            this.dgvRepair.RowHeadersWidth = 51;
+            this.dgvRepair.RowTemplate.Height = 24;
+            this.dgvRepair.Size = new System.Drawing.Size(1005, 165);
+            this.dgvRepair.TabIndex = 0;
+            this.dgvRepair.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRepair_CellContentClick);
+            // 
+            // colProblem
+            // 
+            this.colProblem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colProblem.HeaderText = "Problem";
+            this.colProblem.MinimumWidth = 6;
+            this.colProblem.Name = "colProblem";
+            // 
+            // colStatus
+            // 
+            this.colStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Items.AddRange(new object[] {
+            "verified",
+            "observed but not verified",
+            "observed in the data file but not verified",
+            "observed in the error log but not verified",
+            "not observed",
+            "replaced as part of the repair process"});
+            this.colStatus.MinimumWidth = 70;
+            this.colStatus.Name = "colStatus";
+            this.colStatus.Width = 70;
+            // 
+            // colEditResolution
+            // 
+            this.colEditResolution.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colEditResolution.HeaderText = "Edit Resolution";
+            this.colEditResolution.MinimumWidth = 6;
+            this.colEditResolution.Name = "colEditResolution";
+            this.colEditResolution.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colEditResolution.Text = "Edit Resolution";
+            this.colEditResolution.UseColumnTextForButtonValue = true;
+            this.colEditResolution.Width = 98;
+            // 
+            // colResolution
+            // 
+            this.colResolution.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colResolution.HeaderText = "Resolution";
+            this.colResolution.MinimumWidth = 6;
+            this.colResolution.Name = "colResolution";
+            this.colResolution.ReadOnly = true;
+            this.colResolution.Width = 104;
+            // 
+            // colRemoveProblem
+            // 
+            this.colRemoveProblem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colRemoveProblem.HeaderText = "Remove";
+            this.colRemoveProblem.MinimumWidth = 6;
+            this.colRemoveProblem.Name = "colRemoveProblem";
+            this.colRemoveProblem.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colRemoveProblem.Text = "Remove";
+            this.colRemoveProblem.UseColumnTextForButtonValue = true;
+            this.colRemoveProblem.Width = 66;
             // 
             // grpPicture
             // 
@@ -474,11 +595,11 @@
             this.grpPicture.Controls.Add(this.pictureBox1);
             this.grpPicture.Controls.Add(this.txtPicturePath);
             this.grpPicture.Controls.Add(this.btnBrowsePicture);
-            this.grpPicture.Location = new System.Drawing.Point(12, 1280);
+            this.grpPicture.Location = new System.Drawing.Point(12, 1566);
             this.grpPicture.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpPicture.Name = "grpPicture";
             this.grpPicture.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grpPicture.Size = new System.Drawing.Size(778, 96);
+            this.grpPicture.Size = new System.Drawing.Size(1040, 96);
             this.grpPicture.TabIndex = 4;
             this.grpPicture.TabStop = false;
             this.grpPicture.Text = "Add Picture (Optional)";
@@ -524,7 +645,7 @@
             this.txtPicturePath.Location = new System.Drawing.Point(17, 30);
             this.txtPicturePath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPicturePath.Name = "txtPicturePath";
-            this.txtPicturePath.Size = new System.Drawing.Size(750, 22);
+            this.txtPicturePath.Size = new System.Drawing.Size(1012, 22);
             this.txtPicturePath.TabIndex = 13;
             // 
             // btnBrowsePicture
@@ -544,11 +665,11 @@
             this.grpFinish.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpFinish.Controls.Add(this.btnAddToReport);
-            this.grpFinish.Location = new System.Drawing.Point(12, 1392);
+            this.grpFinish.Location = new System.Drawing.Point(12, 1678);
             this.grpFinish.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpFinish.Name = "grpFinish";
             this.grpFinish.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grpFinish.Size = new System.Drawing.Size(778, 78);
+            this.grpFinish.Size = new System.Drawing.Size(1040, 117);
             this.grpFinish.TabIndex = 5;
             this.grpFinish.TabStop = false;
             // 
@@ -574,7 +695,7 @@
             this.grpInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpInfo.Name = "grpInfo";
             this.grpInfo.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grpInfo.Size = new System.Drawing.Size(778, 313);
+            this.grpInfo.Size = new System.Drawing.Size(1040, 313);
             this.grpInfo.TabIndex = 1;
             this.grpInfo.TabStop = false;
             this.grpInfo.Text = "Work Information";
@@ -588,7 +709,7 @@
             this.grpOtherModel.Margin = new System.Windows.Forms.Padding(4);
             this.grpOtherModel.Name = "grpOtherModel";
             this.grpOtherModel.Padding = new System.Windows.Forms.Padding(4);
-            this.grpOtherModel.Size = new System.Drawing.Size(393, 60);
+            this.grpOtherModel.Size = new System.Drawing.Size(655, 60);
             this.grpOtherModel.TabIndex = 45;
             this.grpOtherModel.TabStop = false;
             this.grpOtherModel.Text = "Other Model";
@@ -601,7 +722,7 @@
             this.txtOtherModel.Location = new System.Drawing.Point(8, 23);
             this.txtOtherModel.Margin = new System.Windows.Forms.Padding(4);
             this.txtOtherModel.Name = "txtOtherModel";
-            this.txtOtherModel.Size = new System.Drawing.Size(377, 22);
+            this.txtOtherModel.Size = new System.Drawing.Size(639, 22);
             this.txtOtherModel.TabIndex = 5;
             // 
             // cmbModel
@@ -612,10 +733,13 @@
             "AED-PLUS",
             "AED-PRO",
             "E-SERIES",
+            "G3",
+            "G5",
             "M-SERIES",
             "PROPAQ",
             "R-SERIES",
             "X-SERIES",
+            "VENTILATOR",
             "Other..."});
             this.cmbModel.Location = new System.Drawing.Point(115, 126);
             this.cmbModel.Margin = new System.Windows.Forms.Padding(4);
@@ -638,7 +762,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(907, 667);
+            this.ClientSize = new System.Drawing.Size(1161, 667);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -656,6 +780,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdditionalTesting)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestedFunctions)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.grpRepair.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRepair)).EndInit();
             this.grpPicture.ResumeLayout(false);
             this.grpPicture.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -713,5 +839,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colTestValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFunction;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colTested;
+        private System.Windows.Forms.GroupBox grpRepair;
+        private System.Windows.Forms.DataGridView dgvRepair;
+        private System.Windows.Forms.Button btnAddProblemLine;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colProblem;
+        private System.Windows.Forms.DataGridViewComboBoxColumn colStatus;
+        private System.Windows.Forms.DataGridViewButtonColumn colEditResolution;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colResolution;
+        private System.Windows.Forms.DataGridViewButtonColumn colRemoveProblem;
     }
 }

@@ -22,7 +22,8 @@ namespace WorkOrder3
         string username = "";
         List<Customer> customer_list = new List<Customer>();
         public List<Unit> units_list = new List<Unit>();
-        
+        public List<ReportEntry> report_list = new List<ReportEntry>();
+
         public static Color SHADE_COLOUR = Color.LightGray;
 
         public static string WO_NUMBER_FILENAME = "WO";
@@ -186,7 +187,11 @@ namespace WorkOrder3
                     if (C.preset_name == cmbPreset.Text)
                     {
                         txtCustomerSite.Text = C.customer_site;
-                        txtAddress.Text = C.address;
+                        txtStreetAddress.Text = C.street_address;
+                        txtCity.Text = C.city;
+                        txtProvince.Text = C.province;
+                        txtCountry.Text = C.country;
+                        txtZipCode.Text = C.zip_code;
                         txtContactName.Text = C.contact_name;
                         txtContactPhone.Text = C.phone;
                         txtContactEmail.Text = C.email;
@@ -216,10 +221,12 @@ namespace WorkOrder3
         }
         
 
-        public void AddToReport(string serial, string model, string shock_values,string tested_functions, string additional_testing, string work_type,string complaint,string tech_report,string RFU, string failure_mode, string photo_path, string additional_qa)
+        public void AddToReport(ReportEntry RE)
         {
-            string[] line = { serial, model, work_type, complaint, tech_report, RFU, shock_values, tested_functions, additional_testing, failure_mode, additional_qa, photo_path, "Remove" };
+            this.report_list.Add(RE);
 
+            string[] line = { RE.serial, RE.model, RE.work_type.ToString(), RE.complaint, RE.tech_report, RE.repair_cost.ToString("0.00"), RE.rfu_indicator.ToString(), RE.shock_values, RE.tested_functions, RE.additional_testing, RE.failure_mode, RE.additional_information, RE.photo_path, "Edit","Remove" };
+            
             dgvReport.Rows.Add(line);
         }
         
@@ -242,23 +249,52 @@ namespace WorkOrder3
             #region Customer copy
             DocX doc = DocX.Load(Form1.TEMPLATES_DIRECTORY+"template.docx");
 
-            doc.ReplaceText("#wo#", this.WO_string);
-            doc.ReplaceText("#date#", dtpCheckIn.Value.ToString("yyyy/MM/dd"));
-            doc.ReplaceText("#custid#", txtCustomerSite.Text);
-            doc.ReplaceText("#timein#", dtpCheckIn.Value.ToString("hh:mm"));
-            doc.ReplaceText("#timeout#", dtpCheckOut.Value.ToString("hh:mm"));
-            doc.ReplaceText("#po#", txtPO.Text);
-            doc.ReplaceText("#address#", txtAddress.Text);
-            doc.ReplaceText("#name#", this.tech_name);
-            doc.ReplaceText("#contact#", txtContactName.Text);
-            doc.ReplaceText("#phone#", txtContactPhone.Text);
-            doc.ReplaceText("#email#", txtContactEmail.Text);
-            
+            doc.ReplaceText("#WO#", this.WO_string);
+            doc.ReplaceText("#DATE#", dtpCheckIn.Value.ToString("yyyy/MM/dd"));
+            doc.ReplaceText("#CUSTOMER#", txtCustomerSite.Text);
+            doc.ReplaceText("#TIME_IN#", dtpCheckIn.Value.ToString("hh:mm"));
+            doc.ReplaceText("#TIME_OUT#", dtpCheckOut.Value.ToString("hh:mm"));
+            doc.ReplaceText("#PO#", txtPO.Text);
+            doc.ReplaceText("#STREET_ADDRESS#", txtStreetAddress.Text);
+            doc.ReplaceText("#CITY#", txtCity.Text);
+            doc.ReplaceText("#PROVINCE#", txtProvince.Text);
+            doc.ReplaceText("#STATE#", txtProvince.Text);
+            doc.ReplaceText("#COUNTRY#", txtCountry.Text);
+            doc.ReplaceText("#ZIP_CODE#", txtZipCode.Text);
+
+            if (chkWarranty.Checked)
+            {
+                doc.ReplaceText("#WARRANTY#", "Covered under warranty");
+            }
+            else
+            {
+                doc.ReplaceText("#WARRANTY#", "");
+            }
+
+            doc.ReplaceText("#TECH_NAME#", this.tech_name);
+
+            doc.ReplaceText("#CONTACT_NAME#", txtContactName.Text);
+            doc.ReplaceText("#CONTACT_PHONE#", txtContactPhone.Text);
+            doc.ReplaceText("#CONTACT_EMAIL#", txtContactEmail.Text);
+
+            doc.ReplaceText("#LABOR_COST#", "$"+txtLabourCost.Text);
+            doc.ReplaceText("#LABOR_HOURS#", txtLabourHours.Text);
+            doc.ReplaceText("#LABOUR_COST#", "$" + txtLabourCost.Text);
+            doc.ReplaceText("#LABOUR_HOURS#", txtLabourHours.Text);
+
+            doc.ReplaceText("#TRAVEL_COST#", "$" + txtTravelCost.Text);
+            doc.ReplaceText("#TRAVEL_HOURS#", txtTravelHours.Text);
+
+            doc.ReplaceText("#REPAIR_COST#", "$" + txtRepairCost.Text);
+            doc.ReplaceText("#MISC_COSTS#", "$" + txtMiscCost.Text);
+
+            doc.ReplaceText("#TOTAL_COSTS#", "$" + lblTotalCost.Text);
+
             Xceed.Document.NET.Table T = doc.AddTable(dgvReport.Rows.Count+1, 3);
 
             T.Rows[0].Cells[0].Paragraphs.First().Append("     Serial Number     ");
             T.Rows[0].Cells[1].Paragraphs.First().Append("     Complaint Report     ");
-            T.Rows[0].Cells[2].Paragraphs.First().Append("     Field Technician Report     ");
+            T.Rows[0].Cells[2].Paragraphs.First().Append("     Technician Report     ");
             T.Rows[0].Cells[0].Shading = SHADE_COLOUR;
             T.Rows[0].Cells[1].Shading = SHADE_COLOUR;
             T.Rows[0].Cells[2].Shading = SHADE_COLOUR;
@@ -278,11 +314,12 @@ namespace WorkOrder3
                 var logo = doc.AddImage("TechSignature.png");
                 Picture Image = logo.CreatePicture(100, 250);
                 Paragraph p = doc.InsertParagraph("");
-                p.AppendLine("Signed off by ZOLL Technician:");
+                p.AppendLine("Signed by ZOLL Technician: ");
+                
                 p.Append(this.tech_name);
                 p.AppendLine();
                 p.AppendPicture(Image);
-                p.AppendLine();
+                
             }
 
             if (chkSignature.Checked)
@@ -292,11 +329,10 @@ namespace WorkOrder3
                 var logo = doc.AddImage("Signature.png");
                 Picture Image = logo.CreatePicture(100, 250);
                 Paragraph p = doc.InsertParagraph("");
-                p.AppendLine("Witnessed By:");
+                p.AppendLine("Customer Signature: ");
                 p.Append(txtContactName.Text);
                 p.AppendLine();
                 p.AppendPicture(Image);
-                p.AppendLine();
             }
 
             doc.SaveAs(Form1.SAVED_DIRECTORY+"\\"+this.WO_string+"\\!WO -"+this.WO_string+" - "+txtCustomerSite.Text+".docx");
@@ -340,10 +376,11 @@ namespace WorkOrder3
                     pm_letter.ReplaceText("#date#", dtpCheckIn.Value.ToString("dd/MMM/yyyy"));
                     pm_letter.ReplaceText("#contact#", txtContactName.Text);
                     pm_letter.ReplaceText("#customer#", txtCustomerSite.Text);
-                    pm_letter.ReplaceText("#address#", txtAddress.Text);
+                    pm_letter.ReplaceText("#address#", txtStreetAddress.Text);
                     pm_letter.ReplaceText("#phone#", txtContactPhone.Text);
                     pm_letter.ReplaceText("#email#", txtContactEmail.Text);
                     pm_letter.ReplaceText("#serial#", dgvr.Cells["colSerialNumber"].Value.ToString());
+                    pm_letter.ReplaceText("#model#", dgvr.Cells["colModel"].Value.ToString());
                     pm_letter.ReplaceText("#techname#", this.tech_name);
                     pm_letter.ReplaceText("#nextdate#", dtpCheckIn.Value.AddYears(1).ToString("dd/MMM/yyyy"));
 
@@ -355,7 +392,26 @@ namespace WorkOrder3
 
             MessageBox.Show("Work Order generated!");
 
+            try
+            {
+                File.Delete("Signature.png");
+                File.Delete("TechSignature.png");
+            }
+            catch
+            {
+
+            }
+
             SaveWorkOrder();
+
+            try
+            {
+                Process.Start(Directory.GetCurrentDirectory() + "\\Saved\\" + WO_string + "\\");
+            }
+            catch
+            {
+
+            }
         }
 
         private void cmbFailureEvent_SelectedIndexChanged(object sender, EventArgs e)
@@ -388,7 +444,12 @@ namespace WorkOrder3
         {
             WO W = new WorkOrder3.WO(this.WO_string);
             W.customer_site = txtCustomerSite.Text;
-            W.address = txtAddress.Text;
+            W.address = txtStreetAddress.Text;
+            W.city = txtCity.Text;
+            W.province = txtProvince.Text;
+            W.country = txtCountry.Text;
+            W.zip_code = txtZipCode.Text;
+
             W.PO = txtPO.Text;
             W.contact_name = txtContactName.Text;
             W.contact_phone = txtContactPhone.Text;
@@ -396,16 +457,18 @@ namespace WorkOrder3
             W.check_in_time = dtpCheckIn.Value;
             W.check_out_time = dtpCheckOut.Value;
 
-            foreach (DataGridViewRow dgvr in dgvReport.Rows)
-            {
-                StringBuilder sb = new StringBuilder();
+            W.labour_cost = txtLabourCost.Text;
+            W.labour_hours = txtLabourHours.Text;
+            W.travel_cost = txtTravelCost.Text;
+            W.travel_hours = txtTravelHours.Text;
+            W.repair_cost = txtRepairCost.Text;
+            W.misc_cost = txtMiscCost.Text;
 
-                for (int i = 0; i < dgvr.Cells.Count; i++)
-                {
-                    sb.Append(dgvr.Cells[i].Value.ToString());
-                    sb.Append("|");
-                }
-                W.report_data.Add(sb.ToString());
+            W.total_cost = lblTotalCost.Text;
+
+            foreach (ReportEntry RE in this.report_list) 
+            {
+                W.report_data.Add(RE);
             }
 
             var woreader = new StreamReader(WO_NUMBER_FILENAME);
@@ -430,7 +493,7 @@ namespace WorkOrder3
         private void loadWorkOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.InitialDirectory = Directory.GetCurrentDirectory()+Form1.SAVED_DIRECTORY;
+            ofd.InitialDirectory = Directory.GetCurrentDirectory()+"\\"+Form1.SAVED_DIRECTORY;
 
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -440,7 +503,12 @@ namespace WorkOrder3
                 this.WO_string = W.work_order_string;
 
                 txtCustomerSite.Text = W.customer_site;
-                txtAddress.Text = W.address;
+                txtStreetAddress.Text = W.address;
+                txtCity.Text = W.city;
+                txtProvince.Text = W.province;
+                txtCountry.Text = W.country;
+                txtZipCode.Text = W.zip_code;
+
                 txtPO.Text = W.PO;
                 txtContactName.Text = W.contact_name;
                 txtContactPhone.Text = W.contact_phone;
@@ -449,16 +517,24 @@ namespace WorkOrder3
                 dtpCheckIn.Value = W.check_in_time;
                 dtpCheckOut.Value = W.check_out_time;
 
+                txtLabourCost.Text = W.labour_cost;
+                txtLabourHours.Text = W.labour_hours;
+                txtTravelCost.Text = W.travel_cost;
+                txtTravelHours.Text = W.travel_hours;
+                txtRepairCost.Text = W.repair_cost;
+                txtMiscCost.Text = W.misc_cost;
+
                 dtpCheckIn.Enabled = false;
                 dtpCheckOut.Enabled = false;
-                autoCheckOutTimeToolStripMenuItem.Checked = false;
 
                 dgvReport.Rows.Clear();
 
-                foreach(string S in W.report_data)
+                foreach(ReportEntry RE in W.report_data)
                 {
-                    dgvReport.Rows.Add(S.Split('|'));
+                    AddToReport(RE);
                 }
+
+                chkAutoUpdateCheckOut.Checked = false;
             }
         }
         
@@ -494,15 +570,7 @@ namespace WorkOrder3
 
         private void autoCheckOutTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (autoCheckOutTimeToolStripMenuItem.Checked)
-            {
-                dtpCheckOut.Value = DateTime.Now;
-                tmrCheckOut.Start();
-            }
-            else
-            {
-                tmrCheckOut.Stop();
-            }
+           
         }
 
         private void tmrCheckOut_Tick(object sender, EventArgs e)
@@ -526,6 +594,133 @@ namespace WorkOrder3
         {
             UploadForm UF = new UploadForm();
             UF.Show();
+        }
+
+        private void dtpCheckOut_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpCheckOut.Value > dtpCheckIn.Value)
+            {
+                txtLabourHours.Text = (dtpCheckOut.Value - dtpCheckIn.Value).TotalHours.ToString("0.0");
+            }
+        }
+
+        private void CalculateTotalCost()
+        {
+            double labour_hours = 0;
+            double labour_cost = 0;
+            double travel_hours = 0;
+            double travel_cost = 0;
+            double repair_cost = 0;
+            double misc_cost = 0;
+
+            double total_cost = 0;
+
+            bool valid = true;
+
+            if (!Double.TryParse(txtLabourHours.Text, out labour_hours))
+            {
+                valid = false;
+            }
+
+            if (!Double.TryParse(txtLabourCost.Text, out labour_cost))
+            {
+                valid = false;
+            }
+
+            if (!Double.TryParse(txtTravelHours.Text, out travel_hours))
+            {
+                valid = false;
+            }
+
+            if (!Double.TryParse(txtTravelCost.Text, out travel_cost))
+            {
+                valid = false;
+            }
+
+            if (!Double.TryParse(txtRepairCost.Text, out repair_cost))
+            {
+                valid = false;
+            }
+
+            if (!Double.TryParse(txtMiscCost.Text, out misc_cost))
+            {
+                valid = false;
+            }
+
+            if (valid)
+            {
+                if (chkWarranty.Checked == false)
+                {
+                    total_cost = labour_cost * labour_hours + travel_hours * travel_cost + repair_cost + misc_cost;
+
+                    lblTotalCost.Text = total_cost.ToString("0.00");
+                }
+                else
+                {
+                    lblTotalCost.Text = "0.00";
+                }
+            }
+            else
+            {
+                lblTotalCost.Text = "ERROR";
+            }
+
+        }
+
+        private void txtLabourHours_TextChanged(object sender, EventArgs e)
+        {
+            CalculateTotalCost();
+        }
+
+        private void txtLabourCost_TextChanged(object sender, EventArgs e)
+        {
+            CalculateTotalCost();
+        }
+
+        private void txtTravelHours_TextChanged(object sender, EventArgs e)
+        {
+            CalculateTotalCost();
+        }
+
+        private void txtTravelCost_TextChanged(object sender, EventArgs e)
+        {
+            CalculateTotalCost();
+        }
+
+        private void txtRepairCost_TextChanged(object sender, EventArgs e)
+        {
+            CalculateTotalCost();
+        }
+
+        private void txtMiscCost_TextChanged(object sender, EventArgs e)
+        {
+            CalculateTotalCost();
+        }
+
+
+        private void chkAutoUpdateCheckOut_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAutoUpdateCheckOut.Checked)
+            {
+                dtpCheckOut.Value = DateTime.Now;
+                dtpCheckOut.Enabled = false;
+                tmrCheckOut.Start();
+            }
+            else
+            {
+                tmrCheckOut.Stop();
+                dtpCheckOut.Enabled = true;
+            }
+        }
+
+        private void dgvReport_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void chkWarranty_CheckedChanged(object sender, EventArgs e)
+        {
+            CalculateTotalCost();
         }
     }
 }
