@@ -44,6 +44,7 @@
             this.defineUploadPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.grpClosure = new System.Windows.Forms.GroupBox();
+            this.chkWarranty = new System.Windows.Forms.CheckBox();
             this.label21 = new System.Windows.Forms.Label();
             this.chkAutoUpdateCheckOut = new System.Windows.Forms.CheckBox();
             this.lblTotalCost = new System.Windows.Forms.Label();
@@ -113,7 +114,6 @@
             this.grpWorkOrderInformation = new System.Windows.Forms.GroupBox();
             this.lblWorkOrderNumber = new System.Windows.Forms.Label();
             this.tmrCheckOut = new System.Windows.Forms.Timer(this.components);
-            this.chkWarranty = new System.Windows.Forms.CheckBox();
             this.menuStripMain.SuspendLayout();
             this.pnlMain.SuspendLayout();
             this.grpClosure.SuspendLayout();
@@ -136,7 +136,7 @@
             this.uploadToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
-            this.menuStripMain.Size = new System.Drawing.Size(1279, 30);
+            this.menuStripMain.Size = new System.Drawing.Size(1279, 28);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -147,7 +147,7 @@
             this.saveWorkOrderToolStripMenuItem,
             this.loadWorkOrderToolStripMenuItem});
             this.workOrdersToolStripMenuItem.Name = "workOrdersToolStripMenuItem";
-            this.workOrdersToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
+            this.workOrdersToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.workOrdersToolStripMenuItem.Text = "File";
             // 
             // newWorkOrderToolStripMenuItem
@@ -177,7 +177,7 @@
             this.changeTechNameToolStripMenuItem,
             this.pMTestValuesToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 26);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // changeTechNameToolStripMenuItem
@@ -199,7 +199,7 @@
             this.customersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.presetsToolStripMenuItem});
             this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
-            this.customersToolStripMenuItem.Size = new System.Drawing.Size(92, 26);
+            this.customersToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
             this.customersToolStripMenuItem.Text = "Customers";
             // 
             // presetsToolStripMenuItem
@@ -215,7 +215,7 @@
             this.defineUploadPathToolStripMenuItem});
             this.uploadToolStripMenuItem.Enabled = false;
             this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
-            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(72, 26);
+            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
             this.uploadToolStripMenuItem.Text = "Upload";
             // 
             // defineUploadPathToolStripMenuItem
@@ -232,7 +232,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlMain.AutoScroll = true;
-            this.pnlMain.AutoScrollMargin = new System.Drawing.Size(0, 100);
+            this.pnlMain.AutoScrollMargin = new System.Drawing.Size(0, 250);
             this.pnlMain.AutoScrollMinSize = new System.Drawing.Size(0, 150);
             this.pnlMain.Controls.Add(this.grpClosure);
             this.pnlMain.Controls.Add(this.grpReport);
@@ -281,6 +281,19 @@
             this.grpClosure.TabIndex = 3;
             this.grpClosure.TabStop = false;
             this.grpClosure.Text = "Closure";
+            // 
+            // chkWarranty
+            // 
+            this.chkWarranty.AutoSize = true;
+            this.chkWarranty.ForeColor = System.Drawing.Color.Red;
+            this.chkWarranty.Location = new System.Drawing.Point(188, 451);
+            this.chkWarranty.Margin = new System.Windows.Forms.Padding(4);
+            this.chkWarranty.Name = "chkWarranty";
+            this.chkWarranty.Size = new System.Drawing.Size(207, 21);
+            this.chkWarranty.TabIndex = 36;
+            this.chkWarranty.Text = "All Covered Under Warranty";
+            this.chkWarranty.UseVisualStyleBackColor = true;
+            this.chkWarranty.CheckedChanged += new System.EventHandler(this.chkWarranty_CheckedChanged);
             // 
             // label21
             // 
@@ -1007,19 +1020,6 @@
             this.tmrCheckOut.Enabled = true;
             this.tmrCheckOut.Interval = 10000;
             this.tmrCheckOut.Tick += new System.EventHandler(this.tmrCheckOut_Tick);
-            // 
-            // chkWarranty
-            // 
-            this.chkWarranty.AutoSize = true;
-            this.chkWarranty.ForeColor = System.Drawing.Color.Red;
-            this.chkWarranty.Location = new System.Drawing.Point(188, 451);
-            this.chkWarranty.Margin = new System.Windows.Forms.Padding(4);
-            this.chkWarranty.Name = "chkWarranty";
-            this.chkWarranty.Size = new System.Drawing.Size(207, 21);
-            this.chkWarranty.TabIndex = 36;
-            this.chkWarranty.Text = "All Covered Under Warranty";
-            this.chkWarranty.UseVisualStyleBackColor = true;
-            this.chkWarranty.CheckedChanged += new System.EventHandler(this.chkWarranty_CheckedChanged);
             // 
             // Form1
             // 
